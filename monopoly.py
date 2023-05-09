@@ -78,3 +78,6 @@ print("Purchase 1 hotel and " + str(num_houses_NC) + " house(s).")
 print("Put 1 hotel on Pennsylvania and return any houses to the bank.")
 print("Put " + str(num_houses_PA) + " house(s) on North Carolina.")
 print("Put " + str(num_houses_PC) + " house(s) on Pacific.")
+
+
+Print("didn't actually add boardwalk yet")
