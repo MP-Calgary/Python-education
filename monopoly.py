@@ -80,4 +80,4 @@ print("Put " + str(num_houses_PA) + " house(s) on North Carolina.")
 print("Put " + str(num_houses_PC) + " house(s) on Pacific.")
 
 
-Print("didn't actually add boardwalk yet")
+print("didn't actually add boardwalk yet")
