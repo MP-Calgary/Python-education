@@ -67,7 +67,8 @@ while conversion_direction != '0':
             print(f"{minutes} min {seconds} sec /km = "
                   f"{minutes_per_mile} min {seconds_per_mile} sec /mile.")
             print()
-            # quit program
+
+            # decided after successful result, want to quit program vs ask again
             conversion_direction = '0'
         elif conversion_direction == '2':
             print()
@@ -77,6 +78,8 @@ while conversion_direction != '0':
             print(f"{minutes} min {seconds} sec /mile = "
                   f"{minutes_per_km} min {seconds_per_km} sec /km.")
             print()
+            
+            # decided after successful result, want to quit program vs ask again
             conversion_direction = '0'
     else:
         print("Invalid input. Please enter '1', '2', or '0' to select the conversion direction.")
