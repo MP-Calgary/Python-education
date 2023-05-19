@@ -1,3 +1,7 @@
+import os
+# clear the terminal 
+os.system('clear')
+
 # dota_teams = ["Liquid", "Virtus.pro", "PSG.LGD", "Team Secret"]
 # data = [[1, 2, 1, 'x'],
 # ['x', 1, 1, 'x'],
@@ -33,13 +37,6 @@ def display_table(data):
 
 
 # Example usage
-# table_data = [
-#     ['Name', 'Age', 'City', 'Country', 'Occupation'],
-#     ['John Doe', 28, 'New York', 'USA', 'Engineer'],
-#     ['Jane Smith', 32, 'London', 'UK', 'Teacher'],
-#     ['Michael Johnson', 45, 'Paris', 'France', 'Artist'],
-#     ['Emily Davis', 39, 'Sydney', 'Australia', 'Doctor']
-# ]
 table_data = [
     ['Name', 'Age', 'City', 'Country', 'Occupation', 'Salary'],
     ['John Doe', 28, 'New York', 'USA', 'Engineer', '$150,000'],
