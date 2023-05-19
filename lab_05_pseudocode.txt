@@ -1,0 +1,32 @@
+Ask the user to enter the file path for a word list in JSON format and store it in "file_path"
+
+Check if the file at "file_path" exists
+
+If the file exists:
+    Open the file and load its contents into a dictionary called "word_list"
+    Close the file
+    
+    Extract the list of words from "word_list" and store it in "array_values"
+
+    Ask the user to enter a word to search for and store it in "search_word"
+
+    Set the minimum index "min_index" to 0
+    Set the maximum index "max_index" to the length of "array_values" minus 1
+
+    Set a flag "found" to False
+
+    While "min_index" is less than or equal to "max_index" and "found" is False:
+        Calculate the middle index "mid_index" as the integer division of ("min_index" + "max_index") by 2
+
+        If the word at "array_values[mid_index]" is equal to "search_word":
+            Print "The word is found at index" followed by "mid_index"
+            Set "found" to True
+        Else if the word at "array_values[mid_index]" is less than "search_word":
+            Set "min_index" to "mid_index" + 1
+        Else:
+            Set "max_index" to "mid_index" - 1
+
+    If "found" is still False:
+        Print "The word is not found in the list"
+Else:
+    Print "The file" followed by "file_path" followed by "does not exist."
