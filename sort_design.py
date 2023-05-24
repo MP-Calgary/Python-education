@@ -18,10 +18,9 @@ def sort_array(array):
     
     return array
 
-
 # Example usage
 unsorted_array = [31, 72, 10, 32, 18, 95, 25, 50]
-print("original array", unsorted_array)
+print("original array: ", unsorted_array)
 print()
 sorted_array = sort_array(unsorted_array)
 print()
