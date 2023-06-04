@@ -1,0 +1,23 @@
+FUNCTION sort_array(array):
+	n <- length(array)
+	IF n <= 1 THEN
+	  RETURN array
+	END IF
+	
+	FOR i_pivot <- n - 1 TO 0 STEP -1 DO
+	    i_largest <- 0
+	    FOR i_check <- 1 TO i_pivot + 1 DO
+	        IF array[i_check] > array[i_largest] THEN
+	            i_largest <- i_check
+	        END IF
+	    END FOR
+    
+	    SWAP array[i_pivot] WITH array[i_largest]
+	END FOR
+
+	RETURN array
+	
+	
+unsorted_array <- [31, 72, 10, 32, 18, 95, 25, 50]
+
+sorted_array <- sort_array(unsorted_array)

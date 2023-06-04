@@ -1,6 +1,5 @@
 import os
-# clear the terminal 
-os.system('clear')
+os.system('clear')  # clear the terminal 
 
 def sort_array(array):
     n = len(array)
@@ -14,7 +13,7 @@ def sort_array(array):
                 i_largest = i_check
         
         array[i_pivot], array[i_largest] = array[i_largest], array[i_pivot]
-        print("  ", array)
+        # print("  ", array)
     
     return array
 
