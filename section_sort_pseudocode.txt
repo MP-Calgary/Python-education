@@ -1,0 +1,14 @@
+procedure selectionSort(arr):
+    n = length(arr)
+    
+    for i from 0 to n-1:
+        minIndex = i
+        
+        for j from i+1 to n:
+            if arr[j] < arr[minIndex]:
+                minIndex = j
+        
+        if minIndex != i:
+            swap arr[i] with arr[minIndex]
+    
+    return arr
