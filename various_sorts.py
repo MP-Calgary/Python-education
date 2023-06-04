@@ -1,5 +1,6 @@
 import os
 os.system('clear')  # clear the terminal 
+import random
 
 def bubble_sort(arr):
     n = len(arr)
@@ -110,25 +111,6 @@ def heap_sort(arr):
         steps += 1
     return steps
 
-# def counting_sort(arr):
-#     n = len(arr)
-#     output = [0] * n
-#     count = [0] * (max(arr) + 1)
-#     steps = 0
-#     for i in range(n):
-#         steps += 1
-#         count[arr[i]] += 1
-#     for i in range(1, len(count)):
-#         steps += 1
-#         count[i] += count[i-1]
-#     for i in range(n-1, -1, -1):
-#         steps += 1
-#         output[count[arr[i]] - 1] = arr[i]
-#         count[arr[i]] -= 1
-#     for i in range(n):
-#         arr[i] = output[i]
-#     return steps
-
 def counting_sort(arr):
     n = len(arr)
     output = [0] * n
@@ -178,9 +160,19 @@ def counting_sort_by_digit(arr, exp):
         arr[i] = output[i]
     return steps
 
+def generate_random_list(num_integers):
+    random_list = []
+    for _ in range(num_integers):
+        random_list.append(random.randint(1, 500))
+    return random_list
+
+# Example usage
+num_integers = 8  # Number of integers to generate in the set
+
+data = generate_random_list(num_integers)
+
 # Test data
 # data = [31, 72, 10, 32, 18, 95, 25, 50]
-data = [103,11,22,31, 72, 67, 10, 32, 2, 18, 95, 9, 25, 86,50]
 
 # original list
 print("Original list:", data)
