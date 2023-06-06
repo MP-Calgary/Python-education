@@ -1,0 +1,12 @@
+start with a sample array = [26, 6, 90, 55]
+
+FOR i_pivot <- array.length-1 ... 0
+
+	i largest <- 0
+	
+	FOR i_check <- 1 ... i_pivot-1
+	 IF array[i_check] > array[i_largest]
+		i_largest <- i check
+		
+		IF array[i_largest] > array[i_pivot]
+			SWAP array[i_largest] and array[i_pivot]
