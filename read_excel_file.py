@@ -4,17 +4,12 @@ os.system('clear')
 
 from datetime import datetime
 
-# Get the current date and time
-current_datetime = datetime.now()
-
-# Format the date and time as d-mmm-yyyy h:mm:ss am/pm (without leading zero for the day or hour)
-formatted_datetime = current_datetime.strftime("%-d-%b-%Y %-I:%M:%S %p")
-
-# Print the formatted date and time
+current_datetime = datetime.now() # Get the current date and time
+formatted_datetime = current_datetime.strftime("%-d-%b-%Y %-I:%M:%S %p") # Format the date and time as d-mmm-yyyy h:mm:ss am/pm (without leading zero for the day or hour)
 print("")
 print("========================================")
 print("")
-print(formatted_datetime)
+print(formatted_datetime) # Print the formatted date and time
 print("")
 print("========================================")
 
