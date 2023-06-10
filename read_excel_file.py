@@ -2,6 +2,23 @@ import os
 # clear the terminal 
 os.system('clear')
 
+from datetime import datetime
+
+# Get the current date and time
+current_datetime = datetime.now()
+
+# Format the date and time as d-mmm-yyyy h:mm:ss am/pm (without leading zero for the day or hour)
+formatted_datetime = current_datetime.strftime("%-d-%b-%Y %-I:%M:%S %p")
+
+# Print the formatted date and time
+print("")
+print("========================================")
+print("")
+print(formatted_datetime)
+print("")
+print("========================================")
+
+
 import pylightxl as xl
 
 def read_excel_columns(file_path, sheet_name, column_indices):
@@ -31,6 +48,8 @@ column_indices = [1, 2, 3, 4, 7]  # Assuming you want to read columns 1, 2, 3, 4
 columns_data = read_excel_columns(file_path, sheet_name, column_indices)  # returns value into a list
 
 print("The original list")
+print()
+print("the data type of columns_data is: ", type(columns_data))
 print()
 print(columns_data)
 print()
@@ -67,6 +86,17 @@ for row in columns_data:
 
 print("Total Hours:", hours_sum)  # Print the total sum of Hours
 
+print()
 
+# Need to zip again, because zip (returns an iterator) was consumed when it was used above
+transposed_data = zip(*columns_data)  
 
+# convert class zip to a list
+transposed_list = list(transposed_data)
+print("transposed data converted to a list")
+print("transposed_list")
+print(transposed_list)
 
+print()
+print("the data type of transposed_list is: ", type(transposed_list))
+print()
