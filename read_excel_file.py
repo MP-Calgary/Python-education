@@ -88,7 +88,7 @@ print("Total Hours:", hours_sum)  # Print the total sum of Hours
 
 print()
 
-# Need to zip again, because zip (returns an iterator) was consumed when it was used above
+# Need to call zip again, because zip (returns an iterator) and it was consumed when it was used above
 transposed_data = zip(*columns_data)  
 
 # convert class zip to a list
