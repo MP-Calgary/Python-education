@@ -4,6 +4,29 @@ os.system('clear')
 
 from datetime import datetime
 
+def display_table(data):
+    # Determine the maximum width for each column
+    column_widths = [max(len(str(item)) for item in column) for column in zip(*data)]
+
+    # Print the table header
+    print('+', end='')
+    for width in column_widths:
+        print('-' * (width + 2), end='+')
+    print()
+
+    # Print the table rows
+    for row in data:
+        print('|', end='')
+        for item, width in zip(row, column_widths):
+            print(f' {str(item):{width}} ', end='|')
+        print()
+
+    # Print the table footer
+    print('+', end='')
+    for width in column_widths:
+        print('-' * (width + 2), end='+')
+    print()
+
 current_datetime = datetime.now() # Get the current date and time
 formatted_datetime = current_datetime.strftime("%-d-%b-%Y %-I:%M:%S %p") # Format the date and time as d-mmm-yyyy h:mm:ss am/pm (without leading zero for the day or hour)
 print("")
@@ -95,3 +118,4 @@ print(transposed_list)
 print()
 print("the data type of transposed_list is: ", type(transposed_list))
 print()
+display_table(transposed_list)
