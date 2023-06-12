@@ -23,7 +23,7 @@ def main():
         # print(f"This is what I recorded the time as {mile_time}. ")
 
         # running_file = str("running_times.csv")
-        running_file = str("/Users/michaelparker/Dropbox (Personal)/MP_Python/running_times.csv")
+        running_file = str("/Users/michaelparker/Dropbox (Personal)/MP_Python/running_times/running_times_original.csv")
 
         # open file to write data to end (cursor is at end)
         with open(running_file, "a+") as runData:

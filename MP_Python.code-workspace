@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "lab_01"
+		},
+		{
+			"path": "lab_02"
+		},
+		{
+			"path": "lab_03"
+		},
+		{
+			"path": "running_times"
+		},
+		{
+			"path": "mike_learning"
+		},
+		{
+			"path": "tictactoe"
+		},
+		{
+			"path": "lab_06"
+		},
+		{
+			"path": "lab_08_sort"
+		},
+		{
+			"path": "ui_playing"
+		},
+		{
+			"path": "learn_resources"
+		},
+		{
+			"path": "lab_10_num_sequence"
+		},
+		{
+			"path": "MP_learn"
+		}
+	],
+	"settings": {}
+}

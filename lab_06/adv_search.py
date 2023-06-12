@@ -6,6 +6,8 @@ os.system('clear')
 # Prompt the user for the file path of an alphabetically ordered collection of words in JSON format
 file_path = input("Enter the file path for the word list in JSON format: ")
 
+print(file_path)
+
 # see if file exists
 check_file = os.path.isfile(file_path)
 
