@@ -118,4 +118,6 @@ print(transposed_list)
 print()
 print("the data type of transposed_list is: ", type(transposed_list))
 print()
+
+# now use a function that prints data into a nice table
 display_table(transposed_list)
