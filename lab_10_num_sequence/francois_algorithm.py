@@ -19,5 +19,5 @@ def francois_algorithm(n):
 # Test the function
 n = 10
 result = francois_algorithm(n)
-print(f"The modified Fibonacci sequence up to the {n}th term:")
+print(f"The modified François sequence up to the {n}th term:")
 print(result)
