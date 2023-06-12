@@ -1,0 +1,26 @@
+PROMPT for filename
+GET filename
+
+OPEN file
+names_text <- READ file
+names_json <- json.loads (names_text)
+names_list <- names_json['array']
+
+PROMPT for element
+GET element
+
+i_first <- 0
+i_last <- length names_list
+
+WHILE i_first ≤ i_last AND NOT found
+
+	i_middle <- (i_first + i_last) / 2
+
+	IF names_list[i_middle] < element
+		i_first <- i_middle + 1
+	ELSE IF names_list[i_middle] > element
+		i_last <- i middle - 1
+	ELSE
+		found <- TRUE
+		
+PUT found

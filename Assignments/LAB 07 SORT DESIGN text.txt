@@ -1,0 +1,81 @@
+Sorting is the process of taking an unordered list and making it ordered. For example, alphabetizing is a sorting process.
+Organizing a to-do list from least important to most important is also a sorting process. In each case, we are changing the
+sequence of the elements in a list to conform to some criterion.
+
+Sorting elements in a collection is a widely used operation in many programming contexts. Lists of files are sorted before
+they are presented to the user in a FileOpen dialog box. Elements in a database are often sorted in order to facilitate
+more efficient retrieval. Anytime a binary search is utilized to quickly find an element in an array, the array needs to be
+sorted. There are literally hundreds of sorting algorithms identified by computer scientists. This week, we will describe
+one.
+
+Algorithm in Plain English
+Imagine a teacher sorting a collection of assignments by the student's last name. She picks up the stack of papers
+(representing the unsorted array) and looks for the student's name that sorts last (the highest value). Because the stack
+is unsorted, she must perform a linear search. When the highest value is found, she places it on her desk (representing
+the sorted portion of the array) and continues by looking for the next highest value. As she continues, the stack of papers
+in her hand (the unsorted array) gets
+smaller and the stack of papers on the desk (the sorted array) gets larger. When
+there are no papers remaining in her hand, the stack on the desk is the resulting sorted list.
+
+Detailed Description of the Algorithm
+A central idea of the sort is the pivot which separates the side of the array that is already sorted from the side that
+remains to be sorted. In the first iteration, i_pivot refers to the right-most slot (i pivot = num - 1). This
+represents the slot where the largest element in the unsorted side of the array must go.
+
+Next, it is necessary to find the index of the largest element to the left of the pivot. Two variables are required:
+i_check representing the index in the unsorted side of the array that is currently being searched, and i_largest
+representing the largest element found thus far. If the element under i_check IS greater than the element under
+i_largest, then i_largest receives the value under i_check. This continues as i_check goes from the slot
+one to the left of i_pivot all the way to slot O. Now all that remains is to swap the element under i_pivot with the
+element under i_largest if the element under i_largest happens to be bigger than the one under i_pivot.
+
+Example
+To demonstrate how this works, consider the following eight numbers to be sorted. Initially the list is unsorted and no
+items are in their proper location. We will represent i_pivot with the vertical bar.
+
+31  72  10  32  18  95  25  50
+
+Looking at the array to the right of i_pivot, we discover that 95 is the largest value. Thus, 95 and 50 are swapped.
+
+31  72  10  32  18  95  25 | 50
+
+31  72  10  32  18  50  25 | 95
+
+The largest value is now 72 in slot 1. It is swapped with 25 in slot 6.
+
+31  72  10  32  18  50 | 25  95
+
+31  25  10  32  18  50 | 72  95
+
+Since the search space includes the element under i_pivot, we discover that 50 is the highest. Nothing happens here.
+
+31  25  10  32  18 | 50  72  95
+
+The next highest value is 32, so slots 3 and 4 are swapped.
+
+31  25  10  32 | 18  50  72  95
+
+31  25  10  18 | 32  50  72  95
+
+A search through {31, 25, 10, 18} yields slot 0 with the greatest value. Thus we swap 31 and 18.
+
+31  25  10 | 18 32  50  72  95
+
+18  25  10 | 31 32  50  72  95
+
+The next search through {18, 25, 10} yields slot 1 with the highest value. Thus we swap 25 and 10.
+
+18  25 | 10  31 32  50  72  95
+
+18  10 | 25  31 32  50  72  95
+
+The last step is to search through {18, 10}. Since the value under slot 0 is larger, we perform the last swap of the sort.
+
+
+18 | 10  25  31 32  50  72  95
+
+
+10 | 18  25  31 32  50  72  95
+
+There is just one element left in the unsorted side of the pivot. This element is guaranteed to be the smallest item in the
+array and, by itself, is sorted. Thus, the entire array is sorted!
