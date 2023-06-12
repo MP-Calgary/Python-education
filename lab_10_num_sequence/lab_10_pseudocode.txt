@@ -1,0 +1,19 @@
+Function francois_algorithm(n)
+   If n is equal to 1, return [2]
+   Otherwise, if n is equal to 2, return [2, 1]
+
+   Initialize the sequence as [2, 1]
+   
+   Loop from 3 to n+1:
+      Compute the next term as the sum of the last two terms in the sequence.
+      Append the next term to the sequence.
+   
+   Return the sequence.
+   
+   
+
+Set n as number of sequences want to calculate up to the nth term
+
+call francois_algorithm(n)
+
+Print the sequence

@@ -2,7 +2,7 @@ import os
 # clear the terminal 
 os.system('clear')
 
-def modified_fibonacci(n):
+def francois_algorithm(n):
     if n == 1:
         return [2]
     elif n == 2:
@@ -18,6 +18,6 @@ def modified_fibonacci(n):
 
 # Test the function
 n = 10
-result = modified_fibonacci(n)
+result = francois_algorithm(n)
 print(f"The modified Fibonacci sequence up to the {n}th term:")
 print(result)
