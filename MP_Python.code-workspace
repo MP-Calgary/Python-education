@@ -16,9 +16,6 @@
 			"path": "running_times"
 		},
 		{
-			"path": "mike_learning"
-		},
-		{
 			"path": "tictactoe"
 		},
 		{
@@ -38,6 +35,9 @@
 		},
 		{
 			"path": "MP_learn"
+		},
+		{
+			"path": "work_with_tables"
 		}
 	],
 	"settings": {}
