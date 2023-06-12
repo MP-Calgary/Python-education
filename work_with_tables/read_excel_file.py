@@ -53,7 +53,8 @@ def read_excel_columns(file_path, sheet_name, column_indices):
     return columns_data
 
 # Usage example
-file_path = 'small_test_harvest.xlsx'
+# file_path = 'small_test_harvest.xlsx'
+file_path = 'test_harvest.xlsx'
 sheet_name = 'Harvest'
 column_indices = [1, 2, 3, 4, 7]  # Assuming you want to read columns 1, 2, 3, 4, and 7
 
