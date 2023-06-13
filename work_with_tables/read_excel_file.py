@@ -54,7 +54,8 @@ def read_excel_columns(file_path, sheet_name, column_indices):
 
 # Usage example
 # file_path = 'small_test_harvest.xlsx'
-file_path = 'test_harvest.xlsx'
+# file_path = 'test_harvest.xlsx'
+file_path = 'larger_test_harvest.xlsx'
 sheet_name = 'Harvest'
 column_indices = [1, 2, 3, 4, 7]  # Assuming you want to read columns 1, 2, 3, 4, and 7
 
@@ -64,61 +65,64 @@ column_indices = [1, 2, 3, 4, 7]  # Assuming you want to read columns 1, 2, 3, 4
 #                 ['Project Code', '013', '066', '112', '040', '095'],
 #                 ['Hours', 8.5, 6.5, 1.5, 3, 2]]
 
-columns_data = read_excel_columns(file_path, sheet_name, column_indices)  # returns value into a list
+if os.path.exists(file_path):
+    columns_data = read_excel_columns(file_path, sheet_name, column_indices)  # returns value into a list
 
-print("The original list")
-print()
-print("the data type of columns_data is: ", type(columns_data))
-print()
-print(columns_data)
-print()
+    print("The original list")
+    print()
+    print("the data type of columns_data is: ", type(columns_data))
+    print()
+    print(columns_data)
+    print()
 
-print("The list in excel tabular format")
-print()
-# Calculate the maximum width for each column
-column_widths = [max(len(str(row[i])) for row in columns_data) for i in range(len(columns_data[0]))]
+    print("The list in excel tabular format")
+    print()
+    # Calculate the maximum width for each column
+    column_widths = [max(len(str(row[i])) for row in columns_data) for i in range(len(columns_data[0]))]
 
-# Print the data rows with justified columns
-for row in zip(*columns_data):
-    formatted_row = [str(element).ljust(column_widths[i]) for i, element in enumerate(row)]
-    print(' | '.join(formatted_row))
+    # Print the data rows with justified columns
+    for row in zip(*columns_data):
+        formatted_row = [str(element).ljust(column_widths[i]) for i, element in enumerate(row)]
+        print(' | '.join(formatted_row))
 
-print()
-print("The list in transposed format")
-print()
+    print()
+    print("The list in transposed format")
+    print()
 
-transposed_data = zip(*columns_data)  # Transpose the list
+    transposed_data = zip(*columns_data)  # Transpose the list
 
-# Get the maximum width of each column
-max_widths = [max(len(str(element)) for element in column) for column in transposed_data]
+    # Get the maximum width of each column
+    max_widths = [max(len(str(element)) for element in column) for column in transposed_data]
 
-hours_sum = 0.0  # Variable to keep track of the sum of Hours
+    hours_sum = 0.0  # Variable to keep track of the sum of Hours
 
-for row in columns_data:
-    row_str = ' | '.join(str(element).ljust(max_widths[i]) for i, element in enumerate(row))
-    print(row_str)
+    for row in columns_data:
+        row_str = ' | '.join(str(element).ljust(max_widths[i]) for i, element in enumerate(row))
+        print(row_str)
 
-    if row[0] == 'Hours':  # Check if it's the 'Hours' row
-        for i, element in enumerate(row[1:], 1):
-            if isinstance(element, (int, float)):
-                hours_sum += float(element)
+        if row[0] == 'Hours':  # Check if it's the 'Hours' row
+            for i, element in enumerate(row[1:], 1):
+                if isinstance(element, (int, float)):
+                    hours_sum += float(element)
 
-print("Total Hours:", hours_sum)  # Print the total sum of Hours
+    print("Total Hours:", hours_sum)  # Print the total sum of Hours
 
-print()
+    print()
 
-# Need to call zip again, because zip (returns an iterator) and it was consumed when it was used above
-transposed_data = zip(*columns_data)  
+    # Need to call zip again, because zip (returns an iterator) and it was consumed when it was used above
+    transposed_data = zip(*columns_data)  
 
-# convert class zip to a list
-transposed_list = list(transposed_data)
-print("transposed data converted to a list")
-print("transposed_list")
-print(transposed_list)
+    # convert class zip to a list
+    transposed_list = list(transposed_data)
+    print("transposed data converted to a list")
+    print("transposed_list")
+    print(transposed_list)
 
-print()
-print("the data type of transposed_list is: ", type(transposed_list))
-print()
+    print()
+    print("the data type of transposed_list is: ", type(transposed_list))
+    print()
 
-# now use a function that prints data into a nice table
-display_table(transposed_list)
+    # now use a function that prints data into a nice table
+    display_table(transposed_list)
+else:
+    print("File: ", file_path, " does not exist.")
