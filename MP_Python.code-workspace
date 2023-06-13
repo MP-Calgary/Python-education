@@ -38,6 +38,9 @@
 		},
 		{
 			"path": "work_with_tables"
+		},
+		{
+			"path": "2048_game"
 		}
 	],
 	"settings": {}
