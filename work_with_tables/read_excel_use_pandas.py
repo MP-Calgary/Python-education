@@ -56,7 +56,8 @@ def read_excel_columns(file_path, sheet_name, column_indices):
 # Usage example
 # file_path = 'small_test_harvest.xlsx'
 # file_path = 'test_harvest.xlsx'
-file_path = 'larger_test_harvest.xlsx'
+# file_path = 'larger_test_harvest.xlsx'
+file_path = 'all_harvest_data.xlsx'
 sheet_name = 'Harvest'
 column_indices = [1, 2, 3, 4, 7]  # Assuming you want to read columns 1, 2, 3, 4, and 7
 
@@ -69,66 +70,59 @@ column_indices = [1, 2, 3, 4, 7]  # Assuming you want to read columns 1, 2, 3, 4
 if os.path.exists(file_path):
     columns_data = read_excel_columns(file_path, sheet_name, column_indices)  # returns value into a list
 
-    # print("The original list")
-    # print()
-    # print("the data type of columns_data is: ", type(columns_data))
-    # print()
-    # print(columns_data)
-    # print()
-
-    # print("The list in excel tabular format")
-    # print()
-    # # Calculate the maximum width for each column
-    # column_widths = [max(len(str(row[i])) for row in columns_data) for i in range(len(columns_data[0]))]
-
-    # # Print the data rows with justified columns
-    # for row in zip(*columns_data):
-    #     formatted_row = [str(element).ljust(column_widths[i]) for i, element in enumerate(row)]
-    #     print(' | '.join(formatted_row))
-
-    # print()
-    # print("The list in transposed format")
-    # print()
-
     transposed_data = zip(*columns_data)  # Transpose the list
-
-    # Get the maximum width of each column
-    # max_widths = [max(len(str(element)) for element in column) for column in transposed_data]
-
-    # hours_sum = 0.0  # Variable to keep track of the sum of Hours
-
-    # for row in columns_data:
-    #     row_str = ' | '.join(str(element).ljust(max_widths[i]) for i, element in enumerate(row))
-    #     print(row_str)
-
-    #     if row[0] == 'Hours':  # Check if it's the 'Hours' row
-    #         for i, element in enumerate(row[1:], 1):
-    #             if isinstance(element, (int, float)):
-    #                 hours_sum += float(element)
-
-    # print("Total Hours:", hours_sum)  # Print the total sum of Hours
-
-    # print()
-
-    # Need to call zip again, because zip (returns an iterator) and it was consumed when it was used above
-    # transposed_data = zip(*columns_data)  
 
     # convert class zip to a list
     transposed_list = list(transposed_data)
-    # print("transposed data converted to a list")
-    # print("transposed_list")
-    # print(transposed_list)
-
-    # print()
-    # print("the data type of transposed_list is: ", type(transposed_list))
-    # print()
-
-    # now use a function that prints data into a nice table
-    # display_table(transposed_list)
 
     df = pd.DataFrame(transposed_list[1:], columns=transposed_list[0])
-    print("Pandas list")
-    print(df)
+    # print("Pandas list")
+    # print(df)
+    print()
+    print("List of first 5 rows in panda set")
+    print(df.head())
+    print()
+
+    # want to summarize the data, so it prints total hours by project code
+    hours_sum = df.groupby(['Project Code', 'Project'])['Hours'].sum().reset_index()
+    hours_sum_sorted = hours_sum.sort_values('Hours', ascending=False)
+
+    num_unique_project_codes = len(hours_sum_sorted)
+    output_list = []
+
+    for index, row in hours_sum_sorted.iterrows():
+        project_code = row['Project Code']
+        project = row['Project']
+        total_hours = row['Hours']
+        output_list.append((project_code, project, total_hours))
+
+    print("Code      Project                                 Total hours")
+    display_table(output_list)
+    print("Number of Unique Project Codes:", num_unique_project_codes)
+    print()
+
+    # Extract year from 'Date' column
+    df['Year'] = pd.to_datetime(df['Date']).dt.year
+
+    # Group by year and project code
+    grouped = df.groupby(['Year', 'Project Code'])
+
+    print("List out Project codes broken out by year")
+
+    prev_year = None
+    for (year, project_code), group in grouped:
+        if year != prev_year:
+            if prev_year is not None:
+                print()  # Print newline before starting the next year
+            print(f"Year: {year}")
+            prev_year = year
+
+        project_names = group['Project'].unique()
+        project_list = ', '.join(project_names)
+        total_hours = group['Hours'].sum()
+        print(f"Project Codes: {project_code}, Projects: {project_list}, Total Hours: {total_hours}")
+
+    print()  # Print newline after the last year
 
 else:
     print("File: ", file_path, " does not exist.")
