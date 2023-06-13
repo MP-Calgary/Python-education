@@ -108,6 +108,7 @@ if os.path.exists(file_path):
     grouped = df.groupby(['Year', 'Project Code'])
 
     print("List out Project codes broken out by year")
+    print()
 
     prev_year = None
     for (year, project_code), group in grouped:
