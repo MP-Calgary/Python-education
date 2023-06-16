@@ -43,5 +43,13 @@
 			"path": "2048_game"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"python.autoComplete.extraPaths": [
+		
+			"/opt/homebrew/lib/python3.11"
+		],
+		"python.analysis.extraPaths": [
+			"/opt/homebrew/lib/python3.11"
+		]
+	}
 }
