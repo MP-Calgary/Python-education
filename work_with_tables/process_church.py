@@ -11,6 +11,50 @@ from tabulate import tabulate
 
 from datetime import datetime
 
+def prompt_user_which_filter():
+    options = {
+        0: "Quit program",
+        1: "Filter data based on 'Gender' = 'M' & 'Priesthood' = 'Melchizedek'",
+        2: "Filter data based on 'Gender' = 'M' & 'Priesthood' = 'Melchizedek' & 'Temple Recommend Status' = 'Active'",
+        3: "Filter data based on 'Gender' = 'F'",
+        4: "Filter data based on 'Gender' = 'F' & 'Temple Recommend Type' = 'Regular' & 'Temple Recommend Status' = 'Active'"
+    }
+
+    while True:
+        print("Select an option:")
+        for key, value in options.items():
+            print(f"{key} - {value}")
+
+        try:
+            choice = int(input("Enter your choice: "))
+            if choice in options:
+                return choice
+            else:
+                print("Invalid choice. Please try again.")
+        except ValueError:
+            print("Invalid input. Please enter a numerical choice.")
+
+def prompt_user_which_report():
+    options = {
+        0: "Quit program",
+        1: "Detailed list",
+        2: "Counts by age group"
+    }
+
+    while True:
+        print("Select an option:")
+        for key, value in options.items():
+            print(f"{key} - {value}")
+
+        try:
+            choice = int(input("Enter your choice: "))
+            if choice in options:
+                return choice
+            else:
+                print("Invalid choice. Please try again.")
+        except ValueError:
+            print("Invalid input. Please enter a numerical choice.")
+        
 current_datetime = datetime.now() # Get the current date and time
 formatted_datetime = current_datetime.strftime("%-d-%b-%Y %-I:%M:%S %p") # Format the date and time as d-mmm-yyyy h:mm:ss am/pm (without leading zero for the day or hour)
 print("")
@@ -19,7 +63,8 @@ print(formatted_datetime) # Print the formatted date and time
 print("========================================")
 
 #  set which file to load
-my_file = 'parkland_export.csv'
+# my_file = 'parkland_export.csv'
+my_file = 'queensland_export.csv'
 
 if os.path.exists(my_file):
 
@@ -49,8 +94,49 @@ if os.path.exists(my_file):
     
     # print(excel_data)
 
-    # Filter the DataFrame based on 'Gender' and 'Priesthood'
-    filtered_data = excel_data[(excel_data['Gender'] == 'M') & (excel_data['Priesthood'] == 'Melchizedek')]
+    # prompt user for what kind of filter they want
+    filter_choice = prompt_user_which_filter()
+    print()
+    print()
+
+    if filter_choice == 0:
+        # Quit program
+        quit()
+    elif filter_choice == 1:
+        # Filter data based on 'Gender' = 'M' & 'Priesthood' = 'Melchizedek'
+        filtered_data = excel_data[
+            (excel_data['Gender'] == 'M') &
+            (excel_data['Priesthood'] == 'Melchizedek')
+        ]
+    elif filter_choice == 2:
+        # Filter data based on 'Gender' = 'M', 'Priesthood' = 'Melchizedek', and 'Temple Recommend Status' = 'Active'
+        filtered_data = excel_data[
+            (excel_data['Gender'] == 'M') &
+            (excel_data['Priesthood'] == 'Melchizedek') &
+            (excel_data['Temple Recommend Status'] == 'Active')
+        ]
+    elif filter_choice == 3:
+        # Filter data based on 'Gender' = 'F'
+        filtered_data = excel_data[
+            (excel_data['Gender'] == 'F') 
+        ]
+    elif filter_choice == 4:
+        # Filter data based on 'Gender' = 'F', and 'Temple Recommend Status' = 'Active'
+        filtered_data = excel_data[
+            (excel_data['Gender'] == 'F') &
+            (excel_data['Temple Recommend Type'] == 'Regular') & 
+            (excel_data['Temple Recommend Status'] == 'Active')
+        ]
+
+
+    report_choice = prompt_user_which_report()
+
+
+    # # Filter the DataFrame based on 'Gender' and 'Priesthood'
+    # filtered_data = excel_data[
+    #     (excel_data['Gender'] == 'M') &
+    #     (excel_data['Priesthood'] == 'Melchizedek')
+    # ]
 
     # Sort the filtered DataFrame by age
     sorted_data = filtered_data.sort_values('Age')
@@ -58,68 +144,32 @@ if os.path.exists(my_file):
     # Convert the sorted DataFrame to a list of lists
     table_data = sorted_data.values.tolist()
 
-    # Print the table using tabulate
-    print(tabulate(table_data, headers=sorted_data.columns, tablefmt='pretty'))
+    if report_choice == 1:
+        # Print the table using tabulate
+        print(tabulate(table_data, headers=sorted_data.columns, tablefmt='pretty'))
 
-    # Print the total number of rows
-    print(f"Total Rows: {len(table_data)}")
+        # Print the total number of rows
+        total_rows = len(table_data)
+        print(f"Total Rows: {total_rows}")
+    elif report_choice == 2:
 
-    # Calculate counts of rows for age groups by 5
-    age_bins = range(0, sorted_data['Age'].max() + 6, 5)
-    age_groups = pd.cut(sorted_data['Age'], bins=age_bins, right=False)
-    age_counts = sorted_data.groupby(age_groups).size().reset_index(name='Count')
+        # Calculate counts of rows for age groups by 5
+        age_bins = range(0, sorted_data['Age'].max() + 6, 5)
+        age_groups = pd.cut(sorted_data['Age'], bins=age_bins, right=False)
+        age_counts = sorted_data.groupby(age_groups).size().reset_index(name='Count')
 
-    # Create age group labels aligned with the bins
-    age_group_labels = [f'{age_bins[i]}-{age_bins[i+1]-1}' for i in range(len(age_bins)-1)]
-    age_group_counts = age_counts.values.tolist()
+        # Create age group labels aligned with the bins
+        age_group_labels = [f'{age_bins[i]}-{age_bins[i+1]-1}' for i in range(len(age_bins)-1)]
+        age_group_counts = age_counts.values.tolist()
 
-    # Print the counts for age groups
-    print('\nCounts of Rows for Age Groups:')
-    print(tabulate(age_group_counts, headers=['Age Group', 'Count'], tablefmt='pretty'))
+        # Print the counts for age groups
+        print('\nCounts of Rows for Age Groups:')
+        print(tabulate(age_group_counts, headers=['Age Group', 'Count'], tablefmt='pretty'))
 
-    # Calculate and print the total count of rows
-    total_count = age_counts['Count'].sum()
-    print(f"Total Count: {total_count}")
-    print("\n\n")
-
-    # ------------------
-    # Filter the DataFrame based on 'Gender', 'Priesthood', and 'Temple Recommend Status'
-    filtered_data = excel_data[
-        (excel_data['Gender'] == 'M') &
-        (excel_data['Priesthood'] == 'Melchizedek') &
-        (excel_data['Temple Recommend Status'] == 'Active')
-    ]
-
-    # Sort the filtered DataFrame by age
-    sorted_data = filtered_data.sort_values('Age')
-
-    # Convert the sorted DataFrame to a list of lists
-    table_data = sorted_data.values.tolist()
-
-    # Print the table using tabulate
-    print("Data where Temple Recommend Status = 'Active' ")
-    print(tabulate(table_data, headers=sorted_data.columns, tablefmt='pretty'))
-
-    # Print the total number of rows
-    total_rows = len(table_data)
-    print(f"Total Rows: {total_rows}")
-
-    # Calculate counts of rows for age groups by 5
-    age_bins = range(0, sorted_data['Age'].max() + 6, 5)
-    age_groups = pd.cut(sorted_data['Age'], bins=age_bins, right=False)
-    age_counts = sorted_data.groupby(age_groups).size().reset_index(name='Count')
-
-    # Create age group labels aligned with the bins
-    age_group_labels = [f'{age_bins[i]}-{age_bins[i+1]-1}' for i in range(len(age_bins)-1)]
-    age_group_counts = age_counts.values.tolist()
-
-    # Print the counts for age groups
-    print("Counts of Rows for Age Groups Temple Recommend Status = 'Active'")
-    print(tabulate(age_group_counts, headers=['Age Group', 'Count'], tablefmt='pretty'))
-
-    # Calculate and print the total count of rows
-    total_count = age_counts['Count'].sum()
-    print(f"Total Count where Temple Recommend Status = 'Active': {total_count}")
+        # Calculate and print the total count of rows
+        total_count = age_counts['Count'].sum()
+        print(f"Total Count: {total_count}")
+        print("\n\n")
 
 else:
     print(f"File '{my_file}' does not exist.")

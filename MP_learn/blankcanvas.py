@@ -71,30 +71,44 @@
 # print(username)
 
 # Sample dictionary list
-data = [
-    {'name': 'John', 'age': 25},
-    {'name': 'Alice', 'age': 30},
-    {'name': 'Bob', 'age': 35}
-]
+# data = [
+#     {'name': 'John', 'age': 25},
+#     {'name': 'Alice', 'age': 30},
+#     {'name': 'Bob', 'age': 35}
+# ]
 
-# Index of the dictionary to access
-index = 1
+# # Index of the dictionary to access
+# index = 1
 
-# Access the dictionary at the specified index
-if index < len(data):
-    dictionary = data[index]
-    print(f"Dictionary at index {index}: {dictionary}")
+# # Access the dictionary at the specified index
+# if index < len(data):
+#     dictionary = data[index]
+#     print(f"Dictionary at index {index}: {dictionary}")
+# else:
+#     print("Index out of range.")
+
+# print()
+# print("reference a function in another file")
+# columns_data = [['Date', '2015/11/25', '2015/11/30', '2015/12/07', '2015/12/11', '2015/12/15'],
+#                 ['Client', 'RandP', 'GOA', 'Robots and Pencils', 'AHS', 'Decisive Farming'],
+#                 ['Project', 'r&p-robofactory-pm/ba guild', 'goa-rmas0049-firebans', 'sales-goa queens printer ministry', 'ahs-wait times-ios', 'decisive-scouting'],
+#                 ['Project Code', '013', '066', '112', '040', '095'],
+#                 ['Hours', 8.5, 6.5, 1.5, 3, 2]]
+
+# from useful_functions import display_table
+
+# display_table(columns_data)
+
+import os
+import sys
+
+if sys.platform.startswith('darwin'):  # Check if running on macOS
+    # Prompt the user to select a file using the command line
+    file_path = os.popen('osascript -e \'POSIX path of (choose file)\'').read().strip()
+
+    if file_path:
+        print("Selected file:", file_path)
+    else:
+        print("No file selected.")
 else:
-    print("Index out of range.")
-
-print()
-print("reference a function in another file")
-columns_data = [['Date', '2015/11/25', '2015/11/30', '2015/12/07', '2015/12/11', '2015/12/15'],
-                ['Client', 'RandP', 'GOA', 'Robots and Pencils', 'AHS', 'Decisive Farming'],
-                ['Project', 'r&p-robofactory-pm/ba guild', 'goa-rmas0049-firebans', 'sales-goa queens printer ministry', 'ahs-wait times-ios', 'decisive-scouting'],
-                ['Project Code', '013', '066', '112', '040', '095'],
-                ['Hours', 8.5, 6.5, 1.5, 3, 2]]
-
-from useful_functions import display_table
-
-display_table(columns_data)
+    print("This feature is only supported on macOS.")
