@@ -41,6 +41,9 @@
 		},
 		{
 			"path": "2048_game"
+		},
+		{
+			"path": "games"
 		}
 	],
 	"settings": {
