@@ -9,8 +9,8 @@ def readSqliteTable():
         sqliteConnection = sqlite3.connect('acs-1-year-2015.sqlite', timeout=20)
         cursor = sqliteConnection.cursor()
 
-        sqlite_select_query = """SELECT count(*) from places;"""
-        # sqlite_select_query = "SELECT count(*) from states;"
+        # sqlite_select_query = """SELECT count(*) from places;"""
+        sqlite_select_query = "SELECT count(*) from states;"
         # sqlite_select_query = "select sqlite_version();"
         cursor.execute(sqlite_select_query)
         totalRows = cursor.fetchone()

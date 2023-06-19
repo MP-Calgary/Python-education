@@ -1,0 +1,13 @@
+DO
+	PROMPT for number
+	GET number
+WHILE number ≤ 0
+
+array <- [1,2] 		Note [1%2]=[1] and [2%2]=[0]
+
+IF number > 2
+	FOR index <- 3 ... number
+		array[index % 2] <- array[0] + array[1]
+		
+value <- array[number % 2]
+PUT value
