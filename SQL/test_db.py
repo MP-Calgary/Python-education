@@ -105,7 +105,6 @@ def insertRow2(table_name, column_names, columns_placeholder, *args):
 
         count = cursor.execute(sqlite_insert_query, data_tuple)
         connection.commit()
-        # print(cursor.rowcount, " record inserted successfully into '",table_name,"' table")
         print(cursor.rowcount, "record inserted successfully into '{}' table".format(table_name))
 
         cursor.close()
