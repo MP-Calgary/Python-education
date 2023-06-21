@@ -8,35 +8,38 @@ os.system('clear') # clear the terminal
 # Add the folder to the system path containing the path to where package tabulate exists
 # sys.path.insert(0, '/opt/homebrew/lib/python3.11/site-packages')
 
-def readSqliteTable():
+def do_SQL_table_count(table_name):
     sqliteConnection = None
 
     try:
-        sqliteConnection = sqlite3.connect('acs-1-year-2015.sqlite', timeout=20)
+        sqliteConnection = sqlite3.connect('mp_test.db', timeout=20)
         cursor = sqliteConnection.cursor()
 
-        # sqlite_select_query = """SELECT count(*) from places;"""
-        sqlite_select_query = "SELECT count(*) from states;"
-        # sqlite_select_query = "select sqlite_version();"
+        sqlite_select_query = f"SELECT count(*) from {table_name};"  # Use the table_name parameter
         cursor.execute(sqlite_select_query)
-        totalRows = cursor.fetchone()
-        print("Total rows are:  ", totalRows)
+        totalRows = cursor.fetchone()[0]  # Extract the count value from the fetched row
         cursor.close()
 
+        return totalRows  # Return the number of rows
     except sqlite3.OperationalError as error:
-        print("Failed to connect to SQLite:", error)
-        print()
+        return error
 
     except sqlite3.Error as error:
-        print("Failed to read data from SQLite table:", error)
+        return error
 
     finally:
         if sqliteConnection:
             sqliteConnection.close()
-            # print("The SQLite connection is closed")
 
-# readSqliteTable()
+# Get count of a table
+# result = do_SQL_table_count("address")
 
+# if isinstance(result, int):
+#     print("Total rows:", result)
+# else:
+#     print("Error:", result)
+
+# ------------
 def getAllRows_demo():
     print()
     try:
@@ -48,26 +51,27 @@ def getAllRows_demo():
         df = pd.DataFrame(cursor.fetchall(), columns = ['year', 'name', 'geo_id', 'total_population', 'white', 'black', 'hispanic', 'asian', 'american_indian', \
             'pacific_islander', 'other_race', 'median_age', 'total_households', 'owner_occupied_homes_median_value', 'per_capita_income', \
             'median_household_income', 'below_poverty_line', 'foreign_born_population', 'state'])
-        print (df)
-
-        max_population = df['total_population'].max()
-        print ("The Max population is: ",max_population)
-
         cursor.close()
+        return df
     except sqlite3.OperationalError as error:
-        print("Failed to connect to SQLite:", error)
-        print()
-
+        return error
     except sqlite3.Error as error:
-        print("Failed to read data from table", error)
+        return error
     finally:
         if connection:
             connection.close()
-            # print("The Sqlite connection is closed")
 
-# getAllRows_demo()
+# Get all rows of a table
+my_df = getAllRows_demo()
+if isinstance(my_df, pd.DataFrame):
+    print(my_df)
+    max_population = my_df['total_population'].max()
+    print ("The Max population is: ",max_population)
+else:
+    print("Error:", my_df)
 
-def insertRow(fname, lname, street, city):
+
+def insertRow_old(fname, lname, street, city):
     try:
         connection = sqlite3.connect('mp_test.db')
         cursor = connection.cursor()
@@ -94,7 +98,7 @@ def insertRow(fname, lname, street, city):
             connection.close()
             # print("The Sqlite connection is closed")
 
-def insertRow2(table_name, column_names, columns_placeholder, *args):
+def insertRow(table_name, column_names, columns_placeholder, *args):
     try:
         connection = sqlite3.connect('mp_test.db')
         cursor = connection.cursor()
@@ -143,7 +147,7 @@ def insertMultipleRecords(recordList):
             connection.close()
             # print("The Sqlite connection is closed")
 
-# insertRow('John','Baker','25 Nowhere Ave SE','Calgary')
+# insertRow_old('John','Baker','25 Nowhere Ave SE','Calgary')
 
 # recordsToInsert = [('Ann','Dalen','56 Somewhere Ave SE','Okotoks'),
 #                    ('Lee','Draden','422 Main Street','High River'),
@@ -175,7 +179,7 @@ def getAllRows():
 
 # getAllRows()
 
-table_name = 'employees'
-column_names = '(fname, lname, age, address, salary)'
-columns_placeholder = '(?,?,?,?,?)'
-insertRow2(table_name, column_names, columns_placeholder,'Cam','Fowler',49,'874 Windy Street',97500)
+# table_name = 'employees'
+# column_names = '(fname, lname, age, address, salary)'
+# columns_placeholder = '(?,?,?,?,?)'
+# insertRow(table_name, column_names, columns_placeholder,'Cam','Fowler',49,'874 Windy Street',97500)
