@@ -94,6 +94,30 @@ def insertRow(fname, lname, street, city):
             connection.close()
             # print("The Sqlite connection is closed")
 
+def insertRow2(table_name, column_names, columns_placeholder, *args):
+    try:
+        connection = sqlite3.connect('mp_test.db')
+        cursor = connection.cursor()
+
+        sqlite_insert_query = f"INSERT INTO {table_name} {column_names} VALUES {columns_placeholder}"
+
+        data_tuple = args  # Use *args to dynamically reference additional function arguments
+
+        count = cursor.execute(sqlite_insert_query, data_tuple)
+        connection.commit()
+        # print(cursor.rowcount, " record inserted successfully into '",table_name,"' table")
+        print(cursor.rowcount, "record inserted successfully into '{}' table".format(table_name))
+
+        cursor.close()
+    except sqlite3.OperationalError as error:
+        print("Failed to connect to SQLite:", error)
+        print()
+    except sqlite3.Error as error:
+        print("Failed to read data from table", error)
+    finally:
+        if connection:
+            connection.close()
+
 def insertMultipleRecords(recordList):
     try:
         connection = sqlite3.connect('mp_test.db')
@@ -150,4 +174,9 @@ def getAllRows():
             connection.close()
             # print("The Sqlite connection is closed")
 
-getAllRows()
+# getAllRows()
+
+table_name = 'employees'
+column_names = '(fname, lname, age, address, salary)'
+columns_placeholder = '(?,?,?,?,?)'
+insertRow2(table_name, column_names, columns_placeholder,'Cam','Fowler',49,'874 Windy Street',97500)

@@ -1,0 +1,8 @@
+create table employees(
+   id integer primary key autoincrement,
+   fname          text      not null,
+   lname          text      not null,
+   age            int       not null,
+   address        text,
+   salary         real
+);
