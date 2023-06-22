@@ -62,13 +62,13 @@ def getAllRows_demo():
             connection.close()
 
 # Get all rows of a table
-my_df = getAllRows_demo()
-if isinstance(my_df, pd.DataFrame):
-    print(my_df)
-    max_population = my_df['total_population'].max()
-    print ("The Max population is: ",max_population)
-else:
-    print("Error:", my_df)
+# my_df = getAllRows_demo()
+# if isinstance(my_df, pd.DataFrame):
+#     print(my_df)
+#     max_population = my_df['total_population'].max()
+#     print ("The Max population is: ",max_population)
+# else:
+#     print("Error:", my_df)
 
 
 def insertRow_old(fname, lname, street, city):
@@ -183,3 +183,20 @@ def getAllRows():
 # column_names = '(fname, lname, age, address, salary)'
 # columns_placeholder = '(?,?,?,?,?)'
 # insertRow(table_name, column_names, columns_placeholder,'Cam','Fowler',49,'874 Windy Street',97500)
+
+# ----
+# check SQLite version
+# Connect to an in-memory database
+# conn = sqlite3.connect(':memory:')
+# cursor = conn.cursor()
+
+# # Execute a query to retrieve the SQLite version
+# cursor.execute('SELECT sqlite_version();')
+# version = cursor.fetchone()[0]
+
+# # Print the SQLite version
+# print("SQLite version:", version)
+
+# # Close the connection
+# conn.close()
+# ----
