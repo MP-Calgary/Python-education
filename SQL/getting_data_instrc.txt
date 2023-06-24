@@ -1,0 +1,40 @@
+Import process
+Run report 'All Columns for a unit'
+USe Chrome plugin, CopyTables, select Capture 'Tables'
+Highlight table, use Alt.
+Then righ click, select Table, you should see options for select row, col and table if data selected properly
+Click Select table
+Select Copy, then Textile
+Paste this to a text file
+
+Go to Excel,
+click on File -> import feature
+select Text File
+Choose temp txt file you saved data into
+Select Delimited
+Change Delimeter from Tab to Other with a verical bar |
+next
+Noe have to find every true data col, and switch from General to Date, it must be the date the data is alreadu in
+so DMY
+Let it insert into A1
+
+Now in Excel, need to format data columns
+Highlight col
+Format Cells,
+select date, then select 2012-03-04 
+There should be 8 columns
+
+Need to format temple recomond expiry date to MYD
+
+Then, in Column A, need to have a Column called ID
+Copy in NULL, to all rows
+
+In Callings col (N)
+insert a col after
+use this formula (no calling is a space, and there are spaces in front and after callings)
+=IF(TRIM(N2)="","NULL",TRIM(N2))
+insert a new col, copy this calc col to it as values, make sure this new col is labled 'Callings' by default there is a space
+then delete the other 2 columns'
+
+Then save as Excel file
+then save as CSV file
