@@ -1,0 +1,25 @@
+function calculate_prime_list(n):
+    Let primes be an array of size n+1, initialized with True values for all indices
+    Set primes[0] = False and primes[1] = False
+
+    for i from 2 to √n:
+        if primes[i] is True:
+            for j from i*i to n+1 with a step size of i:
+                Set primes[j] = False
+
+    Let prime_numbers be an empty list
+
+    for i from 2 to n:
+        if primes[i] is True:
+            Append i to prime_numbers
+
+    return prime_numbers
+
+Get maximum number
+limit = int(input("Enter the maximum number: "))
+
+Find all the prime numbers to the max number
+prime_numbers = calculate_prime_list(limit)
+
+# Print the prime numbers
+print prime_numbers

@@ -47,6 +47,9 @@
 		},
 		{
 			"path": "SQL"
+		},
+		{
+			"path": "lab_12"
 		}
 	],
 	"settings": {
