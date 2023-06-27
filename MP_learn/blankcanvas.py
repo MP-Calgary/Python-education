@@ -102,13 +102,21 @@
 import os
 import sys
 
-if sys.platform.startswith('darwin'):  # Check if running on macOS
-    # Prompt the user to select a file using the command line
-    file_path = os.popen('osascript -e \'POSIX path of (choose file)\'').read().strip()
+# if sys.platform.startswith('darwin'):  # Check if running on macOS
+#     # Prompt the user to select a file using the command line
+#     file_path = os.popen('osascript -e \'POSIX path of (choose file)\'').read().strip()
 
-    if file_path:
-        print("Selected file:", file_path)
-    else:
-        print("No file selected.")
-else:
-    print("This feature is only supported on macOS.")
+#     if file_path:
+#         print("Selected file:", file_path)
+#     else:
+#         print("No file selected.")
+# else:
+#     print("This feature is only supported on macOS.")
+
+# growth = [3, 1, 2, 4, 2, 3, 2]
+growth = [3, 1, 2, 4]
+print(growth)
+growth.sort()
+print(growth)
+# # smallest_growth = sorted_list.pop[0]
+# # print(f'The smallest growth in the week is: {smallest_growth}cm')
