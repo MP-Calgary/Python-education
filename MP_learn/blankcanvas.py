@@ -101,6 +101,7 @@
 
 import os
 import sys
+os.system('clear')
 
 # if sys.platform.startswith('darwin'):  # Check if running on macOS
 #     # Prompt the user to select a file using the command line
@@ -114,9 +115,27 @@ import sys
 #     print("This feature is only supported on macOS.")
 
 # growth = [3, 1, 2, 4, 2, 3, 2]
-growth = [3, 1, 2, 4]
-print(growth)
-growth.sort()
-print(growth)
+# growth = [3, 1, 2, 4]
+# print(growth)
+# growth.sort()
+# print(growth)
 # # smallest_growth = sorted_list.pop[0]
 # # print(f'The smallest growth in the week is: {smallest_growth}cm')
+# tuple1 = (10, 20, 30, 40, 50)
+# print(tuple1[::-1])
+
+# tuple1 = ("Orange", [10, 20, 30], (5, 15, 25))
+# list1 = tuple1[1]
+# print(list1)
+# num = list1[1]
+# print(num)
+# understand indexing
+# tuple1[0] = 'Orange'
+# tuple1[1] = [10, 20, 30]
+# list1[1][1] = 20
+# tuple1 = (50,)
+# print(tuple1)
+
+tuple1 = (10, 20, 30, 40)
+var1 = tuple1[0]
+print(var1)
