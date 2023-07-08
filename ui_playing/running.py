@@ -37,14 +37,14 @@ def convert_pace():
             pace_km_sec = int((pace_km % 1) * 60)
             pace_km_format = f"{pace_km_min}:{pace_km_sec:02d}"
             window["converted_pace"].update(f"min/mile: {pace_km_format}", font=("Helvetica", 32), visible=True)
-            print("Converted pace: min/mile", pace_km_format)
+            # print("Converted pace: min/mile", pace_km_format)
         else:
             pace_mile = total_sec / 60 / (1 * 1.60934)  # Convert min/mile to min/km
             pace_mile_min = int(pace_mile)
             pace_mile_sec = int((pace_mile % 1) * 60)
             pace_mile_format = f"{pace_mile_min}:{pace_mile_sec:02d}"
             window["converted_pace"].update(f"min/km: {pace_mile_format}", font=("Helvetica", 32), visible=True)
-            print("Converted pace: min/km", pace_mile_format)
+            # print("Converted pace: min/km", pace_mile_format)
 
     except ValueError:
         sg.popup_error("Invalid input. Please enter numeric values for pace.")
