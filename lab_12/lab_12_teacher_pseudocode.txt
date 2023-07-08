@@ -1,0 +1,15 @@
+numbers <- [True, True, ....]
+
+numbers[0] <- numbers[1] <- False
+
+FOR factor + 2 ... Vnumber + 1
+	IF numbers[factor]
+		FOR multiple <-	factor x 2 ... number + 1 by factor
+			numbers[multiple] <- False
+			
+FOR index + 2 ... number
+	IF numbers [index]
+		primes.push_back( index)
+		
+
+
