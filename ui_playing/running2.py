@@ -35,7 +35,7 @@ layout = [
 ]
 
 # Create the window
-window = sg.Window("Pace Input", layout)
+window = sg.Window("Running calculations", layout)
 
 # Function to convert the pace and update the window
 def convert_pace():
@@ -112,22 +112,33 @@ while True:
     if event == "OK":
         break
 
-# Print the entered values and pace unit
-pace_min = int(values["pace_min"]) if values["pace_min"].isdigit() else 0
-pace_sec = int(values["pace_sec"]) if values["pace_sec"].isdigit() else 0
+    # OK button (2nd tab) event
+    if event == "ok_btn":
+        break
 
-print("Pace in minutes:", pace_min)
-print("Pace in seconds:", pace_sec)
-print("Pace unit:", "min/km" if values["unit_km"] else "min/mile")
-print("Converted pace:", window["converted_pace"].DisplayText)  # Print converted pace from the window
+# Print the entered values and pace unit
+converted_pace = window["converted_pace"].DisplayText
+blank_check = converted_pace[0:3].strip()
+if blank_check == 'min':
+    pace_min = int(values["pace_min"]) if values["pace_min"].isdigit() else 0
+    pace_sec = int(values["pace_sec"]) if values["pace_sec"].isdigit() else 0
+
+    print("Pace in minutes:", pace_min)
+    print("Pace in seconds:", pace_sec)
+    print("Pace unit:", "min/km" if values["unit_km"] else "min/mile")
+    print("Converted pace:", window["converted_pace"].DisplayText)  # Print converted pace from the window
+    print()
 
 # Print the entered values and calculate race time
 predicted_pace = values["predicted_pace"]
 distance = float(values["distance"]) if values["distance"].replace(".", "", 1).isdigit() else 0.0
 
-print("Predicted Pace:", predicted_pace)
-print("Distance (km):", distance)
-print("Race Time:", window["race_time"].DisplayText)  # Print race time from the window
+race_time = window["race_time"].DisplayText
+blank_check2 = race_time[0:3].strip()
+if blank_check2 != '':
+    print("Predicted Pace:", predicted_pace, "min/km")
+    print("Distance (km):", distance)
+    print(window["race_time"].DisplayText)  # Print race time from the window
 
 # Close the window
 window.close()
