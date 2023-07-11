@@ -26,13 +26,26 @@ race_predictor_layout = [
     [sg.Button("OK", font=("Helvetica", 16), key="ok_btn")]
 ]
 
+interval_layout = [
+    [sg.Text('Interval Pace (min:sec):'), sg.Input(key='-PACE-', size=(6, 1))],
+    [sg.Text('Distance:'), sg.Combo(['100m', '200m', '400m', '600m', '800m', '1000m', '1600m'], key='-DISTANCE-', size=(6, 1))],
+    [sg.Button('Convert2', size=(10, 1)), sg.Button('Ok2', size=(10, 1))],
+    [sg.Text("", key="Interval_time", font=("Helvetica", 32), visible=False)]
+]
+
 
 # Define the main layout with the tab group
 layout = [
     [sg.TabGroup([[sg.Tab("Unit Conversion", unit_conversion_layout),
-                   sg.Tab("Race Predictor", race_predictor_layout)]],
+                   sg.Tab("Race Predictor", race_predictor_layout),
+                   sg.Tab("Interval calculator", interval_layout)]],
                  font=("Helvetica", 16))]
 ]
+
+# set that the calulations have not been run
+tab1_ran = False
+tab2_ran = False
+tab3_ran = False
 
 # Create the window
 window = sg.Window("Running calculations", layout)
@@ -63,8 +76,11 @@ def convert_pace():
             pace_mile_format = f"{pace_mile_min}:{pace_mile_sec:02d}"
             window["converted_pace"].update(f"min/km: {pace_mile_format}", font=("Helvetica", 32), visible=True)
 
+        return True
+
     except ValueError:
         sg.popup_error("Invalid input. Please enter numeric values for pace.")
+        return False
 
 # Function to calculate the race time and update the window
 def calculate_race_time():
@@ -88,9 +104,30 @@ def calculate_race_time():
         # Update the window with the race time
         window["race_time"].update(f"Race Time: {race_time_format}", font=("Helvetica", 32), visible=True)
 
+        return True
+
     except ValueError:
         sg.popup_error("Invalid input. Please enter numeric values for predicted pace and distance.")
+        return False
 
+def calc_time():
+    try:
+        interval_pace = values['-PACE-']
+        input_distance = values['-DISTANCE-']
+        distance = int(input_distance[:-1])
+        minutes, seconds = map(int, interval_pace.split(':'))
+        total_seconds = minutes * 60 + seconds
+        pace_per_meter = total_seconds / 1000  # Pace per meter
+        time = pace_per_meter * float(distance)
+        minutes = int(time // 60)
+        seconds = int(time % 60)
+        window["Interval_time"].update(f"Time: {minutes} min {seconds} sec to go {distance} meters.",
+                                    font=("Helvetica", 32), visible=True)
+        return True
+    
+    except ValueError:
+        sg.popup_error("Invalid input. Please enter numeric values for pace and distance.")
+        return False
 
 # Event loop to process events
 while True:
@@ -102,11 +139,11 @@ while True:
 
     # Convert button event in "Unit Conversion" tab
     if event == "convert_btn":
-        convert_pace()
+        tab1_ran = convert_pace()
 
     # Calculate button event in "Race Predictor" tab
     if event == "calculate_btn":
-        calculate_race_time()
+        tab2_ran = calculate_race_time()
 
     # OK button event
     if event == "OK":
@@ -116,10 +153,20 @@ while True:
     if event == "ok_btn":
         break
 
+    # OK button (3nd tab) event
+    if event == "Ok2":
+        break
+
+    # convert button (3nd tab) event
+    if event == "Convert2":
+         tab3_ran = calc_time()
+    
+
 # Print the entered values and pace unit
-converted_pace = window["converted_pace"].DisplayText
-blank_check = converted_pace[0:3].strip()
-if blank_check == 'min':
+# converted_pace = window["converted_pace"].DisplayText
+# blank_check = converted_pace[0:3].strip()
+# if blank_check == 'min':
+if tab1_ran:
     pace_min = int(values["pace_min"]) if values["pace_min"].isdigit() else 0
     pace_sec = int(values["pace_sec"]) if values["pace_sec"].isdigit() else 0
 
@@ -130,15 +177,34 @@ if blank_check == 'min':
     print()
 
 # Print the entered values and calculate race time
-predicted_pace = values["predicted_pace"]
-distance = float(values["distance"]) if values["distance"].replace(".", "", 1).isdigit() else 0.0
+if tab2_ran:
+    predicted_pace = values["predicted_pace"]
+    distance = float(values["distance"]) if values["distance"].replace(".", "", 1).isdigit() else 0.0
 
-race_time = window["race_time"].DisplayText
-blank_check2 = race_time[0:3].strip()
-if blank_check2 != '':
-    print("Predicted Pace:", predicted_pace, "min/km")
-    print("Distance (km):", distance)
-    print(window["race_time"].DisplayText)  # Print race time from the window
+    race_time = window["race_time"].DisplayText
+    blank_check2 = race_time[0:3].strip()
+    if blank_check2 != '':
+        print("Predicted Pace:", predicted_pace, "min/km")
+        print("Distance (km):", distance)
+        print(window["race_time"].DisplayText)  # Print race time from the window
+
+if tab3_ran:
+    if values is not None:
+        interval_pace = values.get('-PACE-', '')  # Get interval pace value or assign an empty string if it doesn't exist
+        input_distance = values.get('-DISTANCE-', '')  # Get distance value or assign an empty string if it doesn't exist
+        distance = int(input_distance[:-1])
+    else:
+        interval_pace = ''
+        input_distance = ''
+        distance = 0
+
+    interval_time_text = "" if window["Interval_time"] is None else window["Interval_time"].DisplayText
+
+    print(interval_pace)  # Print Interval Pace
+    print("Distance:", distance)  # Print Distance
+    print(interval_time_text)  # Print Interval Time
+
+
 
 # Close the window
 window.close()
