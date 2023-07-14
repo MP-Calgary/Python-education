@@ -43,9 +43,9 @@ layout = [
 ]
 
 # set that the calulations have not been run
-tab1_ran = False
-tab2_ran = False
-tab3_ran = False
+tab1_result = [False]
+tab2_result = [False]
+tab3_result = [False]
 
 # Create the window
 window = sg.Window("Running calculations", layout)
@@ -64,23 +64,31 @@ def convert_pace():
 
         # Convert pace to min/km or min/mile format
         if values["unit_km"]:
+            convert_from = 'min/km'
+            convert_to = 'min/mile'
             pace_km = total_sec / 60 / (1 / 1.60934)  # Convert min/km to min/mile
             pace_km_min = int(pace_km)
             pace_km_sec = int((pace_km % 1) * 60)
             pace_km_format = f"{pace_km_min}:{pace_km_sec:02d}"
-            window["converted_pace"].update(f"min/mile: {pace_km_format}", font=("Helvetica", 32), visible=True)
+            pace_formatted = pace_km_format
+            window["converted_pace"].update(f"min/mile: {pace_formatted}", font=("Helvetica", 32), visible=True)
         else:
+            convert_from = 'min/mile'
+            convert_to = 'min/km'
             pace_mile = total_sec / 60 / (1 * 1.60934)  # Convert min/mile to min/km
             pace_mile_min = int(pace_mile)
             pace_mile_sec = int((pace_mile % 1) * 60)
             pace_mile_format = f"{pace_mile_min}:{pace_mile_sec:02d}"
-            window["converted_pace"].update(f"min/km: {pace_mile_format}", font=("Helvetica", 32), visible=True)
+            pace_formatted = pace_mile_format
+            window["converted_pace"].update(f"min/km: {pace_formatted}", font=("Helvetica", 32), visible=True)
 
-        return True
+        return_list = [True, convert_from, convert_to, pace_min, pace_sec, pace_formatted ]
+        return return_list
 
     except ValueError:
         sg.popup_error("Invalid input. Please enter numeric values for pace.")
-        return False
+        return_list = [False, '', '', 0, 0, '' ]
+        return return_list
 
 # Function to calculate the race time and update the window
 def calculate_race_time():
@@ -104,11 +112,14 @@ def calculate_race_time():
         # Update the window with the race time
         window["race_time"].update(f"Race Time: {race_time_format}", font=("Helvetica", 32), visible=True)
 
-        return True
+        return_list = [True, predicted_pace, distance, race_time_format]
+
+        return return_list
 
     except ValueError:
         sg.popup_error("Invalid input. Please enter numeric values for predicted pace and distance.")
-        return False
+        return_list = [False, 0, 0, '' ]
+        return return_list
 
 def calc_time():
     try:
@@ -123,11 +134,14 @@ def calc_time():
         seconds = int(time % 60)
         window["Interval_time"].update(f"Time: {minutes} min {seconds} sec to go {distance} meters.",
                                     font=("Helvetica", 32), visible=True)
-        return True
+        
+        return_list = [True, interval_pace, input_distance, minutes, seconds]
+        return return_list
     
     except ValueError:
         sg.popup_error("Invalid input. Please enter numeric values for pace and distance.")
-        return False
+        return_list = [False, '', '', 0, 0]
+        return return_list
 
 # Event loop to process events
 while True:
@@ -139,11 +153,11 @@ while True:
 
     # Convert button event in "Unit Conversion" tab
     if event == "convert_btn":
-        tab1_ran = convert_pace()
+        tab1_result = convert_pace()
 
     # Calculate button event in "Race Predictor" tab
     if event == "calculate_btn":
-        tab2_ran = calculate_race_time()
+        tab2_result = calculate_race_time()
 
     # OK button event
     if event == "OK":
@@ -159,52 +173,19 @@ while True:
 
     # convert button (3nd tab) event
     if event == "Convert2":
-         tab3_ran = calc_time()
+         tab3_result = calc_time()
     
+# Confirm tab 1 ran (this is in index 0), and then print the last results from it
+if tab1_result[0] == True:
+    print(f"Converted {tab1_result[3]}:{tab1_result[4]} {tab1_result[1]} to {tab1_result[5]} {tab1_result[2]}")
 
-# Print the entered values and pace unit
-# converted_pace = window["converted_pace"].DisplayText
-# blank_check = converted_pace[0:3].strip()
-# if blank_check == 'min':
-if tab1_ran:
-    pace_min = int(values["pace_min"]) if values["pace_min"].isdigit() else 0
-    pace_sec = int(values["pace_sec"]) if values["pace_sec"].isdigit() else 0
+# Confirm tab 2 ran (this is in index 0), and then print the last results from it
+if tab2_result[0] == True:
+    print(f"With a pace of {tab2_result[1]} min/km, for a distance of {tab2_result[2]} km, it will take {tab2_result[3]} (h:min:sec) to finish")
 
-    print("Pace in minutes:", pace_min)
-    print("Pace in seconds:", pace_sec)
-    print("Pace unit:", "min/km" if values["unit_km"] else "min/mile")
-    print("Converted pace:", window["converted_pace"].DisplayText)  # Print converted pace from the window
-    print()
-
-# Print the entered values and calculate race time
-if tab2_ran:
-    predicted_pace = values["predicted_pace"]
-    distance = float(values["distance"]) if values["distance"].replace(".", "", 1).isdigit() else 0.0
-
-    race_time = window["race_time"].DisplayText
-    blank_check2 = race_time[0:3].strip()
-    if blank_check2 != '':
-        print("Predicted Pace:", predicted_pace, "min/km")
-        print("Distance (km):", distance)
-        print(window["race_time"].DisplayText)  # Print race time from the window
-
-if tab3_ran:
-    if values is not None:
-        interval_pace = values.get('-PACE-', '')  # Get interval pace value or assign an empty string if it doesn't exist
-        input_distance = values.get('-DISTANCE-', '')  # Get distance value or assign an empty string if it doesn't exist
-        distance = int(input_distance[:-1])
-    else:
-        interval_pace = ''
-        input_distance = ''
-        distance = 0
-
-    interval_time_text = "" if window["Interval_time"] is None else window["Interval_time"].DisplayText
-
-    print(interval_pace)  # Print Interval Pace
-    print("Distance:", distance)  # Print Distance
-    print(interval_time_text)  # Print Interval Time
-
-
+# Confirm tab 3 ran (this is in index 0), and then print the last results from it
+if tab3_result[0] == True:
+    print(f"With a pace of {tab3_result[1]} min/km, for a distance of {tab3_result[2]}, it will take {tab3_result[3]}:{tab3_result[4]} (min:sec) to finish")
 
 # Close the window
 window.close()
