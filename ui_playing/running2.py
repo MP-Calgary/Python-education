@@ -4,53 +4,71 @@ os.system('clear')
 
 # Define the GUI layout for the "Unit Conversion" tab
 unit_conversion_layout = [
-    [sg.Text("Select pace unit:", font=("Helvetica", 16))],
-    [sg.Radio("min/km", "pace_unit", key="unit_km", default=True, font=("Helvetica", 16)),
-     sg.Radio("min/mile", "pace_unit", key="unit_mile", font=("Helvetica", 16))],
-    [sg.Text("Enter pace in minutes:", font=("Helvetica", 16)),
-     sg.Input(key="pace_min", size=(4, 1), font=("Helvetica", 16), enable_events=True)],
-    [sg.Text("Enter pace in seconds:", font=("Helvetica", 16)),
-     sg.Input(key="pace_sec", size=(4, 1), font=("Helvetica", 16), enable_events=True)],
-    [sg.Button("Convert", key="convert_btn", font=("Helvetica", 16)), sg.Button("OK", key="OK1", font=("Helvetica", 16))],
+    [sg.Text("Select pace unit:", font=("Helvetica", 24))],
+    [sg.Radio("min/km", "pace_unit", key="unit_km", default=True, font=("Helvetica", 24)),
+     sg.Radio("min/mile", "pace_unit", key="unit_mile", font=("Helvetica", 24))],
+    [sg.Text("Enter pace in minutes:", font=("Helvetica", 24)),
+     sg.Input(key="pace_min", size=(4, 1), font=("Helvetica", 24), enable_events=True)],
+    [sg.Text("Enter pace in seconds:", font=("Helvetica", 24)),
+     sg.Input(key="pace_sec", size=(4, 1), font=("Helvetica", 24), enable_events=True)],
+    [sg.Button("Convert", key="convert_btn", font=("Helvetica", 24)), sg.Button("OK", key="OK1", font=("Helvetica", 24))],
     [sg.Text("", key="converted_pace", font=("Helvetica", 32), visible=False)]
 ]
 
 # Define the GUI layout for the "Race Predictor" tab
 race_predictor_layout = [
-    [sg.Text("Predicted Pace (min:sec):", font=("Helvetica", 16))],
-    [sg.Input(key="predicted_pace", size=(6, 1), font=("Helvetica", 16), enable_events=True)],
-    [sg.Text("Distance (km):", font=("Helvetica", 16))],
-    [sg.Input(key="distance", size=(6, 1), font=("Helvetica", 16), enable_events=True)],
-    [sg.Button("Calculate", key="calculate_btn", font=("Helvetica", 16))],
-    [sg.Text("", key="race_time", font=("Helvetica", 32), visible=False)],
-    [sg.Button("OK", font=("Helvetica", 16), key="OK2")]
+    [sg.Text("Predicted Pace (min:sec):", font=("Helvetica", 24))],
+    [sg.Input(key="predicted_pace", size=(6, 1), font=("Helvetica", 24), enable_events=True)],
+    [sg.Text("Distance (km):", font=("Helvetica", 24))],
+    [sg.Input(key="distance", size=(6, 1), font=("Helvetica", 24), enable_events=True)],
+    [sg.Button("Calculate", key="calculate_btn", font=("Helvetica", 24)),sg.Button("OK", font=("Helvetica", 24), key="OK2")],
+    [sg.Text("", key="race_time", font=("Helvetica", 32), visible=False)]
 ]
 
 interval_layout = [
-    [sg.Text('Interval Pace (min:sec):'), sg.Input(key='-PACE-', size=(6, 1))],
-    [sg.Text('Distance:'), sg.Combo(['100m', '200m', '400m', '600m', '800m', '1000m', '1600m'], key='-DISTANCE-', size=(6, 1))],
-    [sg.Button('Convert2', size=(10, 1)), sg.Button('Ok', key="OK3", size=(10, 1))],
+    [sg.Text('Interval Pace (min:sec):', font=("Helvetica", 24)), sg.Input(key='-PACE-', size=(6, 1), font=("Helvetica", 24))],
+    [sg.Text('Distance:', font=("Helvetica", 24)), sg.Combo(['100m', '200m', '400m', '600m', '800m', '1000m', '1600m'], key='-DISTANCE-', size=(6, 1), font=("Helvetica", 24))],
+    [sg.Button('Convert', key="Convert_interval", size=(10, 1), font=("Helvetica", 24)), sg.Button('Ok', key="OK3", size=(10, 1), font=("Helvetica", 24))],
     [sg.Text("", key="Interval_time", font=("Helvetica", 32), visible=False)]
 ]
 
 # Define the GUI layout for the "Speed Conversion" tab
 speed_conversion_layout = [
-    [sg.Text("Select conversion:", font=("Helvetica", 16))],
-    [sg.Radio("To mph", "conversion", key="mph", default=True, font=("Helvetica", 16)),
-     sg.Radio("To kph", "conversion", key="kph", font=("Helvetica", 16))],
-    [sg.Text("Enter speed in min:sec per km:", font=("Helvetica", 16)),
-     sg.Input(key="speed", size=(6, 1), font=("Helvetica", 16), enable_events=True)],
-    [sg.Button("Convert", key="convert_speed", font=("Helvetica", 16)), sg.Button("OK", key="OK4", font=("Helvetica", 16))],
+    [sg.Text("Select conversion:", font=("Helvetica", 24))],
+    [sg.Radio("To mph", "conversion", key="mph", default=True, font=("Helvetica", 24)),
+     sg.Radio("To kph", "conversion", key="kph", font=("Helvetica", 24))],
+    [sg.Text("Enter speed in min:sec per km:", font=("Helvetica", 24)),
+     sg.Input(key="speed", size=(6, 1), font=("Helvetica", 24), enable_events=True)],
+    [sg.Button("Convert", key="convert_speed", font=("Helvetica", 24)), sg.Button("OK", key="OK4", font=("Helvetica", 24))],
     [sg.Text("", key="converted_speed", font=("Helvetica", 32), visible=False)]
+]
+
+# Define the GUI layout for the "kph to min:km" tab
+kph_to_min_km_layout = [
+    [sg.Text("Enter speed in km/h:", font=("Helvetica", 24))],
+    [sg.Input(key="kph_input", size=(6, 1), font=("Helvetica", 24), enable_events=True)],
+    [sg.Button("Convert", key="convert_kph", font=("Helvetica", 24)), sg.Button("OK", key="OK5", font=("Helvetica", 24))],
+    [sg.Text("", key="converted_pace_kph", font=("Helvetica", 32), visible=False)]
+]
+
+# Define the GUI layout for the "mph to min:miles" tab
+mph_to_min_miles_layout = [
+    [sg.Text("Enter speed in mph:", font=("Helvetica", 24))],
+    [sg.Input(key="mph_input", size=(6, 1), font=("Helvetica", 24), enable_events=True)],
+    [sg.Button("Convert", key="convert_mph", font=("Helvetica", 24)), sg.Button("OK", key="OK6", font=("Helvetica", 24))],
+    [sg.Text("", key="converted_pace_mph", font=("Helvetica", 32), visible=False)]
 ]
 
 # Define the main layout with the tab group
 layout = [
-    [sg.TabGroup([[sg.Tab("Unit Conversion", unit_conversion_layout),
+    [sg.TabGroup([[sg.Tab("Metric <-> Imperial", unit_conversion_layout),
                    sg.Tab("Race Predictor", race_predictor_layout),
-                   sg.Tab("Interval calculator", interval_layout),
-                   sg.Tab("Speed Conversion", speed_conversion_layout)]],
-                 font=("Helvetica", 16))]
+                   sg.Tab("Interval time", interval_layout),
+                   sg.Tab("Convert to mph/kph", speed_conversion_layout),
+                   sg.Tab("kph to min:km", kph_to_min_km_layout),
+                   sg.Tab("mph to min:miles", mph_to_min_miles_layout),
+                   ]],
+                 font=("Helvetica", 24))]
 ]
 
 # set that the calulations have not been run
@@ -58,6 +76,8 @@ tab1_result = [False]
 tab2_result = [False]
 tab3_result = [False]
 tab4_result = [False]
+tab5_result = [False]
+tab6_result = [False]
 
 # Create the window
 window = sg.Window("Running calculations", layout)
@@ -199,6 +219,54 @@ def convert_speed():
         return_list = [False, '', '', 0]
         return return_list
     
+# Function to convert kph to min:km and update the window
+def convert_kph_to_min_km():
+    try:
+        # Get the value entered by the user
+        kph_input = values["kph_input"]
+
+        # Convert kph to min:km format
+        pace_km = 60 / float(kph_input)
+        pace_km_min = int(pace_km)
+        pace_km_sec = int((pace_km % 1) * 60)
+        pace_km_format = f"{pace_km_min}:{pace_km_sec:02d}"
+        pace_formatted = pace_km_format
+
+        # Update the window with the converted pace
+        window["converted_pace_kph"].update(f"min/km: {pace_formatted}", font=("Helvetica", 32), visible=True)
+
+        return_list = [True, kph_input, pace_formatted]
+        return return_list
+
+    except ValueError:
+        sg.popup_error("Invalid input. Please enter a valid speed in km/h.")
+        return_list = [False, '', '']
+        return return_list
+
+# Function to convert mph to min:miles and update the window
+def convert_mph_to_min_miles():
+    try:
+        # Get the value entered by the user
+        mph_input = values["mph_input"]
+
+        # Convert mph to min:miles format
+        pace_mile = 60 / float(mph_input)
+        pace_mile_min = int(pace_mile)
+        pace_mile_sec = int((pace_mile % 1) * 60)
+        pace_mile_format = f"{pace_mile_min}:{pace_mile_sec:02d}"
+        pace_formatted = pace_mile_format
+
+        # Update the window with the converted pace
+        window["converted_pace_mph"].update(f"min/mile: {pace_formatted}", font=("Helvetica", 32), visible=True)
+
+        return_list = [True, mph_input, pace_formatted]
+        return return_list
+
+    except ValueError:
+        sg.popup_error("Invalid input. Please enter a valid speed in mph.")
+        return_list = [False, '', '']
+        return return_list
+    
 # Event loop to process events
 while True:
     event, values = window.read()
@@ -216,15 +284,23 @@ while True:
         tab2_result = calculate_race_time()
 
     # convert button (3nd tab) event
-    if event == "Convert2":
+    if event == "Convert_interval":
          tab3_result = calc_time()
 
     # convert button (4th tab) event
     if event == "convert_speed":
          tab4_result = convert_speed()
+    
+    # Convert button event in "kph to min:km" tab
+    if event == "convert_kph":
+        tab5_result = convert_kph_to_min_km()
+
+     # Convert button event in "mph to min:miles" tab
+    if event == "convert_mph":
+        tab6_result = convert_mph_to_min_miles()
 
     # OK button event
-    if event == "OK1" or event == "OK2" or event == "OK3" or event == "OK4":
+    if event == "OK1" or event == "OK2" or event == "OK3" or event == "OK4" or event == "OK5" or event == "OK6":
         break
 
 # Confirm tab 1 ran (this is in index 0), and then print the last results from it
@@ -242,6 +318,14 @@ if tab3_result[0] == True:
 # Confirm tab 4 ran (this is in index 0), and then print the last results from it
 if tab4_result[0] == True:
     print(f"Converted {tab4_result[1]} min/km to {tab4_result[3]:.2f} {tab4_result[2]}")
+
+# Confirm tab 5 ran (this is in index 0), and then print the last results from it
+if tab5_result[0] == True:
+    print(f"Converted {tab5_result[1]} km/h to {tab5_result[2]} min/km")
+
+# Confirm tab 6 ran (this is in index 0), and then print the last results from it
+if tab6_result[0] == True:
+    print(f"Converted {tab6_result[1]} mph to {tab6_result[2]} min/mile")
 
 # Close the window
 window.close()
