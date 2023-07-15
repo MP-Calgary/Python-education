@@ -11,7 +11,7 @@ unit_conversion_layout = [
      sg.Input(key="pace_min", size=(4, 1), font=("Helvetica", 16), enable_events=True)],
     [sg.Text("Enter pace in seconds:", font=("Helvetica", 16)),
      sg.Input(key="pace_sec", size=(4, 1), font=("Helvetica", 16), enable_events=True)],
-    [sg.Button("Convert", key="convert_btn", font=("Helvetica", 16)), sg.Button("OK", font=("Helvetica", 16))],
+    [sg.Button("Convert", key="convert_btn", font=("Helvetica", 16)), sg.Button("OK", key="OK1", font=("Helvetica", 16))],
     [sg.Text("", key="converted_pace", font=("Helvetica", 32), visible=False)]
 ]
 
@@ -23,22 +23,33 @@ race_predictor_layout = [
     [sg.Input(key="distance", size=(6, 1), font=("Helvetica", 16), enable_events=True)],
     [sg.Button("Calculate", key="calculate_btn", font=("Helvetica", 16))],
     [sg.Text("", key="race_time", font=("Helvetica", 32), visible=False)],
-    [sg.Button("OK", font=("Helvetica", 16), key="ok_btn")]
+    [sg.Button("OK", font=("Helvetica", 16), key="OK2")]
 ]
 
 interval_layout = [
     [sg.Text('Interval Pace (min:sec):'), sg.Input(key='-PACE-', size=(6, 1))],
     [sg.Text('Distance:'), sg.Combo(['100m', '200m', '400m', '600m', '800m', '1000m', '1600m'], key='-DISTANCE-', size=(6, 1))],
-    [sg.Button('Convert2', size=(10, 1)), sg.Button('Ok2', size=(10, 1))],
+    [sg.Button('Convert2', size=(10, 1)), sg.Button('Ok', key="OK3", size=(10, 1))],
     [sg.Text("", key="Interval_time", font=("Helvetica", 32), visible=False)]
 ]
 
+# Define the GUI layout for the "Speed Conversion" tab
+speed_conversion_layout = [
+    [sg.Text("Select conversion:", font=("Helvetica", 16))],
+    [sg.Radio("To mph", "conversion", key="mph", default=True, font=("Helvetica", 16)),
+     sg.Radio("To kph", "conversion", key="kph", font=("Helvetica", 16))],
+    [sg.Text("Enter speed in min:sec per km:", font=("Helvetica", 16)),
+     sg.Input(key="speed", size=(6, 1), font=("Helvetica", 16), enable_events=True)],
+    [sg.Button("Convert", key="convert_speed", font=("Helvetica", 16)), sg.Button("OK", key="OK4", font=("Helvetica", 16))],
+    [sg.Text("", key="converted_speed", font=("Helvetica", 32), visible=False)]
+]
 
 # Define the main layout with the tab group
 layout = [
     [sg.TabGroup([[sg.Tab("Unit Conversion", unit_conversion_layout),
                    sg.Tab("Race Predictor", race_predictor_layout),
-                   sg.Tab("Interval calculator", interval_layout)]],
+                   sg.Tab("Interval calculator", interval_layout),
+                   sg.Tab("Speed Conversion", speed_conversion_layout)]],
                  font=("Helvetica", 16))]
 ]
 
@@ -46,6 +57,7 @@ layout = [
 tab1_result = [False]
 tab2_result = [False]
 tab3_result = [False]
+tab4_result = [False]
 
 # Create the window
 window = sg.Window("Running calculations", layout)
@@ -143,6 +155,50 @@ def calc_time():
         return_list = [False, '', '', 0, 0]
         return return_list
 
+# Function to convert the speed and update the window
+def convert_speed():
+    try:
+        # Get the values entered by the user
+        speed_input = values["speed"]
+
+        # Split the input into minutes and seconds
+        if ":" in speed_input:
+            minutes, seconds = map(int, speed_input.split(":"))
+        else:
+            minutes, seconds = 0, int(speed_input)
+
+        # Calculate the total seconds
+        total_seconds = minutes * 60 + seconds
+
+        # Convert speed to mph or kph format
+        if values["mph"]:
+            # Calculate the pace per kilometer
+            pace_per_km = total_seconds / 60
+
+            # Convert pace per kilometer to pace per mile
+            # pace_per_mile = pace_per_km / 1.60934
+            pace_per_mile = pace_per_km * 1.60934
+
+            # Calculate speed in miles per hour
+            converted_speed = 60 / pace_per_mile
+
+            unit = "mph"
+        else:
+            # Calculate the speed in kilometers per hour
+            converted_speed = (60 * 60) / total_seconds
+
+            unit = "kph"
+
+        window["converted_speed"].update(f"{unit}: {converted_speed:.2f}", visible=True)
+
+        return_list = [True, speed_input, unit, converted_speed]
+        return return_list
+
+    except ValueError:
+        sg.popup_error("Invalid input. Please enter a valid speed in the format 'minutes:seconds' or 'seconds'.")
+        return_list = [False, '', '', 0]
+        return return_list
+    
 # Event loop to process events
 while True:
     event, values = window.read()
@@ -151,30 +207,26 @@ while True:
     if event == sg.WINDOW_CLOSED:
         break
 
-    # Convert button event in "Unit Conversion" tab
+    # Convert button event in "Unit Conversion" tab 1
     if event == "convert_btn":
         tab1_result = convert_pace()
 
-    # Calculate button event in "Race Predictor" tab
+    # Calculate button event in "Race Predictor" tab 2
     if event == "calculate_btn":
         tab2_result = calculate_race_time()
-
-    # OK button event
-    if event == "OK":
-        break
-
-    # OK button (2nd tab) event
-    if event == "ok_btn":
-        break
-
-    # OK button (3nd tab) event
-    if event == "Ok2":
-        break
 
     # convert button (3nd tab) event
     if event == "Convert2":
          tab3_result = calc_time()
-    
+
+    # convert button (4th tab) event
+    if event == "convert_speed":
+         tab4_result = convert_speed()
+
+    # OK button event
+    if event == "OK1" or event == "OK2" or event == "OK3" or event == "OK4":
+        break
+
 # Confirm tab 1 ran (this is in index 0), and then print the last results from it
 if tab1_result[0] == True:
     print(f"Converted {tab1_result[3]}:{tab1_result[4]} {tab1_result[1]} to {tab1_result[5]} {tab1_result[2]}")
@@ -186,6 +238,10 @@ if tab2_result[0] == True:
 # Confirm tab 3 ran (this is in index 0), and then print the last results from it
 if tab3_result[0] == True:
     print(f"With a pace of {tab3_result[1]} min/km, for a distance of {tab3_result[2]}, it will take {tab3_result[3]}:{tab3_result[4]} (min:sec) to finish")
+
+# Confirm tab 4 ran (this is in index 0), and then print the last results from it
+if tab4_result[0] == True:
+    print(f"Converted {tab4_result[1]} min/km to {tab4_result[3]:.2f} {tab4_result[2]}")
 
 # Close the window
 window.close()
