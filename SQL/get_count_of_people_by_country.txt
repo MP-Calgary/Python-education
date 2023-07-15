@@ -1,0 +1,8 @@
+SELECT birth_country, COUNT(*) as record_count
+FROM ward_info
+GROUP BY birth_country;
+
+
+SELECT Mission_Language, COUNT(*) as record_count
+FROM ward_info
+GROUP BY Mission_Language;

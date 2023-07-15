@@ -14,7 +14,7 @@ Choose temp txt file you saved data into
 Select Delimited
 Change Delimeter from Tab to Other with a verical bar |
 next
-Noe have to find every true data col, and switch from General to Date, it must be the date the data is alreadu in
+Now have to find every true date col, and switch from General to Date, it must be the date the data is alreadu in
 so DMY
 Let it insert into A1
 
