@@ -29,12 +29,12 @@ def do_SQL_table_count(table_name):
             sqliteConnection.close()
 
 # Get count of a table
-# result = do_SQL_table_count("ward_info")
+result = do_SQL_table_count("ward_info")
 
-# if isinstance(result, int):
-#     print("Total rows:", result)
-# else:
-#     print("Error:", result)
+if isinstance(result, int):
+    print("Total rows:", result)
+else:
+    print("Error:", result)
 
 # ------------
 def getAllRows_demo():
@@ -74,7 +74,7 @@ if isinstance(my_df, pd.DataFrame):
     # print(my_df)
     # print(my_df.Mission_Country.unique())
 
-    filtered_df = my_df[my_df['Age'] > 60].sort_values('Age')
+    filtered_df = my_df[my_df['Age'] > 80].sort_values('Age')
     print(filtered_df)
 
 
