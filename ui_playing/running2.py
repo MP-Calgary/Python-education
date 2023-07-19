@@ -1,6 +1,15 @@
 import PySimpleGUI as sg
 import os
-os.system('clear')
+import platform
+def clear_terminal():
+    os_name = platform.system()
+    if os_name == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
+        
+# start the program with a clear terminal
+clear_terminal()
 
 # Define the GUI layout for the "Unit Conversion" tab
 unit_conversion_layout = [

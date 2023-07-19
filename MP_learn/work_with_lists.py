@@ -1,5 +1,14 @@
 import os
-os.system('clear')  # clear the terminal 
+import platform
+def clear_terminal():
+    os_name = platform.system()
+    if os_name == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
+        
+# start the program with a clear terminal
+clear_terminal()
 
 #in operator working
 
