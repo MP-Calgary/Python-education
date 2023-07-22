@@ -24,17 +24,10 @@ Format Cells,
 select date, then select 2012-03-04 
 There should be 8 columns
 
-Need to format temple recomond expiry date to MYD
+Don't worry about 'Temple Recommend Expiration Date', handle that with scripts
 
 Then, in Column A, need to have a Column called ID
 Copy in NULL, to all rows
-
-In Callings col (N)
-insert a col after
-use this formula (no calling is a space, and there are spaces in front and after callings)
-=IF(TRIM(N2)="","NULL",TRIM(N2))
-insert a new col, copy this calc col to it as values, make sure this new col is labled 'Callings' by default there is a space
-then delete the other 2 columns'
 
 Then save as Excel file
 then save as CSV file
