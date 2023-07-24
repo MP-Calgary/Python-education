@@ -1,4 +1,3 @@
-# https://github.com/Bourne2Code/Taipan/blob/main/src/TraderTK.py
 import os
 import math
 import random
