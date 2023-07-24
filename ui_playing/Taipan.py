@@ -772,6 +772,7 @@ def Play():
                 Repair_Ship()
             case "T":
                 Travel_toPort()
+                Player_Gold.CompoundDebt() # add debt every time you travel
             case "Q":
                 my_inhand_money = Player_Gold.GetGoldOnHand()
                 my_bank_money = Player_Gold.GetGoldInBank()
@@ -804,6 +805,7 @@ def Play():
                 Sell_Cargo()
             case "T":
                 Travel_toPort()
+                Player_Gold.CompoundDebt() # add debt every time you travel
     
 # End Play()
 
