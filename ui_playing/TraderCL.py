@@ -2,6 +2,18 @@
 import os
 import math
 import random
+
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
 # import colorama but as cr, as cr is easier to use.
 import colorama as cr
 cr.init(autoreset=True)
@@ -389,10 +401,10 @@ def Print_PirateShips(pirateQty):
     print(pline05)
     print(pline06)
     print(pline07)
-    print(f"{cr.Fore.YELLOW}"+pline08)
-    print(f"{cr.Fore.YELLOW}"+pline09)
-    print(f"{cr.Fore.BLUE}"+pline10)
-    print(f"{cr.Fore.BLUE}"+pline11)
+    print(color.YELLOW +pline08)
+    print(color.YELLOW +pline09)
+    print(color.BLUE +pline10)
+    print(color.BLUE +pline11)
 
 #  end Print_PirateShips
 
@@ -402,7 +414,7 @@ def Select_TradeItem():
     Selection = ""
 
     while (Selection != "O") and (Selection != "S") and (Selection != "A") and (Selection != "G") and (Selection != "Q"):
-        print(f"Sellect item: {cr.Fore.GREEN}O{cr.Fore.WHITE}pium ,{cr.Fore.GREEN}S{cr.Fore.WHITE}ilk, {cr.Fore.GREEN}A{cr.Fore.WHITE}rms ,or {cr.Fore.GREEN}G{cr.Fore.WHITE}eneral cargo?")
+        print(f"Sellect item: " + color.GREEN + "O" + color.END + "pium ," + color.GREEN + "S" + color.END + "ilk, " + color.GREEN + "A" + color.END + "rms ,or " + color.GREEN + "G" + color.END + "eneral cargo?")
         Selection = input("[O,S,A,G,Q]")
         if (len(Selection) > 0) :
             Selection = Selection[0].upper()
@@ -441,10 +453,10 @@ def Select_TradeItem():
                    
 
 def Print_GameStatus() :
-    print(f"{cr.Fore.GREEN} ┌──────────────────────────────────────────────────────────────────────┐")
-    print(f"{cr.Fore.GREEN} │" + ("Firm: " + Player_Ship.GetName()).center(70) + "│")
-    print(f"{cr.Fore.GREEN} │  {cr.Fore.WHITE}" + Game_Port.GetPortName().ljust(49),end="")
-    print(f"{cr.Fore.GREEN}Date: {cr.Fore.WHITE}" + Game_Date.GetDate(),end="")
+    print(f"" + color.GREEN + " ┌──────────────────────────────────────────────────────────────────────┐")
+    print(f"" + color.GREEN + " │" + ("Firm: " + Player_Ship.GetName()).center(70) + "│")
+    print(f"" + color.GREEN + " │ " + color.END + Game_Port.GetPortName().ljust(49),end="")
+    print(f"" + color.GREEN + " Date: " + color.END + Game_Date.GetDate(),end="")
     print(f"{cr.Fore.GREEN}  │")
     print(f"{cr.Fore.GREEN} │ ┌────────────────────────────────────┐ ┌───────────────────────────┐ │")
     print(f"{cr.Fore.GREEN} │ │ Goods    Price   Ship   Warehouse  │ │ Gold On Hand : " + str("{:,}".format(Player_Gold.GetGoldOnHand())).ljust(11) + "│ │")

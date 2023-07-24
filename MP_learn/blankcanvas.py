@@ -163,6 +163,3 @@ print(color.YELLOW + 'This IS YELLOW!' + color.END)
 print(color.RED + 'This IS RED!' + color.END)
 print(color.UNDERLINE + 'UNDERLINE IS HERE!' + color.END)
 print("This is regular")
-
-# print(f"Sellect item: {cr.Fore.GREEN}O{cr.Fore.WHITE}pium ,{cr.Fore.GREEN}S{cr.Fore.WHITE}ilk, {cr.Fore.GREEN}A{cr.Fore.WHITE}rms ,or {cr.Fore.GREEN}G{cr.Fore.WHITE}eneral cargo?")
-print(f"Sellect item: " + color.GREEN + "O" + color.END + "pium ," + color.GREEN + "S" + color.END + "ilk, " + color.GREEN + "A" + color.END + "rms ,or " + color.GREEN + "G" + color.END + "eneral cargo?")
