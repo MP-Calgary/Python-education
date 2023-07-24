@@ -469,7 +469,16 @@ def Print_GameStatus() :
 
 def Ship_UnderAttack():
     underAttack = True
-    piratesInitial = random.randrange(1, 15, 1)   # Set intitial number of attacking ships 
+    playerNumberofGuns = Player_Ship.GetGuns()
+    maxPirates = 15
+    if playerNumberofGuns < 5:
+        maxPirates = 10
+    elif playerNumberofGuns == 5:
+        maxPirates = 15
+    else:
+        maxPirates = 10 + (playerNumberofGuns // 10) * 5
+
+    piratesInitial = random.randrange(1, maxPirates, 1)   # Set intitial number of attacking ships 
     piratesDefense = (piratesInitial * 100)       # Each ship takes 100 points of damage to sink it.
     piratesLeft = piratesInitial   # use piratesInitial to calculate the flotsam and jetsam.  more initial ships = greater reward
 
