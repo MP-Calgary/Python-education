@@ -136,6 +136,33 @@ os.system('clear')
 # tuple1 = (50,)
 # print(tuple1)
 
-tuple1 = (10, 20, 30, 40)
-var1 = tuple1[0]
-print(var1)
+# tuple1 = (10, 20, 30, 40)
+# var1 = tuple1[0]
+# print(var1)
+
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
+
+print("This is regular")
+print(color.BOLD + 'THIS IS BOLD' + color.END)
+print(color.PURPLE + 'This IS PURPLE!' + color.END)
+print(color.CYAN + 'This IS CYAN!' + color.END)
+print(color.DARKCYAN + 'This IS DARKCYAN!' + color.END)
+print(color.BLUE + 'This IS BLUE!' + color.END)
+print(color.GREEN + 'This IS GREEN!' + color.END)
+print(color.YELLOW + 'This IS YELLOW!' + color.END)
+print(color.RED + 'This IS RED!' + color.END)
+print(color.UNDERLINE + 'UNDERLINE IS HERE!' + color.END)
+print("This is regular")
+
+# print(f"Sellect item: {cr.Fore.GREEN}O{cr.Fore.WHITE}pium ,{cr.Fore.GREEN}S{cr.Fore.WHITE}ilk, {cr.Fore.GREEN}A{cr.Fore.WHITE}rms ,or {cr.Fore.GREEN}G{cr.Fore.WHITE}eneral cargo?")
+print(f"Sellect item: " + color.GREEN + "O" + color.END + "pium ," + color.GREEN + "S" + color.END + "ilk, " + color.GREEN + "A" + color.END + "rms ,or " + color.GREEN + "G" + color.END + "eneral cargo?")
