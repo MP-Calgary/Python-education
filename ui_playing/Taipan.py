@@ -1,6 +1,7 @@
 import os
 import math
 import random
+import platform
 
 class color:
    PURPLE = '\033[95m'
@@ -308,7 +309,11 @@ global Player_WHouse
 
 
 def Clear_Screen():
-    os.system('clear')
+    os_name = platform.system()
+    if os_name == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
     
 def Config_Game():
