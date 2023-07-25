@@ -329,8 +329,8 @@ def Config_Game():
     print("")
     print("         _____  _    ___ ____   _    _   _               ")
     print("        |_   _|/ \\  |_ _|  _ \\ / \\  | \\ | |          ")
-    print("          | | / _ \\  | || |_) / _ \\ |  \\| |           ")
-    print("          | |/ ___ \\ | ||  __/ ___ \\| |\\  |")
+    print("          | | / _ \\  | || |_) / _ \\  |  \\| |          ")
+    print("          | |/ ___ \\ | ||  __/ ___ \\ | |\\  |")
     print("          |_/_/   \\_\\___|_| /_/   \\_\\_| \\_|         ")
     print("                                                         Programmed by:")
     print("   A game based on the China trade of the 1800's         Michael Parker")
@@ -474,6 +474,7 @@ def Select_TradeItem():
                    
 
 def Print_GameStatus() :
+    print("                                 TAIPAN")
     print(f"" + color.GREEN + " ┌────────────────────────────────────────────────────────────────────────┐")
     print(f"" + color.GREEN + " │" + ("Firm: " + color.END + Player_Ship.GetName()).center(76) + color.GREEN + "│")
     print(f"" + color.GREEN + " │ " + color.END + Game_Port.GetPortName().ljust(51),end="")
@@ -813,19 +814,21 @@ def Play():
                 my_bank_money = Player_Gold.GetGoldInBank()
                 f_bank_money = "${:,.0f}".format(my_bank_money)
                 total_money = my_inhand_money + my_bank_money
-                if total_money > 1000000:
-                    print("")
-                    print(" Y o u ' r e    a        ")
-                    print("                         ")
-                    print(color.GREEN  + " M I L L I O N A I R E ! " + color.END )
-                    print("                         ")
-                    
+                if total_money > 999999:
+                # if total_money > 100:
+                    print()
+                    print("|=======================================================|")
+                    print("|                   Y o u ' r e    a                    |")
+                    print("|                                                       |")
+                    print("|" + color.GREEN  + "                M I L L I O N A I R E ! " + color.END + "               |")
+                    print("|=======================================================|")
+                    print()
                     print(f"Gold on hand: {f_inhand_money} and Gold in bank: {f_bank_money}")
-                    print("")
+                    print()
                 else:
                     print("")
                     print("|---------------------------------------------------|")
-                    print("|               G A M E       O V E R               |")
+                    print("|" + color.RED  + "               G A M E       O V E R" +  color.END + "               |")
                     print("|                                                   |")
                     print("| You did not reach the goal of being a millionaire |")
                     print("|---------------------------------------------------|")
