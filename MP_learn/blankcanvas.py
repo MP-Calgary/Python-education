@@ -163,3 +163,59 @@ print(color.YELLOW + 'This IS YELLOW!' + color.END)
 print(color.RED + 'This IS RED!' + color.END)
 print(color.UNDERLINE + 'UNDERLINE IS HERE!' + color.END)
 print("This is regular")
+
+# letter_art = {
+#     'Y': [
+#         "Y   Y   OOO    "U   U"
+#         " Y Y   O   O    U   U"
+#         "  Y    O   O    U   U"
+#         "  Y    O   O    U   U"
+#         "  Y     OOO      UUU"
+#     ],
+#     'O': [
+#         " OOO ",
+#         "O   O",
+#         "O   O",
+#         "O   O",
+#         " OOO "
+#     ],
+#     'U': [
+#         "U   U",
+#         "U   U",
+#         "U   U",
+#         "U   U",
+#         " UUU "
+#     ],
+#     'L': [
+#         "L    ",
+#         "L    ",
+#         "L    ",
+#         "L    ",
+#         "LLLLL"
+#     ],
+#     'S': [
+#         " SSS ",
+#         "S   S",
+#         " SSS ",
+#         "    S",
+#         "SSSS "
+#     ],
+#     'E': [
+#         " EEE ",
+#         "E   E",
+#         "EEE  ",
+#         "E    ",
+#         " EEE "
+
+
+print("Y   Y   OOO     U   U")
+print(" Y Y   O   O    U   U")
+print("  Y    O   O    U   U")
+print("  Y    O   O    U   U")
+print("  Y     OOO      UUU")
+print()
+print("L       OOO      SSS    EEEE")
+print("L      O   O    S      E")
+print("L      O   O     SSS   EEEE")
+print("L      O   O        S  E")
+print("LLLLL   OOO     SSSS    EEEE")
