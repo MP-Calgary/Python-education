@@ -256,6 +256,9 @@ class playerShip:
     
     def SetCapacity(self,newCap):
         self.maxCapacity = newCap
+
+    def SetGuns(self,newGuns):
+        self.shipGuns = newGuns
     
     def AddItem(self, index, amount2add):
         retVal = False
@@ -502,7 +505,7 @@ def Ship_UnderAttack():
     elif playerNumberofGuns == 5:
         maxPirates = 15
     else:
-        maxPirates = 10 + (playerNumberofGuns // 10) * 5
+        maxPirates = 10 + (playerNumberofGuns // 10) * 2
 
     piratesInitial = random.randrange(1, maxPirates, 1)   # Set intitial number of attacking ships 
     piratesDefense = (piratesInitial * 100)       # Each ship takes 100 points of damage to sink it.
@@ -512,6 +515,25 @@ def Ship_UnderAttack():
         Clear_Screen()
         shipDamageTaken = int(random.randrange(1, ((piratesLeft if piratesLeft > 0 else 1)*2), 1))  # damage taken to Player_Ship -  calc on number of pirates left
         Player_Ship.DamageShip(shipDamageTaken)
+        curr_status_of_ship = Player_Ship.GetStatus()
+        if curr_status_of_ship < 0:
+            print("Your ship sustained maximum damage and has sunk")
+            print()
+            print(color.BLUE)
+            print("Y   Y   OOO     U   U")
+            print(" Y Y   O   O    U   U")
+            print("  Y    O   O    U   U")
+            print("  Y    O   O    U   U")
+            print("  Y     OOO      UUU")
+            print()
+            print("L       OOO      SSS    EEEE")
+            print("L      O   O    S      E")
+            print("L      O   O     SSS   EEEE")
+            print("L      O   O        S  E")
+            print("LLLLL   OOO     SSSS    EEEE")
+            print(color.END)
+            exit()
+        
         Print_GameStatus()
         Print_PirateShips(piratesLeft)
 
@@ -787,7 +809,21 @@ def Play():
     print("\n")
     User_Action = ""
     if (Game_Port.GetPort() == 0):  # Hong Kong has more services
-    
+        # MP add function to give option to buy more guns
+        # if random.randint(0, 3) == 0:
+        #     if random.randint(0, 1) == 0:
+        #         new_ship()    # need to define what this does
+        #     elif guns < 1000:
+        #         new_gun()     # need to define what this does
+
+        # Player_Ship.SetGuns(Player_Ship.GetGuns() + 1)  # confirmed original always adds exactly 1 each time, but for random cost
+
+        # MP add function to give option for more capacity
+        # Player_Ship.SetCapacity(Player_Ship.GetMaxCapacity() + 50)  # confirmed original always adds exactly 50 each time, but for random cost
+
+        # MP add check, if something changed, then reprint
+        # Clear_Screen()
+        # Print_GameStatus()
         while (User_Action != "B") and (User_Action != "S") and (User_Action != "V") and (User_Action != "W") and (User_Action != "R") and (User_Action != "T") and (User_Action != "Q"):
             print(f"" + color.END + "Would you like to " + color.GREEN + "B" + color.END + "uy, " + color.GREEN + "S" + color.END + "ell, " + color.GREEN + "V" + color.END + "isit the Bank, use the " + color.GREEN + "W" + color.END + "arehouse, " + color.GREEN + "R" + color.END + "epair your ship, " + color.GREEN + "T" + color.END + "ravel to a new port?, or " + color.GREEN + "Q" + color.END + "uit ")
             User_Action = input("[B,S,V,W,R,T,Q]")
