@@ -1,3 +1,4 @@
+#Based on the game Taipan, written by Art Canfil in 1978
 import os
 import math
 import random
@@ -13,6 +14,7 @@ class color:
    RED = '\033[91m'
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
+   REVERSE = '\033[7m'
    END = '\033[0m'
 
 class gameDate:
@@ -21,11 +23,14 @@ class gameDate:
     def __init__(self):
         self.DOM = 1
         self.MOY = 1
-        self.YEAR = 1850
+        self.YEAR = 1860
 
     def GetDate(self):
         return(str(self.DOM).rjust(2,"0") + " " + self.monthName[(self.MOY - 1)] + " " + str(self.YEAR))
 
+    def GetYear(self):
+        return(self.YEAR)
+    
     def GetMonth(self):
         return(self.MOY)
 
@@ -800,6 +805,46 @@ def Repair_Ship():
             Player_Gold.SpendGold(Want_Repair * 10)
             Player_Ship.RepairShip(Want_Repair)
    
+def New_Ship():
+    choice = 0  # set default value prior to prompt
+    time = ((Game_Date.GetYear() - 1860) * 12) + Game_Date.GetMonth()
+    amount = random.randint(0, (1000 * (time + 5) // 6)) * (Player_Ship.GetMaxCapacity() // 50) + 1000
+    amount = 50 # debug
+
+    if Player_Gold.GetGoldOnHand() < amount:
+        return
+
+    fancy_num =  "${:,.0f}".format(amount) 
+
+    print(color.END) 
+    print("Comprador's Report")
+    print()
+    print("Do you wish to trade in your ", end='')
+    if Player_Ship.GetDamage() > 0:
+        print(color.REVERSE, end='')   # Setting text background color to reverse (highlight)
+        print("damaged", end='')
+        print(color.END, end='')  # Resetting text formatting to normal
+    else:
+        print(color.BOLD, end='')
+        print("fine", end='')
+        print(color.END, end='')
+   
+    print(" ship for one with 50 more capacity by")
+    print(f"paying an additional {fancy_num}, Taipan? Y/N")
+
+    while choice not in ['Y', 'y', 'N', 'n']:
+        choice = input().strip().upper()
+
+    if choice in ['Y', 'y']:
+        if Player_Gold.SpendGold(amount):
+            Player_Ship.SetCapacity(Player_Ship.GetMaxCapacity() + 50)  # add 50 to current state of ship
+            Player_Ship.RepairShip(Player_Ship.GetMaxCapacity() + 50) # if bigger than max, will be set to max
+
+    # if random.randint(0, 1) == 0 and guns < 1000:
+    #     port_stats()
+    #     new_gun()
+
+    return
 
 def Play():
 
@@ -809,10 +854,12 @@ def Play():
     print("\n")
     User_Action = ""
     if (Game_Port.GetPort() == 0):  # Hong Kong has more services
+        # New_Ship() # debug could prompt every time go to Hong Kong
+        
         # MP add function to give option to buy more guns
         # if random.randint(0, 3) == 0:
         #     if random.randint(0, 1) == 0:
-        #         new_ship()    # need to define what this does
+        #         New_Ship()    # need to define what this does
         #     elif guns < 1000:
         #         new_gun()     # need to define what this does
 
