@@ -846,6 +846,30 @@ def New_Ship():
 
     return
 
+def New_Gun():
+    choice = 0
+    time = ((Game_Date.GetYear() - 1860) * 12) + Game_Date.GetMonth()
+    amount = random.randint(500, 1000 * (time + 5) // 6)
+
+    if (Player_Gold.GetGoldOnHand() < amount) or (Player_Ship.GetCapacity() < 10):
+        return
+
+    f_amount = "${:,.0f}".format(amount)
+
+    print("Comprador's Report\n\n")
+    print(f"Do you wish to buy a ship's gun for {f_amount}, Taipan? ")
+
+    while choice not in ['Y', 'y', 'N', 'n']:
+        choice = input().upper()
+
+    if choice in ['Y', 'y']:
+        if Player_Gold.SpendGold(amount):
+            Player_Ship.SetCapacity(Player_Ship.GetMaxCapacity() + 10)  # add 50 to current state of ship
+            Player_Ship.SetGuns(Player_Ship.GetGuns() + 1) 
+    # port_stats()
+    return
+
+
 def Play():
 
     Clear_Screen()
@@ -855,22 +879,17 @@ def Play():
     User_Action = ""
     if (Game_Port.GetPort() == 0):  # Hong Kong has more services
         # New_Ship() # debug could prompt every time go to Hong Kong
+        # New_Gun()  # debug could prompt every time go to Hong Kong
         
         # MP add function to give option to buy more guns
-        # if random.randint(0, 3) == 0:
-        #     if random.randint(0, 1) == 0:
-        #         New_Ship()    # need to define what this does
-        #     elif guns < 1000:
-        #         new_gun()     # need to define what this does
+        if random.randint(0, 3) == 0:
+            if random.randint(0, 1) == 0:
+                New_Ship()    # need to define what this does
+            elif Player_Ship.GetGuns() < 1000:
+                New_Gun()     # need to define what this does
+            Clear_Screen()
+            Print_GameStatus() 
 
-        # Player_Ship.SetGuns(Player_Ship.GetGuns() + 1)  # confirmed original always adds exactly 1 each time, but for random cost
-
-        # MP add function to give option for more capacity
-        # Player_Ship.SetCapacity(Player_Ship.GetMaxCapacity() + 50)  # confirmed original always adds exactly 50 each time, but for random cost
-
-        # MP add check, if something changed, then reprint
-        # Clear_Screen()
-        # Print_GameStatus()
         while (User_Action != "B") and (User_Action != "S") and (User_Action != "V") and (User_Action != "W") and (User_Action != "R") and (User_Action != "T") and (User_Action != "Q"):
             print(f"" + color.END + "Would you like to " + color.GREEN + "B" + color.END + "uy, " + color.GREEN + "S" + color.END + "ell, " + color.GREEN + "V" + color.END + "isit the Bank, use the " + color.GREEN + "W" + color.END + "arehouse, " + color.GREEN + "R" + color.END + "epair your ship, " + color.GREEN + "T" + color.END + "ravel to a new port?, or " + color.GREEN + "Q" + color.END + "uit ")
             User_Action = input("[B,S,V,W,R,T,Q]")
