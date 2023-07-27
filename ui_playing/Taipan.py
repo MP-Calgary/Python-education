@@ -17,6 +17,8 @@ class color:
    REVERSE = '\033[7m'
    END = '\033[0m'
 
+# -------[ END class color ]---------
+
 class gameDate:
     monthName = ["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul", "Aug","Sep", "Oct", "Nov", "Dec"]
 
@@ -221,10 +223,10 @@ class playerWarehouse:
 
 class playerShip:
     itemQty = [0, 0, 0, 0]
-    maxDefense = 500        # MP increased
-    shipDefense = 500       # MP increased
-    shipGuns = 500          # MP increased
-    maxCapacity = 5000      # MP increased
+    maxDefense = 500        # original number
+    shipDefense = 500       # original number
+    shipGuns = 500          # MP changed from default of 5 or 0 if there isn't a loan
+    maxCapacity = 5000      # MP changed from default of 10 or if not guns, 60, Python version started at 50
     
     def __init__(self, name):
         self.name = name
@@ -315,7 +317,6 @@ global Player_Ship
 global Player_Gold
 global Player_WHouse
 
-
 def Clear_Screen():
     os_name = platform.system()
     if os_name == "Windows":
@@ -362,7 +363,7 @@ def Config_Game():
     Game_Date = gameDate()
     
     Player_Ship = playerShip(companyName)
-    Player_Gold = playerGold(5000)  # MP bumped up
+    Player_Gold = playerGold(5000)  # MP changed from default of 400, if have no guns, or 0 if have guns
     Player_WHouse = playerWarehouse()
 
 
@@ -462,7 +463,6 @@ def Select_TradeItem():
 
     return(RetVal)
         
-
 #
 # ┌──────────────────────────────────────────────────────────────────────┐
 # │                 Company Name : The Peace Dividend                    │
@@ -479,7 +479,6 @@ def Select_TradeItem():
 # │ └────────────────────────────────────┘ └───────────────────────────┘ │
 # │                                                                      │
 # └──────────────────────────────────────────────────────────────────────┘
-                   
 
 def Print_GameStatus() :
     print("                                 TAIPAN")
@@ -839,11 +838,6 @@ def New_Ship():
         if Player_Gold.SpendGold(amount):
             Player_Ship.SetCapacity(Player_Ship.GetMaxCapacity() + 50)  # add 50 to current state of ship
             Player_Ship.RepairShip(Player_Ship.GetMaxCapacity() + 50) # if bigger than max, will be set to max
-
-    # if random.randint(0, 1) == 0 and guns < 1000:
-    #     port_stats()
-    #     new_gun()
-
     return
 
 def New_Gun():
@@ -866,7 +860,6 @@ def New_Gun():
         if Player_Gold.SpendGold(amount):
             Player_Ship.SetCapacity(Player_Ship.GetMaxCapacity() + 10)  # add 50 to current state of ship
             Player_Ship.SetGuns(Player_Ship.GetGuns() + 1) 
-    # port_stats()
     return
 
 
@@ -878,15 +871,16 @@ def Play():
     print("\n")
     User_Action = ""
     if (Game_Port.GetPort() == 0):  # Hong Kong has more services
-        # New_Ship() # debug could prompt every time go to Hong Kong
-        # New_Gun()  # debug could prompt every time go to Hong Kong
+        # New_Ship() # MP debug could prompt every time go to Hong Kong
+        # New_Gun()  # MP debug could prompt every time go to Hong Kong
         
-        # MP add function to give option to buy more guns
+        # Each time go to Hong Kong, random chance can upgrade ship, or buy a new gun
         if random.randint(0, 3) == 0:
             if random.randint(0, 1) == 0:
-                New_Ship()    # need to define what this does
+                New_Ship() 
             elif Player_Ship.GetGuns() < 1000:
-                New_Gun()     # need to define what this does
+                New_Gun()
+            # redraw screen as some stats may have been updated
             Clear_Screen()
             Print_GameStatus() 
 
