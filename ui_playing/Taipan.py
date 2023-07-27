@@ -225,8 +225,8 @@ class playerShip:
     itemQty = [0, 0, 0, 0]
     maxDefense = 500        # original number
     shipDefense = 500       # original number
-    shipGuns = 500          # MP changed from default of 5 or 0 if there isn't a loan
-    maxCapacity = 5000      # MP changed from default of 10 or if not guns, 60, Python version started at 50
+    shipGuns = 5            # MP changed to 500 from default of 5 or 0 if there isn't a loan
+    maxCapacity = 60      # MP changed to 5000 from default of 10 or if not guns, 60, Python version started at 50
     
     def __init__(self, name):
         self.name = name
@@ -363,7 +363,7 @@ def Config_Game():
     Game_Date = gameDate()
     
     Player_Ship = playerShip(companyName)
-    Player_Gold = playerGold(5000)  # MP changed from default of 400, if have no guns, or 0 if have guns
+    Player_Gold = playerGold(400)  # MP changed to 5000 from default of 400, if have no guns, or 0 if have guns
     Player_WHouse = playerWarehouse()
 
 

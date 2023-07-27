@@ -1,0 +1,40 @@
+            hostilesCount = dbgHostilesCount ?? min(Int.randomLog(in: 2...shipCapacity / 10 + shipGuns!, comment: "generic count"), 9999)
+        } else {
+            // int num_ships = rand()%((capacity / 5) + guns) + 5;
+            hostilesCount = dbgHostilesCount ?? 5 + Int.randomLog(in: 0...shipCapacity / 5 + shipGuns!, comment: "li yuen count")
+			
+	
+	
+	Shipcapicty = total capacity of ship, i.e upgraded ship would go up 50
+	
+	self.itemPrice = [random.randrange(300, 999, 5), random.randrange(50, 250, 1), random.randrange(5, 150, 5), random.randrange(1, 99, 1)]
+	
+
+price is 2 dim array with 8 element, first max value, other 7 are port multipliers
+
+base_price[4][8] = { 
+    {1000, 11, 16, 15, 14, 12, 10, 13},
+    {100,  11, 14, 15, 16, 10, 13, 12},
+    {10,   12, 16, 10, 11, 13, 14, 15},	
+	{1,    10, 11, 12, 13, 14, 15, 16} };
+
+
+void set_prices(void)
+{
+    price[0] = base_price[0][port] / 2 * (rand()%3 + 1) * base_price[0][0];
+    price[1] = base_price[1][port] / 2 * (rand()%3 + 1) * base_price[1][0];
+    price[2] = base_price[2][port] / 2 * (rand()%3 + 1) * base_price[2][0];
+    price[3] = base_price[3][port] / 2 * (rand()%3 + 1) * base_price[3][0];
+    return;
+}
+	
+
+0 = "Opium"
+1 = "Silk"
+2 = "Arms"
+3 = "General"
+	
+	Opium = 300 -> 999 in fives
+	Silk = 50 -> 250 in ones
+	Arms = 5 -> 150 in fives
+	General = 1 -> 99 in ones
