@@ -1,4 +1,4 @@
-# https://github.com/Bourne2Code/Taipan/blob/main/src/TraderTK.py
+# https://github.com/Bourne2Code/Taipan/blob/main/src/TraderCL.py
 import os
 import math
 import random
