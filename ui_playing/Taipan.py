@@ -63,10 +63,38 @@ class gameItems:
     itemPrice = [0, 0, 0, 0]
 
     def __init__(self):
-        self.SetPrices()
+        self.SetPrices(0)
 
-    def SetPrices(self):
-        self.itemPrice = [random.randrange(300, 999, 5), random.randrange(50, 250, 1), random.randrange(5, 150, 5), random.randrange(1, 99, 1)]
+    def SetPrices(self, port_number):
+        price_range = {
+            'Opium': (300, 999),
+            'Silk': (50, 250),
+            'Arms': (5, 150),
+            'General': (1, 99)
+            }
+        min_price = 0
+        max_price = 1
+        small_step = 1
+        large_step = 5
+        # portNames = ["Hong Kong", "Batavia", "Calcutta", "Jambi", "Muscat", "Penang", "Rangoon", "Surat"]
+        port_variance = {
+            'Opium':   [-10,  15,  10, -15,   5, -5,   0,  20],
+            'Silk':    [-10,   5,  10,  15, -15,  0,  -5, -10],
+            'Arms':    [-5,   15, -15, -10,   0,  5,  10, 0],
+            'General': [-15, -10,  -5,   0,   5,  10, 15, 10]
+        } # the above are percentages to change price based on the port
+
+        opium_var = 1 + (port_variance['Opium'][port_number] / 100.0)
+        silk_var = 1 + (port_variance['Silk'][port_number] / 100.0)
+        arms_var = 1 + (port_variance['Arms'][port_number] / 100.0)
+        general_var = 1 + (port_variance['General'][port_number] / 100.0)
+
+        self.itemPrice = [
+            max(int(round(random.randrange(price_range['Opium'][min_price], price_range['Opium'][max_price], large_step) * opium_var / 5.0)) * 5, 1),
+            max(int(round(random.randrange(price_range['Silk'][min_price], price_range['Silk'][max_price], large_step) * silk_var / 5.0)) * 5, 1),
+            max(int(round(random.randrange(price_range['Arms'][min_price], price_range['Arms'][max_price], small_step) * arms_var / 5.0)) * 5, 1),
+            max(int(random.randrange(price_range['General'][min_price], price_range['General'][max_price], small_step) * general_var), 1)
+        ] # rounding the bigger numbers to 5's, and the max ensures that the number will be at least 1
 
     def GetItemPrice(self,index):
         return(self.itemPrice[index])
@@ -110,6 +138,20 @@ class gamePort:
                 portList.append(self.portNames[i][0])
         pChars = ",".join(portList)
         return(pChars)
+
+    def PrintPortList(self,currentport):
+        formatted_string = ""
+        numb_names = len(self.portNames)
+        for i in range(len(self.portNames)):
+            if i == currentport:
+                formatted_string = formatted_string + " " * len(self.portNames[i]) + ", "
+            else:
+                formatted_string = formatted_string + self.portNames[i] + ", "
+        formatted_string = formatted_string[:len(formatted_string)-2] # strip off last comma
+        print("-------------------------------------------------------------------")
+        print(formatted_string)
+        print("-------------------------------------------------------------------")    
+
 
 # -------[ END class gamePort ]---------
 
@@ -590,7 +632,9 @@ def Travel_toPort():
 
     Port_Desired = ""
     DaysAtSea = random.randrange(2, 7, 1)
-    print(Game_Port.GetPortNameList())
+    # print(Game_Port.GetPortNameList())
+    Game_Port.PrintPortList(Game_Port.GetPort())
+    
     
     while (Port_Desired != "H") and (Port_Desired != "B") and (Port_Desired != "C") and (Port_Desired != "J") and (Port_Desired != "M") and (Port_Desired != "P") and (Port_Desired != "R") and (Port_Desired != "S") and (Port_Desired != "Q") :
         Port_Desired = input(color.END + "Where would you like to go? ["+Game_Port.GetPortCharList()+",Q]")
@@ -622,7 +666,7 @@ def Travel_toPort():
         Port_Desired = input("Press <ENTER> to continue")
     else :
         Game_Date.IncrementDate(DaysAtSea)
-        Game_Items.SetPrices()
+        Game_Items.SetPrices(newGamePort)
         Game_Port.SetPort(newGamePort)
         Disaster = random.randrange(1, 10, 1)
         if (Disaster > 6):
