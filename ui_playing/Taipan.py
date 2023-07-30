@@ -20,40 +20,82 @@ class color:
 # -------[ END class color ]---------
 
 class gameDate:
-    monthName = ["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul", "Aug","Sep", "Oct", "Nov", "Dec"]
+    monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
     def __init__(self):
         self.DOM = 1
         self.MOY = 1
         self.YEAR = 1860
+        self.orig_DOM = self.DOM
+        self.orig_MOY = self.MOY
+        self.orig_YEAR = self.YEAR
 
     def GetDate(self):
-        return(str(self.DOM).rjust(2,"0") + " " + self.monthName[(self.MOY - 1)] + " " + str(self.YEAR))
+        return str(self.DOM).rjust(2, "0") + " " + self.monthName[(self.MOY - 1)] + " " + str(self.YEAR)
+
+    def GetDay(self):
+        return self.DOM
 
     def GetYear(self):
-        return(self.YEAR)
-    
+        return self.YEAR
+
     def GetMonth(self):
-        return(self.MOY)
+        return self.MOY
 
     def IncrementDate(self, Days2Add):
         self.DOM = self.DOM + Days2Add
 
-        if (self.MOY == 1) or (self.MOY == 3) or (self.MOY == 5) or (self.MOY == 7) or (self.MOY == 8) or (self.MOY == 10) or (self.MOY == 12):
-            if (self.DOM > 31):
+        if self.MOY in [1, 3, 5, 7, 8, 10, 12]:
+            if self.DOM > 31:
                 self.DOM -= 31
                 self.MOY += 1
-        if (self.MOY == 4) or (self.MOY == 6) or (self.MOY == 9) or (self.MOY == 11):
-            if (self.DOM > 30):
+        elif self.MOY in [4, 6, 9, 11]:
+            if self.DOM > 30:
                 self.DOM -= 30
                 self.MOY += 1
-        if (self.MOY == 2):
-            if (self.DOM > 28):
+        elif self.MOY == 2:
+            if self.DOM > 28:
                 self.DOM -= 28
                 self.MOY += 1
-        if (self.MOY > 12) :
+
+        if self.MOY > 12:
             self.YEAR += 1
             self.MOY = 1
+
+    def days_between_dates(self, curr_DOM, curr_MOY,curr_YEAR):
+        original_day = self.orig_DOM
+        original_month = self.orig_MOY
+        original_year = self.orig_YEAR
+
+        days = 0
+        while (original_year, original_month, original_day) < (curr_YEAR, curr_MOY, curr_DOM):
+            days_in_current_month = self.days_in_month(original_month, original_year)
+            days_to_add = days_in_current_month - original_day + 1
+            original_day = 1
+            original_month += 1
+
+            if original_month > 12:
+                original_month = 1
+                original_year += 1
+
+            # Check if the next month exceeds the other_date
+            if (original_year, original_month, original_day) > (curr_YEAR, curr_MOY, curr_DOM):
+                days_to_add = curr_DOM - 1
+
+            days += days_to_add
+
+        return days
+
+    @staticmethod
+    def is_leap_year(year):
+        return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+    @staticmethod
+    def days_in_month(month, year):
+        days_per_month = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        if month == 2 and gameDate.is_leap_year(year):
+            return 29
+        return days_per_month[month]
     
 # -------[ END class gameDate ]---------
 
@@ -628,8 +670,6 @@ def Ship_UnderAttack():
     
 
 def Travel_toPort():
-    global Game_Date
-
     Port_Desired = ""
     DaysAtSea = random.randrange(2, 7, 1)
     # print(Game_Port.GetPortNameList())
@@ -954,6 +994,8 @@ def Play():
                 my_bank_money = Player_Gold.GetGoldInBank()
                 f_bank_money = "${:,.0f}".format(my_bank_money)
                 total_money = my_inhand_money + my_bank_money
+                numb_days_played = Game_Date.days_between_dates(Game_Date.GetDay(),Game_Date.GetMonth(),Game_Date.GetYear())
+
                 if total_money > 999999:
                 # if total_money > 100:
                     print()
@@ -963,7 +1005,11 @@ def Play():
                     print("|" + color.GREEN  + "                M I L L I O N A I R E ! " + color.END + "               |")
                     print("|=======================================================|")
                     print()
+                    print("You finished the game with")
+                    print()
                     print(f"Gold on hand: {f_inhand_money} and Gold in bank: {f_bank_money}")
+                    print()
+                    print(f"You played for {numb_days_played:,} days")
                     print()
                 else:
                     print("")
@@ -973,8 +1019,11 @@ def Play():
                     print("| You did not reach the goal of being a millionaire |")
                     print("|---------------------------------------------------|")
                     print("                         ")
-                    print("You finished the game with:")
+                    print("You finished the game with")
+                    print()
                     print(f"Gold on hand: {f_inhand_money} and Gold in bank: {f_bank_money}")
+                    print()
+                    print(f"You played for {numb_days_played:,} days")
                     print()
                 exit()
             case _:
