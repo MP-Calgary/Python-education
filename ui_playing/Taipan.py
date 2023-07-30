@@ -723,7 +723,10 @@ def Buy_Cargo():
     Can_Buy = (Player_Gold.GetGoldOnHand() // Game_Items.GetItemPrice(bIndex))
     print(f"Buy {Game_Items.GetItemName(bIndex)}!")
     print(f"You can afford {Can_Buy} {Game_Items.GetItemName(bIndex)}.")
-    Want_Buy = int(input("How much do you want to buy?"))
+    try:
+        Want_Buy = int(input("How much do you want to buy?"))
+    except ValueError:
+        Want_Buy = 0 
     if (Want_Buy > 0) and (Want_Buy <= Can_Buy) :
         if (Player_Ship.AddItem(bIndex, Want_Buy) == False):
             print("Unable to complete the transaction.  Check capacity!")
@@ -740,8 +743,11 @@ def Sell_Cargo():
     Can_Sell = Player_Ship.GetItemQty(sIndex)
     print(f"Sell {Game_Items.GetItemName(sIndex)}!")
     print(f"You have {Player_Ship.GetItemQty(sIndex)} of {Game_Items.GetItemName(sIndex)} to sell.")
-    Want_Sell = int(input("How much do you want to sell?"))
-
+    try:
+        Want_Sell = int(input("How much do you want to sell?"))
+    except ValueError:
+        Want_Sell = 0
+   
     if (Want_Sell > 0) and (Want_Sell <= Can_Sell) :
         if (Player_Ship.RemoveItem(sIndex, Want_Sell) == False):
             print("Unable to complete the transaction.  Check capacity!")
@@ -765,25 +771,37 @@ def Visit_Bank():
 
     match Bank_Action:
         case "D":
-            Bank_Amount = int(input("How much would you like to deposit?"))
+            try:
+                Bank_Amount = int(input("How much would you like to deposit?"))
+            except ValueError:
+                Bank_Amount = 0
             if (Player_Gold.DepositGold(Bank_Amount) == False):
                 print("Unable to complete the transaction.  Insufficient Funds!")
                 Bank_Action = input("Press <ENTER> to continue")
 
         case "W":
-            Bank_Amount = int(input("How much would you like to withdraw?"))
+            try:
+                Bank_Amount = int(input("How much would you like to withdraw?"))
+            except ValueError:
+                Bank_Amount = 0
             if (Player_Gold.WithdrawGold(Bank_Amount) == False):
                 print("Unable to complete the transaction.  Insufficient Funds!")
                 Bank_Action = input("Press <ENTER> to continue")
 
         case "B":
-            Bank_Amount = int(input("How much would you like to borrow?"))
+            try:
+                Bank_Amount = int(input("How much would you like to borrow?"))
+            except ValueError:
+                Bank_Amount = 0       
             if (Player_Gold.BorrowGold(Bank_Amount) == False):
                 print("Unable to complete the transaction.  1000 Max!")
                 Bank_Action = input("Press <ENTER> to continue")
 
         case "R":
-            Bank_Amount = int(input("How much would you like to repay?"))
+            try:
+                Bank_Amount = int(input("How much would you like to repay?"))
+            except ValueError:
+                Bank_Amount = 0  
             if (Player_Gold.RepayGold(Bank_Amount) == False):
                 print("Unable to complete the transaction.  Insufficient Funds!")
                 Bank_Action = input("Press <ENTER> to continue")
@@ -802,9 +820,16 @@ def Store_Cargo():
     print(f"Store {Game_Items.GetItemName(sIndex)}!")
     print("You can store", Can_Store, Game_Items.GetItemName(sIndex),".")
 
-    qty2Store = int(input("How much do you want to store?"))
+    try:
+         qty2Store = int(input("How much do you want to store?"))
+    except ValueError:
+        qty2Store = 0
+    
     while (qty2Store < 0) and (qty2Store > Can_Store):
-        qty2Store = int(input("How much do you want to store?"))
+            try:
+                qty2Store = int(input("How much do you want to store?"))
+            except ValueError:
+                qty2Store = 0
 
     if (Player_Ship.RemoveItem(sIndex,qty2Store) == False):
         print("Unable to complete the transaction.  Check Ship cargo availability!")
@@ -830,10 +855,17 @@ def Retrieve_Cargo():
     print(f"Retrieve {Game_Items.GetItemName(rIndex)}!")
     print("You can retrieve", Can_Retrieve, Game_Items.GetItemName(rIndex),".")
 
-    qty2Retrieve = int(input("How much do you want to retrieve?"))
+    try:
+        qty2Retrieve = int(input("How much do you want to retrieve?"))
+    except ValueError:
+        qty2Retrieve = 0
+
     while (qty2Retrieve < 0) and (qty2Retrieve > Can_Retrieve):
         print("You can retrieve", Can_Retrieve, Game_Items.GetItemName(rIndex),".")
-        qty2Retrieve = int(input("How much do you want to retrieve?"))
+        try:
+            qty2Retrieve = int(input("How much do you want to retrieve?"))
+        except ValueError:
+            qty2Retrieve = 0
 
     print(f"Retrieve {Game_Items.GetItemName(rIndex)}!")
 
@@ -875,7 +907,12 @@ def Repair_Ship():
     print("Repairing a ship costs 10 gold per damage point.")
     print("Your ship has "+str(damAmount)+" damage points.")
     print("It will cost "+str(repCost)+" to fully repair your ship.")
-    Want_Repair = int(input("How much DAMAGE do you want to repair?"))
+
+    try:
+        Want_Repair = int(input("How much DAMAGE do you want to repair?"))
+    except ValueError:
+        Want_Repair = 0
+
 
     if ((Want_Repair * 10) > Player_Gold.GetGoldOnHand()):
         print("Unable to complete the transaction.  Insufficient Funds!")
