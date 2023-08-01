@@ -1,0 +1,39 @@
+class gameDate:
+        self.DOM = 1
+        self.MOY = 1
+        self.YEAR = 1860
+        self.orig_DOM = self.DOM
+        self.orig_MOY = self.MOY
+        self.orig_YEAR = self.YEAR
+
+global Game_Date
+
+		
+class playerGold:
+	    onHand = 0
+	    inBank = 0
+	    inDebt = 0
+ 
+ global Player_Gold
+ 
+		
+class playerWarehouse:
+    itemQty = [0, 0, 0, 0]
+	
+global Player_WHouse
+	
+class playerShip:
+    itemQty = [0, 0, 0, 0]
+    maxDefense = 500        # original number
+    shipDefense = 500       # original number
+    shipGuns = 5            # MP changed to 500 from default of 5 or 0 if there isn't a loan
+    maxCapacity = 60      # MP changed to 5000 from default of 10 or if not guns, 60, Python version started at 50
+	
+global Player_Ship
+
+def main():
+  
+    Config_Game()
+    
+    while (Player_Gold.GetGoldOnHand() < 10000000):
+        Play()
