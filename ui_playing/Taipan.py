@@ -392,6 +392,9 @@ class playerShip:
 
     def Attack(self):
         return(int(self.shipGuns * random.randrange(5, 50, 5)))
+    
+    def SetName(self, NewName):
+        self.name = NewName
         
 # -------[ END class playerShip ]---------
     
@@ -441,16 +444,34 @@ def Config_Game():
     print("~ ~^~=~^_~^~ =~ \\~~~~~~~'~~~~'~~~~/~~`` ~=~^~ ~^=       ")
     print(" ~^=~^~_~-=~^~ ^ `--------------'~^~=~^~_~^=~^~=~")
     print("")
-    companyName = input("What will you name your firm?")
     
     Game_Items = gameItems()
     Game_Port = gamePort()
     Game_Date = gameDate()
     
-    Player_Ship = playerShip(companyName)
+    temp_name = 'test'
+    Player_Ship = playerShip(temp_name)
     Player_Gold = playerGold(400)  # MP changed to 5000 from default of 400, if have no guns, or 0 if have guns
     Player_WHouse = playerWarehouse()
 
+    print("Options:")
+    print("0: Just quit")
+    print("1: Load saved game")
+    print("Any other key: Start new game")
+    user_input = input("Enter your choice: ")
+
+    if user_input == "0":
+        exit()
+    elif user_input == "1":
+        Load_User_Data()
+    else:
+        #decide what the user wants to do
+        companyName = input("What will you name your firm?: ")
+        # Validate the input
+        while companyName.strip() == "":
+            print("Invalid input. The firm name cannot be empty.")
+            companyName = input("What will you name your firm?: ")
+        Player_Ship.SetName(companyName)
 
 def Print_PirateShips(pirateQty):
 
@@ -1088,7 +1109,9 @@ def Play():
 
 def Load_User_Data():
     while True:
-        filename = input("Enter the filename with the saved data: ")
+        filename = input("Enter the filename with the saved data: (enter 0 to abort): ")
+        if filename == "0":
+            return
 
         # Open the file for reading
         try:
@@ -1096,6 +1119,9 @@ def Load_User_Data():
                 # Read each line and set the corresponding variable
                 general_comment = file.readline().strip()
                 save_date = file.readline().strip()
+                firm_name = file.readline().strip()
+                Player_Ship.SetName(firm_name)
+
                 Game_Date.DOM = int(file.readline().strip())
                 Game_Date.MOY = int(file.readline().strip())
                 Game_Date.YEAR = int(file.readline().strip())
@@ -1165,15 +1191,19 @@ def Is_Valid_File_Name(file_name):
 def Get_Valid_File_Name(prompt):
     while True:
         file_name = input(prompt)
-        if Is_Valid_File_Name(file_name):
+        if file_name == "0":
+            return file_name
+        elif Is_Valid_File_Name(file_name):
             return file_name
         print("Invalid file name. Please try again.")
 
 # End Get_Valid_File_Name()  
 
 def Save_User_Data():
-    prompt = "Enter a file name: "
+    prompt = "Enter a file name: (enter 0 to abort):"
     file_name = Get_Valid_File_Name(prompt)
+    if file_name == "0":
+        return
 
     # Get the current date and time
     now = datetime.now()
@@ -1185,6 +1215,8 @@ def Save_User_Data():
 
     datafile.write(f"This is a data file for the Game Taipan.  Please do not edit.\n")
     datafile.write(f"{formatted_date_time} \n")
+
+    datafile.write(f"{Player_Ship.GetName()} \n")
 
     datafile.write(str(Game_Date.DOM) + "\n")
     datafile.write(str(Game_Date.MOY) + "\n")
@@ -1213,11 +1245,7 @@ def Save_User_Data():
 def main():
   
     Config_Game()
-
-    debug_mode = 1
-    if debug_mode == 1:
-        Load_User_Data()
-    
+   
     while (Player_Gold.GetGoldOnHand() < 10000000):
         Play()
 
