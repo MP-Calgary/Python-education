@@ -99,8 +99,8 @@
 
 # display_table(columns_data)
 
-import os
-import sys
+# import os
+# import sys
 # os.system('clear')
 
 # if sys.platform.startswith('darwin'):  # Check if running on macOS
@@ -164,3 +164,68 @@ class color:
 # print(color.RED + 'This IS RED!' + color.END)
 # print(color.UNDERLINE + 'UNDERLINE IS HERE!' + color.END)
 # print("This is regular")
+
+print(" ,.")
+print(" \%`.")
+print("  `.%`.")
+print("    `.%`.")
+print("      `.%`.")
+print("        `.%`.")
+print("          `.%`.    __")
+print("            `.%`.  \ \ ")
+print("              `.%`./_/")
+print("                `./ /.")
+print("               __/\/:/;.")
+print("               \__/  `:/;.")
+print("                       `:/;.,")
+print("                         `:/ ;")
+print("                           `'")
+print("012345678901234567890123456789012")
+print(" ,.")
+print(" \%`.")
+print("  `.%`.")
+print("    `.%`.")
+print("      `.%`.    __")
+print("        `.%`.  \ \ ")
+print("          `.%`./_/")
+print("            `./ /.")
+print("           __/\/:/;.")
+print("           \__/  `:/;.")
+print("                    `:/ ;")
+print("                      `'")
+print("012345678901234567890123456789012")
+
+def Is_Valid_File_Name(file_name):
+   if file_name.strip() == '':
+      return False
+   try:
+      # Attempt to create a file with the given name (won't actually create it)
+      with open(file_name, 'w'):
+         pass
+      # If successful, the file name is valid
+      return True
+   except:
+      # If an error occurs, the file name is invalid
+      return False
+
+def Get_Valid_File_Name(prompt):
+    while True:
+        file_name = input(prompt)
+        if Is_Valid_File_Name(file_name):
+            return file_name
+        print("Invalid file name. Please try again.")
+
+def Save_User_Data():
+   prompt = "Enter a file name: "
+   file_name = Get_Valid_File_Name(prompt)
+
+   datafile = open(file_name, 'w')
+
+   datafile.write("This is a data file for the Game Taipan.  Please do not edit\n")
+   datafile.write("5000\n")
+
+   datafile.close() #Close the file when we’re done!
+
+   print(f"Successfully wrote to '{file_name}'")
+
+Save_User_Data()
