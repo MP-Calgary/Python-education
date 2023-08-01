@@ -3,6 +3,7 @@ import os
 import math
 import random
 import platform
+from datetime import datetime
 
 class color:
    PURPLE = '\033[95m'
@@ -983,7 +984,6 @@ def New_Gun():
             Player_Ship.SetGuns(Player_Ship.GetGuns() + 1) 
     return
 
-
 def Play():
 
     Clear_Screen()
@@ -1005,7 +1005,7 @@ def Play():
             Clear_Screen()
             Print_GameStatus() 
 
-        while (User_Action != "B") and (User_Action != "S") and (User_Action != "V") and (User_Action != "W") and (User_Action != "R") and (User_Action != "T") and (User_Action != "Q"):
+        while (User_Action != "B") and (User_Action != "S") and (User_Action != "V") and (User_Action != "W") and (User_Action != "R") and (User_Action != "T") and (User_Action != "Q") and (User_Action != "A"):
             print(f"" + color.END + "Would you like to " + color.GREEN + "B" + color.END + "uy, " + color.GREEN + "S" + color.END + "ell, " + color.GREEN + "V" + color.END + "isit the Bank, use the " + color.GREEN + "W" + color.END + "arehouse, " + color.GREEN + "R" + color.END + "epair your ship, " + color.GREEN + "T" + color.END + "ravel to a new port?, or " + color.GREEN + "Q" + color.END + "uit ")
             User_Action = input("[B,S,V,W,R,T,Q]")
             if (len(User_Action) > 0) :
@@ -1063,6 +1063,8 @@ def Play():
                     print(f"You played for {numb_days_played:,} days")
                     print()
                 exit()
+            case "A":
+                Save_User_Data()
             case _:
                 User_Action = input("Press <ENTER> to continue")
     
@@ -1084,11 +1086,137 @@ def Play():
     
 # End Play()
 
+def Load_User_Data():
+    while True:
+        filename = input("Enter the filename with the saved data: ")
 
+        # Open the file for reading
+        try:
+            with open(filename, "r") as file:
+                # Read each line and set the corresponding variable
+                general_comment = file.readline().strip()
+                save_date = file.readline().strip()
+                Game_Date.DOM = int(file.readline().strip())
+                Game_Date.MOY = int(file.readline().strip())
+                Game_Date.YEAR = int(file.readline().strip())
+
+                Player_Gold.onHand = int(file.readline().strip())
+                Player_Gold.inBank = int(file.readline().strip())
+                Player_Gold.inDebt = int(file.readline().strip())
+
+                warehouse_string = file.readline().strip()
+                Player_Ship.maxDefense = int(file.readline().strip())
+                Player_Ship.shipDefense = int(file.readline().strip())
+                Player_Ship.shipGuns = int(file.readline().strip())
+                Player_Ship.maxCapacity = int(file.readline().strip())
+                ship_string = file.readline().strip()
+
+            break  # Exit the loop if the file is successfully read
+
+        except FileNotFoundError:
+            print("File not found. Please make sure you entered the correct filename.")
+
+    #need to convert string for Warehouse into the list
+    items = warehouse_string[1:-1].split(',')    # Remove the brackets and split the string by commas
+
+    Player_WHouse.itemQty = [int(item.strip()) for item in items]   # Convert each element to an integer and create a list
+
+    #need to convert string for Ship into the list
+    items = ship_string[1:-1].split(',')    # Remove the brackets and split the string by commas
+
+    Player_Ship.itemQty = [int(item.strip()) for item in items] # Convert each element to an integer and create a list
+
+    # Game_Date.DOM = 26
+    # Game_Date.MOY = 6
+    # Game_Date.YEAR = 1862   
+
+    # Player_Gold.onHand = 543210
+    # Player_Gold.inBank = 22345
+    # Player_Gold.inDebt = 654
+
+    # Player_WHouse.itemQty = [67,125,678,1450]
+
+    # Player_Ship.maxDefense = 5123
+    # Player_Ship.shipDefense = 4932
+    # Player_Ship.shipGuns = 520
+    # Player_Ship.maxCapacity = 6000
+    # Player_Ship.itemQty = [2,6,11,18]
+
+    print(f"Data loaded from file '{filename}' succesfully. Data was saved on: {save_date}")
+    User_Action = input("Press <ENTER> to continue")
+
+# End Load_Values()    
+
+def Is_Valid_File_Name(file_name):
+   if file_name.strip() == '':
+      return False
+   try:
+      # Attempt to create a file with the given name (won't actually create it)
+      with open(file_name, 'w'):
+         pass
+      # If successful, the file name is valid
+      return True
+   except:
+      # If an error occurs, the file name is invalid
+      return False
+   
+# End Is_Valid_File_Name()    
+
+def Get_Valid_File_Name(prompt):
+    while True:
+        file_name = input(prompt)
+        if Is_Valid_File_Name(file_name):
+            return file_name
+        print("Invalid file name. Please try again.")
+
+# End Get_Valid_File_Name()  
+
+def Save_User_Data():
+    prompt = "Enter a file name: "
+    file_name = Get_Valid_File_Name(prompt)
+
+    # Get the current date and time
+    now = datetime.now()
+
+    # Format the date and time in the desired format
+    formatted_date_time = now.strftime("%d-%m-%Y %I:%M:%S %p")
+
+    datafile = open(file_name, 'w')
+
+    datafile.write(f"This is a data file for the Game Taipan.  Please do not edit.\n")
+    datafile.write(f"{formatted_date_time} \n")
+
+    datafile.write(str(Game_Date.DOM) + "\n")
+    datafile.write(str(Game_Date.MOY) + "\n")
+    datafile.write(str(Game_Date.YEAR) + "\n")
+
+    datafile.write(str(Player_Gold.onHand ) + "\n")
+    datafile.write(str(Player_Gold.inBank ) + "\n")
+    datafile.write(str(Player_Gold.inDebt ) + "\n")
+
+
+    datafile.write(str(Player_WHouse.itemQty ) + "\n") 
+
+    datafile.write(str(Player_Ship.maxDefense ) + "\n")
+    datafile.write(str(Player_Ship.shipDefense ) + "\n")
+    datafile.write(str(Player_Ship.shipGuns ) + "\n")
+    datafile.write(str(Player_Ship.maxCapacity ) + "\n")
+    datafile.write(str(Player_Ship.itemQty ) + "\n") 
+
+    datafile.close() 
+
+    print(f"Successfully saved Taipan user data to '{file_name}'")
+    User_Action = input("Press <ENTER> to continue")
+
+# End Save_User_Data()  
 
 def main():
   
     Config_Game()
+
+    debug_mode = 1
+    if debug_mode == 1:
+        Load_User_Data()
     
     while (Player_Gold.GetGoldOnHand() < 10000000):
         Play()
