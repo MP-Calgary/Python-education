@@ -550,7 +550,7 @@ def Select_TradeItem():
     Selection = ""
 
     while (Selection != "O") and (Selection != "S") and (Selection != "A") and (Selection != "G") and (Selection != "Q"):
-        print(f"Sellect item: " + color.GREEN + "O" + color.END + "pium ," + color.GREEN + "S" + color.END + "ilk, " + color.GREEN + "A" + color.END + "rms ,or " + color.GREEN + "G" + color.END + "eneral cargo?")
+        print(f"Select item: " + color.GREEN + "O" + color.END + "pium ," + color.GREEN + "S" + color.END + "ilk, " + color.GREEN + "A" + color.END + "rms ,or " + color.GREEN + "G" + color.END + "eneral cargo?")
         Selection = input("[O,S,A,G,Q]")
         if (len(Selection) > 0) :
             Selection = Selection[0].upper()
@@ -1027,8 +1027,8 @@ def Play():
             Print_GameStatus() 
 
         while (User_Action != "B") and (User_Action != "S") and (User_Action != "V") and (User_Action != "W") and (User_Action != "R") and (User_Action != "T") and (User_Action != "Q") and (User_Action != "A"):
-            print(f"" + color.END + "Would you like to " + color.GREEN + "B" + color.END + "uy, " + color.GREEN + "S" + color.END + "ell, " + color.GREEN + "V" + color.END + "isit the Bank, use the " + color.GREEN + "W" + color.END + "arehouse, " + color.GREEN + "R" + color.END + "epair your ship, " + color.GREEN + "T" + color.END + "ravel to a new port?, or " + color.GREEN + "Q" + color.END + "uit ")
-            User_Action = input("[B,S,V,W,R,T,Q]")
+            print(f"" + color.END + "Would you like to " + color.GREEN + "B" + color.END + "uy, " + color.GREEN + "S" + color.END + "ell, " + color.GREEN + "V" + color.END + "isit the Bank, use the " + color.GREEN + "W" + color.END + "arehouse, " + color.GREEN + "R" + color.END + "epair your ship, " + color.GREEN + "T" + color.END + "ravel to a new port, " + "S" + color.GREEN + "A"  + color.END + "ve, or " + color.GREEN + "Q" + color.END + "uit?")
+            User_Action = input("[B,S,V,W,R,T,A,Q]")
             if (len(User_Action) > 0) :
                 User_Action = User_Action[0].upper()
     
