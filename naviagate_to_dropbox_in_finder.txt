@@ -1,0 +1,6 @@
+Navitate to dropbox folder using finder
+
+/Users/michaelparker/Dropbox/MP_Python/Cole/
+
+Note: Mac username is 
+michaelparker
