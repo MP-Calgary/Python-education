@@ -1224,7 +1224,7 @@ def Save_User_Data():
 
     datafile.write(str(Player_Gold.onHand ) + "\n")
     datafile.write(str(Player_Gold.inBank ) + "\n")
-    datafile.write(str(Player_Gold.inDebt ) + "\n")
+    datafile.write(str(int(Player_Gold.inDebt )) + "\n")
 
 
     datafile.write(str(Player_WHouse.itemQty ) + "\n") 

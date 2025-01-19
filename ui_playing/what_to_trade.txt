@@ -3,3 +3,42 @@ cow, sheep
  precious gems and stones 
  Tools for farming, hunting, 
  Military equipment, including swords, shields, and armor, were exchanged among warring factions.
+
+
+I need 8 major trading places (cities) to visit.  I thought of the following. To keep the 
+game simple, I need the cities to all start with a different first letter.
+Bountiful
+Damascus
+Gideon
+Jerusalem
+Nephi
+Mulek
+Sidom
+Zarahemla
+I also need 4 different goods to trade.  They need to be: 
+- most expensive
+- medium expensive
+- medium/low expensive
+- low expensive
+
+I was thinking of the following:
+Gold
+Silver
+Wheat
+Timber
+
+Salt
+Silk
+Barley
+Iron
+Ceramics
+Linen
+
+
+Need to represent
+Wharehouse to store for the 4 items of trade
+
+Ship capacity - perhaps wagon capacity
+Ship Guns - soldiers
+Ship Defence - ?
+Ship Status - ?
