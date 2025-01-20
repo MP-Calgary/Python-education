@@ -1,0 +1,14 @@
+---
+title: "My First Quarto Document"
+author: "Your Name"
+format: html
+---
+
+## Analysis
+
+Here is a simple plot:
+
+```{python}
+import matplotlib.pyplot as plt
+plt.plot([1, 2, 3], [4, 5, 6])
+plt.show()
