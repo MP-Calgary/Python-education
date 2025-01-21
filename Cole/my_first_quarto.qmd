@@ -10,5 +10,5 @@ Here is a simple plot:
 
 ```{python}
 import matplotlib.pyplot as plt
+print("Plot is being generated")
 plt.plot([1, 2, 3], [4, 5, 6])
-plt.show()
