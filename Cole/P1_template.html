@@ -3130,7 +3130,7 @@ vertical-align: -.125em;
   <li><a href="#stretch-questiontask-1" id="toc-stretch-questiontask-1">STRETCH QUESTION|TASK 1</a></li>
   </ul>
 </nav>
-<div id="b53e3570" class="cell" data-execution_count="1">
+<div id="b2331124" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -3143,7 +3143,7 @@ vertical-align: -.125em;
 <section id="project-notes" class="level2">
 <h2 class="anchored" data-anchor-id="project-notes">Project Notes</h2>
 <p><strong>For Project 1 the answer to each question should include a chart <strong>and</strong> a written response. The years labels on your charts should not include a comma. At least <strong>two</strong> of your charts must include reference marks.</strong></p>
-<div id="00d81193" class="cell" data-execution_count="2">
+<div id="d95a4982" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html</span></span>
@@ -3156,70 +3156,74 @@ vertical-align: -.125em;
 <section id="questiontask-1" class="level2">
 <h2 class="anchored" data-anchor-id="questiontask-1">QUESTION|TASK 1</h2>
 <p><strong>How does your name at your birth year compare to its use historically?</strong></p>
-<p><em>type your results and analysis here</em></p>
-<div id="3633d4cc" class="cell" data-execution_count="3">
+<p>In my birth year <strong>1967</strong>, there were <strong>48,900</strong> people named <strong><em>Michael</em></strong>.<br>
+The name was used the most in <strong>1954</strong> and has mostly been on a decline since.</p>
+<p>In <strong>1990</strong>, there was a brief resurgence, and the name was used <strong>44,043</strong> times.</p>
+<div id="bd0fb2cc" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the name and birth year</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">&quot;Michael&quot;</span>  <span class="co"># Replace with any name you want to search for</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>birth_year <span class="op">=</span> <span class="dv">1967</span>  <span class="co"># Replace with the birth year you want to search for</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the CSV file</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># file_path = &#39;names_year.csv&#39;  # Replace with your actual file path</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># df = pd.read_csv(file_path)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data for the specified name</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df_name <span class="op">=</span> df[df[<span class="st">&#39;name&#39;</span>] <span class="op">==</span> name]</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data for the specified name</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df_name <span class="op">=</span> df[df[<span class="st">&#39;name&#39;</span>] <span class="op">==</span> name]</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the number of occurrences of the name in the specified birth year</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>df_name_birth_year <span class="op">=</span> df_name[df_name[<span class="st">&#39;year&#39;</span>] <span class="op">==</span> birth_year]</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>name_birth_year_usage <span class="op">=</span> df_name_birth_year[<span class="st">&#39;Total&#39;</span>].values[<span class="dv">0</span>] <span class="cf">if</span> <span class="kw">not</span> df_name_birth_year.empty <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the number of occurrences of the name in the specified birth year</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df_name_birth_year <span class="op">=</span> df_name[df_name[<span class="st">&#39;year&#39;</span>] <span class="op">==</span> birth_year]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>name_birth_year_usage <span class="op">=</span> df_name_birth_year[<span class="st">&#39;Total&#39;</span>].values[<span class="dv">0</span>] <span class="cf">if</span> <span class="kw">not</span> df_name_birth_year.empty <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the historical usage of the specified name</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>historical_usage <span class="op">=</span> df_name[[<span class="st">&#39;year&#39;</span>, <span class="st">&#39;Total&#39;</span>]].sort_values(by<span class="op">=</span><span class="st">&#39;year&#39;</span>).copy()</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize the historical usage of the specified name</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>historical_usage <span class="op">=</span> df_name[[<span class="st">&#39;year&#39;</span>, <span class="st">&#39;Total&#39;</span>]].sort_values(by<span class="op">=</span><span class="st">&#39;year&#39;</span>).copy()</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure the DataFrame columns are of the correct type</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>historical_usage[<span class="st">&#39;year&#39;</span>] <span class="op">=</span> historical_usage[<span class="st">&#39;year&#39;</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>historical_usage[<span class="st">&#39;Total&#39;</span>] <span class="op">=</span> historical_usage[<span class="st">&#39;Total&#39;</span>].astype(<span class="bu">float</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> df_name_birth_year.empty:</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year <span class="op">=</span> df_name_birth_year[[<span class="st">&#39;year&#39;</span>, <span class="st">&#39;Total&#39;</span>]].copy()</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year[<span class="st">&#39;year&#39;</span>] <span class="op">=</span> df_name_birth_year[<span class="st">&#39;year&#39;</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year[<span class="st">&#39;Total&#39;</span>] <span class="op">=</span> df_name_birth_year[<span class="st">&#39;Total&#39;</span>].astype(<span class="bu">float</span>)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert DataFrame to a dictionary for LetsPlot</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>historical_usage_dict <span class="op">=</span> historical_usage.to_dict(orient<span class="op">=</span><span class="st">&#39;list&#39;</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> df_name_birth_year.empty:</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year_dict <span class="op">=</span> df_name_birth_year.to_dict(orient<span class="op">=</span><span class="st">&#39;list&#39;</span>)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year_dict <span class="op">=</span> {<span class="st">&#39;year&#39;</span>: [], <span class="st">&#39;Total&#39;</span>: []}</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the base plot</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    ggplot(historical_usage_dict, aes(x<span class="op">=</span><span class="st">&#39;year&#39;</span>, y<span class="op">=</span><span class="st">&#39;Total&#39;</span>)) <span class="op">+</span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    geom_line(color<span class="op">=</span><span class="st">&#39;blue&#39;</span>, size<span class="op">=</span><span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    ggtitle(<span class="ss">f&quot;Usage of the name &#39;</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">&#39; over the years (Including </span><span class="sc">{</span>birth_year<span class="sc">}</span><span class="ss">)&quot;</span>) <span class="op">+</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    xlab(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    ylab(<span class="st">&quot;Number of Occurrences&quot;</span>) <span class="op">+</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    scale_x_continuous(<span class="bu">format</span><span class="op">=</span><span class="st">&quot;.0f&quot;</span>) <span class="op">+</span>  <span class="co"># Ensures no commas in x-axis labels</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    theme_minimal()</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Highlight the birth year usage</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> df_name_birth_year_dict[<span class="st">&#39;year&#39;</span>]:</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    p <span class="op">+=</span> geom_point(</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>df_name_birth_year_dict,</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>        mapping<span class="op">=</span>aes(x<span class="op">=</span><span class="st">&#39;year&#39;</span>, y<span class="op">=</span><span class="st">&#39;Total&#39;</span>),</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">&#39;red&#39;</span>,</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        size<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        tooltips<span class="op">=</span>layer_tooltips()</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>            .line(<span class="st">&quot;Year|@year&quot;</span>)</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>            .line(<span class="st">&quot;Usage|@Total&quot;</span>)</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the plot</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>p.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure the DataFrame columns are of the correct type</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>historical_usage[<span class="st">&#39;year&#39;</span>] <span class="op">=</span> historical_usage[<span class="st">&#39;year&#39;</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>historical_usage[<span class="st">&#39;Total&#39;</span>] <span class="op">=</span> historical_usage[<span class="st">&#39;Total&#39;</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> df_name_birth_year.empty:</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year <span class="op">=</span> df_name_birth_year[[<span class="st">&#39;year&#39;</span>, <span class="st">&#39;Total&#39;</span>]].copy()</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year[<span class="st">&#39;year&#39;</span>] <span class="op">=</span> df_name_birth_year[<span class="st">&#39;year&#39;</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year[<span class="st">&#39;Total&#39;</span>] <span class="op">=</span> df_name_birth_year[<span class="st">&#39;Total&#39;</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert DataFrame to a dictionary for LetsPlot</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>historical_usage_dict <span class="op">=</span> historical_usage.to_dict(orient<span class="op">=</span><span class="st">&#39;list&#39;</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> df_name_birth_year.empty:</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year_dict <span class="op">=</span> df_name_birth_year.to_dict(orient<span class="op">=</span><span class="st">&#39;list&#39;</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    df_name_birth_year_dict <span class="op">=</span> {<span class="st">&#39;year&#39;</span>: [], <span class="st">&#39;Total&#39;</span>: []}</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the base plot</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> (</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    ggplot(historical_usage_dict, aes(x<span class="op">=</span><span class="st">&#39;year&#39;</span>, y<span class="op">=</span><span class="st">&#39;Total&#39;</span>)) <span class="op">+</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    geom_line(color<span class="op">=</span><span class="st">&#39;blue&#39;</span>, size<span class="op">=</span><span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    ggtitle(<span class="ss">f&quot;Usage of the name &#39;</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">&#39; over the years (Including </span><span class="sc">{</span>birth_year<span class="sc">}</span><span class="ss">)&quot;</span>) <span class="op">+</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    xlab(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    ylab(<span class="st">&quot;Number of Occurrences&quot;</span>) <span class="op">+</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    scale_x_continuous(</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        <span class="bu">format</span><span class="op">=</span><span class="st">&quot;.0f&quot;</span>,  <span class="co"># Ensures no commas in x-axis labels</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        limits<span class="op">=</span>(<span class="dv">1910</span>, <span class="dv">2015</span>),  <span class="co"># Adjust this dynamically if data range changes</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        breaks<span class="op">=</span><span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1910</span>, <span class="dv">2016</span>, <span class="dv">10</span>))  <span class="co"># Tick every 10 years</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">+</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    ggsize(<span class="dv">1000</span>, <span class="dv">600</span>)  <span class="co"># Set plot size</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Highlight the birth year usage</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> df_name_birth_year_dict[<span class="st">&#39;year&#39;</span>]:</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    p <span class="op">+=</span> geom_point(</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>df_name_birth_year_dict,</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        mapping<span class="op">=</span>aes(x<span class="op">=</span><span class="st">&#39;year&#39;</span>, y<span class="op">=</span><span class="st">&#39;Total&#39;</span>),</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">&#39;red&#39;</span>,</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        size<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        tooltips<span class="op">=</span>layer_tooltips()</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>            .line(<span class="st">&quot;Year|@year&quot;</span>)</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>            .line(<span class="st">&quot;Usage|@Total&quot;</span>)</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the plot</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>p.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 
@@ -3230,13 +3234,13 @@ vertical-align: -.125em;
 //# sourceMappingURL=js-package.js.map</script>
    
    
-          <div id="irJgsD"></div>
+          <div id="mnjHQs"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
    // ----------
    
-   var containerDiv = document.getElementById("irJgsD");
+   var containerDiv = document.getElementById("mnjHQs");
    var observer = new ResizeObserver(function(entries) {
        for (let entry of entries) {
            var width = containerDiv.clientWidth
@@ -3280,9 +3284,15 @@ vertical-align: -.125em;
 "theme":{
 "name":"minimal"
 },
+"ggsize":{
+"width":1000.0,
+"height":600.0
+},
 "kind":"plot",
 "scales":[{
 "aesthetic":"x",
+"breaks":[1910.0,1920.0,1930.0,1940.0,1950.0,1960.0,1970.0,1980.0,1990.0,2000.0,2010.0],
+"limits":[1910.0,2015.0],
 "format":".0f"
 }],
 "layers":[{
@@ -3360,7 +3370,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="questiontask-2">QUESTION|TASK 2</h2>
 <p><strong>If you talked to someone named Brittany on the phone, what is your guess of his or her age? What ages would you not guess?</strong></p>
 <p><em>type your results and analysis here</em></p>
-<div id="4a6528e2" class="cell" data-execution_count="4">
+<div id="d511c9d5" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3371,7 +3381,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="questiontask-3">QUESTION|TASK 3</h2>
 <p><strong>Mary, Martha, Peter, and Paul are all Christian names. From 1920 - 2000, compare the name usage of each of the four names in a single chart. What trends do you notice?</strong></p>
 <p><em>type your results and analysis here</em></p>
-<div id="ed30caa1" class="cell" data-execution_count="5">
+<div id="895189c7" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3382,7 +3392,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="questiontask-4">QUESTION|TASK 4</h2>
 <p><strong>Think of a unique name from a famous movie. Plot the usage of that name and see how changes line up with the movie release. Does it look like the movie had an effect on usage?</strong></p>
 <p><em>type your results and analysis here</em></p>
-<div id="5d08191a" class="cell" data-execution_count="6">
+<div id="3dcf1090" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3394,7 +3404,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="stretch-questiontask-1">STRETCH QUESTION|TASK 1</h2>
 <p><strong>Reproduce the chart Elliot using the data from the <code>names_year.csv</code> file.</strong></p>
 <p><em>type your results and analysis here</em></p>
-<div id="dc69a9d0" class="cell" data-execution_count="7">
+<div id="2200dab4" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

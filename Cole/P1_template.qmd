@@ -49,7 +49,10 @@ df = pd.read_csv("https://github.com/byuidatascience/data4names/raw/master/data-
 
 __How does your name at your birth year compare to its use historically?__
 
-_type your results and analysis here_
+In my birth year __1967__, there were __48,900__ people named ___Michael___.  
+The name was used the most in __1954__ and has mostly been on a decline since.  
+
+In __1990__, there was a brief resurgence, and the name was used __44,043__ times.
 
 ```{python}
 
@@ -91,8 +94,13 @@ p = (
     ggtitle(f"Usage of the name '{name}' over the years (Including {birth_year})") +
     xlab("Year") +
     ylab("Number of Occurrences") +
-    scale_x_continuous(format=".0f") +  # Ensures no commas in x-axis labels
-    theme_minimal()
+    scale_x_continuous(
+        format=".0f",  # Ensures no commas in x-axis labels
+        limits=(1910, 2015),  # Adjust this dynamically if data range changes
+        breaks=list(range(1910, 2016, 10))  # Tick every 10 years
+    ) +
+    theme_minimal() +
+    ggsize(1000, 600)  # Set plot size
 )
 
 # Highlight the birth year usage
