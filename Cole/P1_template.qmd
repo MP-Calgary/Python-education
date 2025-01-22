@@ -56,10 +56,9 @@ In __1990__, there was a brief resurgence, and the name was used __44,043__ time
 
 ```{python}
 
-# Define the name and birth year
-name = "Michael"  # Replace with any name you want to search for
-birth_year = 1967  # Replace with the birth year you want to search for
-
+# Set the name and birth year
+name = "Michael"  
+birth_year = 1967 
 
 # Filter the data for the specified name
 df_name = df[df['name'] == name]
@@ -87,6 +86,10 @@ if not df_name_birth_year.empty:
 else:
     df_name_birth_year_dict = {'year': [], 'Total': []}
 
+# Find the min and max years in the data for setting x-axis limits
+min_year = df_name['year'].min()
+max_year = df_name['year'].max()
+
 # Create the base plot
 p = (
     ggplot(historical_usage_dict, aes(x='year', y='Total')) +
@@ -96,8 +99,8 @@ p = (
     ylab("Number of Occurrences") +
     scale_x_continuous(
         format=".0f",  # Ensures no commas in x-axis labels
-        limits=(1910, 2015),  # Adjust this dynamically if data range changes
-        breaks=list(range(1910, 2016, 10))  # Tick every 10 years
+        limits=(min_year, max_year),  # Adjust this dynamically if data range changes
+        breaks=list(range(min_year, max_year+1, 10))  # Tick every 10 years
     ) +
     theme_minimal() +
     ggsize(1000, 600)  # Set plot size
@@ -115,7 +118,6 @@ if df_name_birth_year_dict['year']:
             .line("Usage|@Total")
     )
 
-
 # Render the plot
 p.show()
 
@@ -127,11 +129,82 @@ p.show()
 
 __If you talked to someone named Brittany on the phone, what is your guess of his or her age? What ages would you not guess?__
 
-_type your results and analysis here_
+By plotting the distribution of when Brittany was born, we can compare it to the current year. 
+
+Someone named __Brittany__ is most likely around __35__ years old in __2025__.
 
 ```{python}
-# Include and execute your code here
+# Define the name
+name = "Brittany"  # Replace with any name you want to search for
 
+# Filter the data for the specified name
+df_name = df[df['name'] == name]
+
+# Summarize the historical usage of the specified name
+historical_usage = df_name[['year', 'Total']].sort_values(by='year').copy()
+
+# Find the peak usage year and the guessable age
+peak_usage_year = historical_usage.loc[historical_usage['Total'].idxmax()]['year']
+peak_usage = historical_usage['Total'].max()
+guessable_age = 2025 - peak_usage_year  # Assuming current year is 2025
+
+# Find the years with minimal usage (low occurrences)
+min_usage_years = historical_usage[historical_usage['Total'] < historical_usage['Total'].quantile(0.1)]  # Bottom 10% usage
+
+# Convert data to dictionaries for Lets-Plot
+historical_usage_dict = historical_usage.to_dict(orient='list')
+peak_usage_dict = {'year': [peak_usage_year], 'Total': [peak_usage]}
+low_usage_dict = min_usage_years.to_dict(orient='list')
+
+# Create the base plot
+p = (
+    ggplot(historical_usage_dict, aes(x='year', y='Total')) +
+    geom_line(color='blue', size=1, label=f"Usage of '{name}'") +
+    ggtitle(f"Usage of the name '{name}' over the years") +
+    xlab("Year") +
+    ylab("Number of Occurrences") +
+    scale_x_continuous(format=".0f") +  # Ensures no commas in x-axis labels
+    theme_minimal() +
+    ggsize(1000, 600)  # Set plot size
+)
+
+# Highlight the peak usage year
+p += geom_point(
+    data=peak_usage_dict,
+    mapping=aes(x='year', y='Total'),
+    color='red',
+    size=5,
+    tooltips=layer_tooltips()
+        .line("Year|@year")
+        .line("Usage|@Total")
+)
+
+# Highlight low usage years
+p += geom_point(
+    data=low_usage_dict,
+    mapping=aes(x='year', y='Total'),
+    color='green',
+    size=6,  
+    shape=16,  
+    alpha=0.8,  # Adjust transparency
+    tooltips=layer_tooltips()
+        .line("Year|@year")
+        .line("Usage|@Total")
+)
+
+# Render the plot
+p.show()
+
+# Output answers to the questions
+print("")
+print(f"Guessing the age of someone named {name}:")
+print(f"The peak year for the name {name} was {int(peak_usage_year)},\n"
+      f"which means someone named {name} is most likely around {int(guessable_age)} years old in 2025.")
+print(f"Ages you would not guess for {name} are likely in the years\n"
+      f"{', '.join(map(str, min_usage_years['year'].values))}     (years highlighted in green dots).\n"
+      f"These years have very low usage of the name.")
+
+print("")
 
 ```
 
@@ -140,10 +213,37 @@ _type your results and analysis here_
 
 __Mary, Martha, Peter, and Paul are all Christian names. From 1920 - 2000, compare the name usage of each of the four names in a single chart. What trends do you notice?__
 
-_type your results and analysis here_
+I need to add some amazing analysis here
+
+__Mary__ was signicantly more popular from 1920 - 1970
+
+Now all 4 names are not that popular
 
 ```{python}
-# Include and execute your code here
+# List of names to compare
+names_to_compare = ["Mary", "Martha", "Peter", "Paul"]
+
+# Filter the data for the names of interest and the years 1920 - 2000
+df_filtered = df[(df['name'].isin(names_to_compare)) & (df['year'] >= 1920) & (df['year'] <= 2000)]
+
+# Convert filtered data to dictionary for Lets-Plot
+df_filtered_dict = df_filtered.to_dict(orient='list')
+
+# Create the base plot
+p = (
+    ggplot(df_filtered_dict, aes(x='year', y='Total', color='name')) +  # 'name' will map to color
+    geom_line(size=1) +  # Line plot for each name
+    ggtitle("Usage of Christian Names (Mary, Martha, Peter, Paul) from 1920 to 2000") +
+    xlab("Year") +
+    ylab("Number of Occurrences") +
+    scale_x_continuous(format=".0f") +  # Ensure years display without commas
+    theme_minimal() +
+    ggsize(1000, 600)  # Set plot size
+)
+
+# Render the plot
+p.show()
+
 
 ```
 
@@ -156,8 +256,49 @@ __Think of a unique name from a famous movie. Plot the usage of that name and se
 _type your results and analysis here_
 
 ```{python}
-# Include and execute your code here
+# Set the name and movie release year
+name = "Forrest"  
+movie_release_date = "1994-07-06" 
 
+# Filter the data for the specified name
+df_name = df[df['name'] == name]
+
+# Convert data to dictionary for Lets-Plot
+df_name_dict = df_name.to_dict(orient='list')
+
+# Extract the movie release year
+movie_release_year = int(movie_release_date.split('-')[0])
+
+# Find the min and max years in the data for setting x-axis limits
+min_year = df_name['year'].min()
+max_year = df_name['year'].max()
+
+# Create the base plot
+p = (
+    ggplot(df_name_dict, aes(x='year', y='Total')) +
+    geom_line(color='blue', size=1, label=f"Usage of '{name}'") +  # Plot the historical usage of the name
+    ggtitle(f"Usage of the name '{name}' over the years (Including {movie_release_year})") +
+    xlab("Year") +
+    ylab("Number of Occurrences") +
+    scale_x_continuous(format="d", limits=(min_year, max_year), expand=(0, 0.05)) +  # Adjust expand to lower the x-axis
+    theme_minimal() +
+    ggsize(1000, 600)  # Set plot size
+)
+
+# Add the movie release year as a vertical dashed line
+p += geom_vline(xintercept=movie_release_year, color='red', linetype='dashed', size=1, label=f"Movie Release ({movie_release_year})")
+
+# Adjust the theme to move axis labels and avoid overlap
+p += theme(
+    axis_title_x=element_text(margin=15), 
+    axis_title_y=element_text(margin=15),
+    axis_text_x=element_text(margin=10),   
+    axis_text_y=element_text(margin=10), 
+    plot_margin=15 
+)
+
+# Render the plot
+p.show()
 
 ```
 
@@ -167,11 +308,55 @@ _type your results and analysis here_
 
 __Reproduce the chart Elliot using the data from the `names_year.csv` file.__ 
 
-_type your results and analysis here_
+I need to add some amazing analysis here.
+
+The name __Elliott__ is what is being analyzed.
+
+There were 3 releases of ET, __1982__, __1985__ and __2002__
+
+We can trend the name to see the impact
 
 ```{python}
-# Include and execute your code here
+# Set the name and movie release dates
+name = "Elliot"  # Name to analyze
+movie_release_dates = [
+    ("1982-06-11", "ET Release 1 (1982)"),
+    ("1985-07-19", "ET Release 2 (1985)"),
+    ("2002-03-22", "ET Release 3 (2002)")
+]
 
+# Filter the data for the specified name and years from 1950 onward
+df_name = df[(df['name'] == name) & (df['year'] >= 1950)]
+
+# Convert data to a dictionary for Lets-Plot
+df_name_dict = df_name.to_dict(orient='list')
+
+# Set limits from 1950 to 2020
+min_year = 1950
+max_year = 2020
+
+# Create the base plot
+p = (
+    ggplot(df_name_dict, aes(x='year', y='Total')) +
+    geom_line(color='blue', size=1, label=f"Usage of '{name}'") +  # Plot the historical usage of the name
+    ggtitle(f"Usage of the name '{name}' over the years (1950-2020)") +
+    xlab("Year") +
+    ylab("Number of Occurrences") +
+    scale_x_continuous(
+        format=".0f",  # Ensures no commas in x-axis labels
+        limits=(min_year, max_year), 
+        breaks=list(range(min_year, max_year+1, 10))  # Tick every 10 years
+    ) +
+    theme_minimal() +
+    ggsize(1000, 600)  # Set plot size
+)
+
+# Add the movie release years as vertical dashed lines
+for release_year, label in movie_release_dates:
+    p += geom_vline(xintercept=int(release_year.split('-')[0]), color='red', linetype='dashed', size=1, label=label)
+
+# Render the plot
+p.show()
 
 ```
 
