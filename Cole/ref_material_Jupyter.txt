@@ -1,0 +1,14 @@
+How to Use Jupyter Notebook: A Beginner’s Tutorial
+https://www.dataquest.io/blog/jupyter-notebook-tutorial/
+
+Jupyter Notebooks in VS Code
+https://code.visualstudio.com/docs/datascience/jupyter-notebooks
+
+https://www.youtube.com/watch?v=suAkMeWJ1yE
+
+
+What is quarto
+https://www.youtube.com/watch?v=e9qCS8ODs4o
+
+how to use Quarto with VS Code
+https://quarto.org/docs/get-started/hello/vscode.html

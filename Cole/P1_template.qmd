@@ -1,7 +1,7 @@
 ---
 title: "Client Report - What's in a Name?"
 subtitle: "Course DS 250"
-author: "[STUDENT NAME]"
+author: "[Michael Parker]"
 format:
   html:
     self-contained: true
@@ -52,7 +52,64 @@ __How does your name at your birth year compare to its use historically?__
 _type your results and analysis here_
 
 ```{python}
-# Include and execute your code here
+
+# Define the name and birth year
+name = "Michael"  # Replace with any name you want to search for
+birth_year = 1967  # Replace with the birth year you want to search for
+
+
+# Filter the data for the specified name
+df_name = df[df['name'] == name]
+
+# Find the number of occurrences of the name in the specified birth year
+df_name_birth_year = df_name[df_name['year'] == birth_year]
+name_birth_year_usage = df_name_birth_year['Total'].values[0] if not df_name_birth_year.empty else 0
+
+# Summarize the historical usage of the specified name
+historical_usage = df_name[['year', 'Total']].sort_values(by='year').copy()
+
+# Ensure the DataFrame columns are of the correct type
+historical_usage['year'] = historical_usage['year'].astype(int)
+historical_usage['Total'] = historical_usage['Total'].astype(float)
+
+if not df_name_birth_year.empty:
+    df_name_birth_year = df_name_birth_year[['year', 'Total']].copy()
+    df_name_birth_year['year'] = df_name_birth_year['year'].astype(int)
+    df_name_birth_year['Total'] = df_name_birth_year['Total'].astype(float)
+
+# Convert DataFrame to a dictionary for LetsPlot
+historical_usage_dict = historical_usage.to_dict(orient='list')
+if not df_name_birth_year.empty:
+    df_name_birth_year_dict = df_name_birth_year.to_dict(orient='list')
+else:
+    df_name_birth_year_dict = {'year': [], 'Total': []}
+
+# Create the base plot
+p = (
+    ggplot(historical_usage_dict, aes(x='year', y='Total')) +
+    geom_line(color='blue', size=1) +
+    ggtitle(f"Usage of the name '{name}' over the years (Including {birth_year})") +
+    xlab("Year") +
+    ylab("Number of Occurrences") +
+    scale_x_continuous(format=".0f") +  # Ensures no commas in x-axis labels
+    theme_minimal()
+)
+
+# Highlight the birth year usage
+if df_name_birth_year_dict['year']:
+    p += geom_point(
+        data=df_name_birth_year_dict,
+        mapping=aes(x='year', y='Total'),
+        color='red',
+        size=5,
+        tooltips=layer_tooltips()
+            .line("Year|@year")
+            .line("Usage|@Total")
+    )
+
+
+# Render the plot
+p.show()
 
 
 ```

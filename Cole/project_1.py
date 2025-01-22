@@ -7,7 +7,7 @@ name = "Michael"  # Replace with any name you want to search for
 birth_year = 1967  # Replace with the birth year you want to search for
 
 # Load the CSV file
-file_path = 'names_year.csv'  # Replace with your actual file path
+file_path = './Cole/names_year.csv'  # Replace with your actual file path
 df = pd.read_csv(file_path)
 
 # Filter the data for the specified name
