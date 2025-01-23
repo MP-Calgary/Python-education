@@ -52,7 +52,7 @@ __How does your name at your birth year compare to its use historically?__
 In my birth year __1967__, there were __48,900__ people named ___Michael___.  
 The name was used the most in __1954__ and has mostly been on a decline since.  
 
-In __1990__, there was a brief resurgence, and the name was used __44,043__ times.
+In __1990__, there was a brief resurgence, where the name was used __44,043__ times.
 
 ```{python}
 
@@ -103,7 +103,7 @@ p = (
         breaks=list(range(min_year, max_year+1, 10))  # Tick every 10 years
     ) +
     theme_minimal() +
-    ggsize(1000, 600)  # Set plot size
+    ggsize(900, 540)  # Set plot size
 )
 
 # Highlight the birth year usage
@@ -165,7 +165,7 @@ p = (
     ylab("Number of Occurrences") +
     scale_x_continuous(format=".0f") +  # Ensures no commas in x-axis labels
     theme_minimal() +
-    ggsize(1000, 600)  # Set plot size
+    ggsize(900, 540)  # Set plot size
 )
 
 # Highlight the peak usage year
@@ -216,7 +216,7 @@ __Mary, Martha, Peter, and Paul are all Christian names. From 1920 - 2000, compa
 
 I need to add some amazing analysis here
 
-__Mary__ was signicantly more popular from 1920 - 1970
+__Mary__ was signicantly more popular from 1920 - 1950
 
 Now all 4 names are not that popular
 
@@ -239,7 +239,7 @@ p = (
     ylab("Number of Occurrences") +
     scale_x_continuous(format=".0f") +  # Ensure years display without commas
     theme_minimal() +
-    ggsize(1000, 600)  # Set plot size
+    ggsize(900, 540)  # Set plot size
 )
 
 # Render the plot
@@ -253,6 +253,8 @@ p.show()
 ## QUESTION|TASK 4
 
 __Think of a unique name from a famous movie. Plot the usage of that name and see how changes line up with the movie release. Does it look like the movie had an effect on usage?__  
+
+The name I selected was __Forreest__ fromm the movie __"Forrest Gump"__, it was released July 6, 1994
 
 The name __Forrest__ really peaked at the time when the movie came out in __1994__
 
@@ -286,7 +288,7 @@ p = (
     ylab("Number of Occurrences") +
     scale_x_continuous(format="d", limits=(min_year, max_year), expand=(0, 0.05)) +  # Adjust expand to lower the x-axis
     theme_minimal() +
-    ggsize(1000, 600)  # Set plot size
+    ggsize(900, 540)  # Set plot size
 )
 
 # Add the movie release year as a vertical dashed line
@@ -339,12 +341,16 @@ df_name_dict = df_name.to_dict(orient='list')
 min_year = 1950
 max_year = 2020
 
-# Create the base plot
+# Add a label for the legend
+df_name_dict['group'] = [f"{name}"] * len(df_name_dict['year'])  # Add a group label for the line
+
 p = (
-    ggplot(df_name_dict, aes(x='year', y='Total')) +
-    geom_line(color='blue', size=1, label=f"Usage of '{name}'") +  # Plot the historical usage of the name
+    ggplot(df_name_dict, aes(x='year', y='Total')) +  # Base aesthetics
+    geom_line(aes(color='group'), size=1, show_legend=True) +  # Map 'group' to color for the legend
+    scale_color_manual(values=["blue"]) +  # Explicitly set the color of the main line to blue
+    labs(color="name") +  # Change legend title to 'Name'
     ggtitle("Elliot... What?") +
-    xlab("Year") +
+    xlab("year") +
     ylab("Total") +
     scale_x_continuous(
         format=".0f",  # Ensures no commas in x-axis labels
@@ -359,8 +365,10 @@ p = (
     theme_minimal() +
     theme(
         panel_background=element_rect(fill='lightblue', color=None),  # Set background to light blue
+        legend_background=element_rect(fill='white', color=None),  # Set legend background to white
+        legend_key=element_rect(fill=None, color=None),  # Fully remove background and border of the legend key
     ) +
-    ggsize(1000, 600)  # Set plot size
+    ggsize(900, 540)  # Set plot size
 )
 
 # Add the movie release years as vertical dashed lines with custom labels
@@ -378,6 +386,9 @@ for i, (release_year, label) in enumerate(movie_release_dates):
 
 # Render the plot
 p.show()
+
+
+
 ```
 
 
