@@ -206,6 +206,7 @@ print(f"Ages you would not guess for {name} are likely in the years\n"
 
 print("")
 
+
 ```
 
 
@@ -253,7 +254,10 @@ p.show()
 
 __Think of a unique name from a famous movie. Plot the usage of that name and see how changes line up with the movie release. Does it look like the movie had an effect on usage?__  
 
-_type your results and analysis here_
+The name __Forrest__ really peaked at the time when the movie came out in __1994__
+
+This shows the power a movie can have on people selecting that name for their child
+
 
 ```{python}
 # Set the name and movie release year
@@ -320,9 +324,9 @@ We can trend the name to see the impact
 # Set the name and movie release dates
 name = "Elliot"  # Name to analyze
 movie_release_dates = [
-    ("1982-06-11", "ET Release 1 (1982)"),
-    ("1985-07-19", "ET Release 2 (1985)"),
-    ("2002-03-22", "ET Release 3 (2002)")
+    ("1982-06-11", "E.T Released"),
+    ("1985-07-19", "Second Release"),
+    ("2002-03-22", "Third Release")
 ]
 
 # Filter the data for the specified name and years from 1950 onward
@@ -339,25 +343,41 @@ max_year = 2020
 p = (
     ggplot(df_name_dict, aes(x='year', y='Total')) +
     geom_line(color='blue', size=1, label=f"Usage of '{name}'") +  # Plot the historical usage of the name
-    ggtitle(f"Usage of the name '{name}' over the years (1950-2020)") +
+    ggtitle("Elliot... What?") +
     xlab("Year") +
-    ylab("Number of Occurrences") +
+    ylab("Total") +
     scale_x_continuous(
         format=".0f",  # Ensures no commas in x-axis labels
         limits=(min_year, max_year), 
         breaks=list(range(min_year, max_year+1, 10))  # Tick every 10 years
     ) +
+    scale_y_continuous(
+        limits=(0, 1200),  # Set y-axis range
+        breaks=list(range(0, 1201, 200)),  # Tick every 200
+        format=".0f"  # Removes commas from Y-axis labels
+    ) +
     theme_minimal() +
+    theme(
+        panel_background=element_rect(fill='lightblue', color=None),  # Set background to light blue
+    ) +
     ggsize(1000, 600)  # Set plot size
 )
 
-# Add the movie release years as vertical dashed lines
-for release_year, label in movie_release_dates:
-    p += geom_vline(xintercept=int(release_year.split('-')[0]), color='red', linetype='dashed', size=1, label=label)
+# Add the movie release years as vertical dashed lines with custom labels
+for i, (release_year, label) in enumerate(movie_release_dates):
+    year = int(release_year.split('-')[0])
+    p += geom_vline(xintercept=year, color='red', linetype='dashed', size=1)
+
+    # Adjust text position for each label to be closer to the red lines without touching them
+    if i == 0:  # Label 1: "E.T Released" (left of the line)
+        p += geom_text(x=year - 0.5, y=1150, label=label, color='black', size=10, hjust=1, vjust=1)
+    elif i == 1:  # Label 2: "Second Release" (right of the line)
+        p += geom_text(x=year + 0.5, y=1150, label=label, color='black', size=10, hjust=0, vjust=1)
+    elif i == 2:  # Label 3: "Third Release" (right of the line)
+        p += geom_text(x=year + 0.5, y=1150, label=label, color='black', size=10, hjust=0, vjust=1)
 
 # Render the plot
 p.show()
-
 ```
 
 

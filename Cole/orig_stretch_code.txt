@@ -1,0 +1,58 @@
+The following core works as expected, but I have to make a few adjustments
+The Y-Axis label should be 'Total, it is now 'Number of Occurences'
+The top label should be 'Elliot... What?', it is now 'Usage of the name 'Elliot' over the years (1950-2020)'
+The Y-Axis currently goes from 0 to 1,300.  I want it to go from 0 to 1200, in 200 increments, with no comma in the years
+--
+Can you make those changes
+
+----
+
+import pandas as pd
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+
+# Include and execute your code here
+df = pd.read_csv("https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv")
+
+# Set the name and movie release dates
+name = "Elliot"  # Name to analyze
+movie_release_dates = [
+    ("1982-06-11", "ET Release 1 (1982)"),
+    ("1985-07-19", "ET Release 2 (1985)"),
+    ("2002-03-22", "ET Release 3 (2002)")
+]
+
+# Filter the data for the specified name and years from 1950 onward
+df_name = df[(df['name'] == name) & (df['year'] >= 1950)]
+
+# Convert data to a dictionary for Lets-Plot
+df_name_dict = df_name.to_dict(orient='list')
+
+# Set limits from 1950 to 2020
+min_year = 1950
+max_year = 2020
+
+# Create the base plot
+p = (
+    ggplot(df_name_dict, aes(x='year', y='Total')) +
+    geom_line(color='blue', size=1, label=f"Usage of '{name}'") +  # Plot the historical usage of the name
+    ggtitle(f"Usage of the name '{name}' over the years (1950-2020)") +
+    xlab("Year") +
+    ylab("Number of Occurrences") +
+    scale_x_continuous(
+        format=".0f",  # Ensures no commas in x-axis labels
+        limits=(min_year, max_year), 
+        breaks=list(range(min_year, max_year+1, 10))  # Tick every 10 years
+    ) +
+    theme_minimal() +
+    ggsize(1000, 600)  # Set plot size
+)
+
+# Add the movie release years as vertical dashed lines
+for release_year, label in movie_release_dates:
+    p += geom_vline(xintercept=int(release_year.split('-')[0]), color='red', linetype='dashed', size=1, label=label)
+
+# Render the plot
+p.show()
