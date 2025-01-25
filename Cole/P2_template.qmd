@@ -48,58 +48,37 @@ con = sqlite3.connect(sqlite_file)
 
 __Write an SQL query to create a new dataframe about baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.__  
 
-_type your results and analysis here_
+_My super cool extraction of baseball stats_
 
 ```{python}
-from IPython.display import display, Markdown
-
-# Display Markdown text
-display(Markdown("**Here is a bold statement:** This output looks better!"))
-
-# # Query to get the list of tables
-# query = "SELECT name FROM sqlite_master WHERE type='table';"
-
-# # Execute the query and fetch the results
-# cursor = con.cursor()
-# cursor.execute(query)
-# tables = cursor.fetchall()
-
-# # Close the connection
-# con.close()
-
-# Extract table names
-# table_names = [table[0] for table in tables]
-
-# # Generate the Markdown string
-# markdown_content = f"### Tables in the Database\n"  # Title
-# markdown_content += "\n".join(f"- {table}" for table in table_names)  # Each table on a new line
-
-# # Display the Markdown
-# display(Markdown(markdown_content))
-
 # Define the query
 query = """
 SELECT 
-    people.playerID,
-    collegeplaying.schoolID,
-    salaries.salary,
-    collegeplaying.yearID AS collegeYear,
-    schools.name_full AS schoolName,
-    salaries.yearID AS salaryYear,
-    salaries.teamID,
-    people.nameFirst,
-    people.nameLast
+    p.playerID,
+    cp.schoolID,
+    s.salary,
+    s.yearID AS salaryYear,
+    s.teamID,
+    p.nameFirst,
+    p.nameLast
 FROM 
-    collegeplaying
+    people p
 JOIN 
-    people ON collegeplaying.playerID = people.playerID
+    salaries s ON p.playerID = s.playerID
 JOIN 
-    schools ON collegeplaying.schoolID = schools.schoolID
-LEFT JOIN 
-    salaries ON people.playerID = salaries.playerID
+    collegeplaying cp ON p.playerID = cp.playerID
 WHERE 
-    collegeplaying.schoolID = 'idbyuid'
-ORDER BY salaries.salary DESC;
+    cp.schoolID = 'idbyuid'
+GROUP BY 
+    p.playerID, 
+    cp.schoolID, 
+    s.salary, 
+    s.yearID, 
+    s.teamID, 
+    p.nameFirst, 
+    p.nameLast
+ORDER BY 
+    s.salary DESC;
 """
 
 # Execute the query and load the results into a DataFrame
