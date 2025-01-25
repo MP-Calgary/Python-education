@@ -1,14 +1,28 @@
 ---
 title: "My First Quarto Document"
-author: "Your Name"
+author: "Michael Parker"
 format: html
 ---
 
-## Analysis
+## Demo of a plot within a quarto file
+### In Markdown, three number signs denote Header 3
 
-Here is a simple plot:
+Here is a __simple__ plot:
 
 ```{python}
-import matplotlib.pyplot as plt
-print("Plot is being generated")
-plt.plot([1, 2, 3], [4, 5, 6])
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+
+# Data for the plot
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+
+# Creating a ggplot with the data
+p = ggplot({'x': x, 'y': y}) + geom_line(aes('x', 'y'), 
+    color='blue') + geom_point(aes('x', 'y'), color='red')
+
+# Display the plot
+p.show()
+
+```

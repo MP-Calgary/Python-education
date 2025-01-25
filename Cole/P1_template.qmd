@@ -314,13 +314,9 @@ p.show()
 
 __Reproduce the chart Elliot using the data from the `names_year.csv` file.__ 
 
-I need to add some amazing analysis here.
-
 The name __Elliott__ is what is being analyzed.
 
-There were 3 releases of ET, __1982__, __1985__ and __2002__
-
-We can trend the name to see the impact
+There were 3 releases of ET, __1982__, __1985__ and __2002__   We can trend the name to see the impact
 
 ```{python}
 # Set the name and movie release dates
