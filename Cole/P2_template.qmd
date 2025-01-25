@@ -58,9 +58,7 @@ SELECT
     cp.schoolID,
     s.salary,
     s.yearID AS salaryYear,
-    s.teamID,
-    p.nameFirst,
-    p.nameLast
+    s.teamID
 FROM 
     people p
 JOIN 
@@ -71,12 +69,7 @@ WHERE
     cp.schoolID = 'idbyuid'
 GROUP BY 
     p.playerID, 
-    cp.schoolID, 
-    s.salary, 
-    s.yearID, 
-    s.teamID, 
-    p.nameFirst, 
-    p.nameLast
+    s.yearID
 ORDER BY 
     s.salary DESC;
 """
@@ -84,10 +77,10 @@ ORDER BY
 # Execute the query and load the results into a DataFrame
 df = pd.read_sql_query(query, con)
 
-# Close the connection
-con.close()
+# Format the 'salary' column as currency with no decimal places
+df['salary'] = df['salary'].apply(lambda x: f"${x:,.0f}") 
 
-# Display the DataFrame (formatted nicely if in a Jupyter/Quarto notebook)
+# Display the DataFrame
 df
 
 ```
@@ -103,20 +96,95 @@ __This three-part question requires you to calculate batting average (number of 
 _type your results and analysis here_
 
 ```{python}
-# Include and execute your code here
+# Define the query
+query = """
+SELECT 
+    playerID, 
+    yearID, 
+    ROUND(H / (AB * 1.0), 3) AS batting_average 
+FROM 
+    batting
+WHERE 
+    AB > 0
+ORDER BY 
+    batting_average DESC, 
+    playerID, 
+    yearID;
+"""
 
+# Execute the query and load the results into a DataFrame
+df = pd.read_sql_query(query, con)
+
+# Format the 'batting_average' column to display 3 decimal places using f-string, this is probably overkill
+df['batting_average'] = df['batting_average'].apply(lambda x: f"{x:.3f}") 
+
+# Get the top 5 rows
+top_5_df = df.head(5) 
+
+# Display the top 5 rows
+top_5_df
 
 ```
 
 ```{python}
-# Include and execute your code here
+# Define the query
+query = """
+SELECT 
+    playerID, 
+    yearID, 
+    ROUND(H / (AB * 1.0), 3) AS batting_average 
+FROM 
+    batting
+WHERE 
+    AB > 9
+ORDER BY 
+    batting_average DESC, 
+    playerID, 
+    yearID;
+"""
 
+# Execute the query and load the results into a DataFrame
+df = pd.read_sql_query(query, con)
+
+# Format the 'batting_average' column to display 3 decimal places using f-string, this is probably overkill
+df['batting_average'] = df['batting_average'].apply(lambda x: f"{x:.3f}") 
+
+# Get the top 5 rows
+top_5_df = df.head(5) 
+
+# Display the top 5 rows
+top_5_df
 
 ```
 
 ```{python}
-# Include and execute your code here
+# Define the query
+query = """
+SELECT 
+    playerID, 
+    ROUND(SUM(H) / (SUM(AB) * 1.0), 3) AS career_batting_average 
+FROM 
+    batting
+GROUP BY 
+    playerID
+HAVING 
+    SUM(AB) >= 100
+ORDER BY 
+    career_batting_average DESC, 
+    playerID;
+"""
 
+# Execute the query and load the results into a DataFrame
+df = pd.read_sql_query(query, con)
+
+# Format the 'batting_average' column to display 3 decimal places using f-string, this is probably overkill
+df['career_batting_average'] = df['career_batting_average'].apply(lambda x: f"{x:.3f}") 
+
+# Get the top 5 rows
+top_5_df = df.head(5) 
+
+# Display the top 5 rows
+top_5_df
 
 ```
 
@@ -184,6 +252,8 @@ _type your results and analysis here_
 # Include and execute your code here
 
 
+# Close the connection
+con.close()
 ```
 
 ---
