@@ -1,0 +1,12 @@
+Original
+-
+
+p = (
+    ggplot(df_filtered, aes(x='HR', y='W', color='franchID')) +
+    geom_point(size=3, alpha=0.8) +
+    ggtitle("Home Runs vs Wins by Team (1995 and later)") +
+    xlab("Home Runs (HR)") +
+    ylab("Wins (W)") +
+    scale_x_continuous(format=".0f") +  # Ensures clean numeric format on x-axis
+    scale_color_discrete(name="Team")  # Adds a legend for team colors
+)

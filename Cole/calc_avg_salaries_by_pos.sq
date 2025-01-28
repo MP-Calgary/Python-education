@@ -1,0 +1,33 @@
+SELECT 
+    F.POS AS position,
+    ROUND(SUM(S.salary) / COUNT(S.salary), 2) AS average_salary,
+    COUNT(DISTINCT S.playerID) AS total_players,
+    CASE 
+        WHEN MAX(S.salary) IS NULL THEN 'N/A'
+        ELSE MAX(S.salary)
+    END AS highest_salary,
+    CASE 
+        WHEN SUM(S.salary) / COUNT(S.salary) > 1000000 THEN 'High Salary'
+        WHEN SUM(S.salary) / COUNT(S.salary) BETWEEN 500000 AND 1000000 THEN 'Medium Salary'
+        ELSE 'Low Salary'
+    END AS salary_category
+FROM 
+    Salaries S
+JOIN 
+    Fielding F ON S.playerID = F.playerID AND S.YearID = F.YearID
+WHERE 
+    (S.playerID, S.YearID, S.salary) IN (
+        SELECT 
+            playerID, 
+            YearID, 
+            MAX(salary)
+        FROM 
+            Salaries
+        GROUP BY 
+            playerID, 
+            YearID
+    )
+GROUP BY 
+    F.POS
+ORDER BY 
+    average_salary DESC;

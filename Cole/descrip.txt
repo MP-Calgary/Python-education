@@ -1,0 +1,27 @@
+I have a SQLite database of baseball statistcs called 'lahmansbaseballdb.sqlite'.
+
+I want to do the following:
+Write an SQL query that provides a summary table showing the average salary for players in each position (e.g., pitcher, catcher, outfielder) across all years. Include the following columns:
+
+position
+average_salary
+total_players
+highest_salary
+The highest_salary column should display the highest salary ever earned by a player in that position. If no player in that position has a recorded salary, display “N/A” for the highest salary.
+
+Additionally, create a new column called salary_category using a case statement:
+
+If the average salary is above $1 million, categorize it as “High Salary.”
+If the average salary is between $500,000 and $1 million, categorize it as “Medium Salary.”
+Otherwise, categorize it as “Low Salary.”
+Order the table by average salary in descending order.
+--
+The definition of tables is below:
+
+Table 'Fielding' has columns 'playerID' and 'POS' where pos stands for Position
+
+The unique values of POS are P, OF, 2B, 3B, 1B, SS, C
+This is what coresponds to pitcher, catcher, outfielder, but leaving as the code is fine.
+
+-
+Table Salaries has columns 'playerID' and their salary in column 'salary'

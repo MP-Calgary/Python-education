@@ -3129,7 +3129,7 @@ vertical-align: -.125em;
   <li><a href="#stretch-questiontask-2" id="toc-stretch-questiontask-2">STRETCH QUESTION|TASK 2</a></li>
   </ul>
 </nav>
-<div id="eb1df906" class="cell" data-execution_count="1">
+<div id="79c2ba8c" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
@@ -3140,7 +3140,7 @@ vertical-align: -.125em;
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>LetsPlot.setup_html(isolated_frame<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="dd2c4e35" class="cell" data-execution_count="2">
+<div id="2f5d0b79" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html</span></span>
@@ -3155,7 +3155,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="questiontask-1">QUESTION|TASK 1</h2>
 <p><strong>Write an SQL query to create a new dataframe about baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.</strong></p>
 <p><em>My super cool extraction of baseball stats</em></p>
-<div id="42f2ad43" class="cell" data-execution_count="3">
+<div id="7eb8426f" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the query</span></span>
@@ -3340,7 +3340,7 @@ a. Write an SQL query that provides playerID, yearID, and batting average for pl
 a. Use the same query as above, but only include players with at least 10 at bats that year. Print the top 5 results.<br>
 a. Now calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats, and print the top 5 results.</p>
 <p><em>type your results and analysis here</em></p>
-<div id="94887cf5" class="cell" data-execution_count="4">
+<div id="1c4649bf" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the query</span></span>
@@ -3421,7 +3421,7 @@ a. Now calculate the batting average for players over their entire careers (all 
 </div>
 </div>
 </div>
-<div id="da4f84b5" class="cell" data-execution_count="5">
+<div id="7aa7e584" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the query</span></span>
@@ -3502,7 +3502,7 @@ a. Now calculate the batting average for players over their entire careers (all 
 </div>
 </div>
 </div>
-<div id="062cef20" class="cell" data-execution_count="6">
+<div id="17c10b0a" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the query</span></span>
@@ -3582,7 +3582,7 @@ a. Now calculate the batting average for players over their entire careers (all 
 <h2 class="anchored" data-anchor-id="questiontask-3">QUESTION|TASK 3</h2>
 <p><strong>Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Write an SQL query to get the data you need, then make a graph using Lets-Plot to visualize the comparison. What do you learn?</strong></p>
 <p><em>type your results and analysis here</em></p>
-<div id="eb9e946e" class="cell" data-execution_count="7">
+<div id="38e3770f" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the SQL query</span></span>
@@ -3612,17 +3612,18 @@ a. Now calculate the batting average for players over their entire careers (all 
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the scatter plot</span></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> (</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    ggplot(df_filtered, aes(x<span class="op">=</span><span class="st">&#39;HR&#39;</span>, y<span class="op">=</span><span class="st">&#39;W&#39;</span>, color<span class="op">=</span><span class="st">&#39;franchID&#39;</span>)) <span class="op">+</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    geom_point(size<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.8</span>) <span class="op">+</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    ggtitle(<span class="st">&quot;Home Runs vs Wins by Team (1995 and later)&quot;</span>) <span class="op">+</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    xlab(<span class="st">&quot;Home Runs (HR)&quot;</span>) <span class="op">+</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    ylab(<span class="st">&quot;Wins (W)&quot;</span>) <span class="op">+</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    scale_x_continuous(<span class="bu">format</span><span class="op">=</span><span class="st">&quot;.0f&quot;</span>) <span class="op">+</span>  <span class="co"># Ensures clean numeric format on x-axis</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    scale_color_discrete(name<span class="op">=</span><span class="st">&quot;Team&quot;</span>)  <span class="co"># Adds a legend for team colors</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the plot</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>p.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    ggplot(df_filtered, aes(x<span class="op">=</span><span class="st">&#39;yearID&#39;</span>)) <span class="op">+</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    geom_line(aes(y<span class="op">=</span><span class="st">&#39;HR&#39;</span>, color<span class="op">=</span><span class="st">&#39;franchID&#39;</span>), size<span class="op">=</span><span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    geom_line(aes(y<span class="op">=</span><span class="st">&#39;W&#39;</span>, color<span class="op">=</span><span class="st">&#39;franchID&#39;</span>), size<span class="op">=</span><span class="dv">1</span>, linetype<span class="op">=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    ggtitle(<span class="st">&quot;Home Runs and Wins Over Time (1995 and later)&quot;</span>) <span class="op">+</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    xlab(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    ylab(<span class="st">&quot;Value&quot;</span>) <span class="op">+</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    scale_x_continuous(<span class="bu">format</span><span class="op">=</span><span class="st">&quot;.0f&quot;</span>) <span class="op">+</span>  <span class="co"># Ensures clean numeric format on x-axis</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    scale_color_discrete(name<span class="op">=</span><span class="st">&quot;Team&quot;</span>)  <span class="co"># Adds a legend for team colors</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the plot</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>p.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 
@@ -3633,13 +3634,13 @@ a. Now calculate the batting average for players over their entire careers (all 
 //# sourceMappingURL=js-package.js.map</script>
    
    
-          <div id="v03UFh"></div>
+          <div id="xPTZQy"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
    // ----------
    
-   var containerDiv = document.getElementById("v03UFh");
+   var containerDiv = document.getElementById("xPTZQy");
    var observer = new ResizeObserver(function(entries) {
        for (let entry of entries) {
            var width = containerDiv.clientWidth
@@ -3653,14 +3654,13 @@ a. Now calculate the batting average for players over their entire careers (all 
 
                var plotSpec={
 "data":{
+"yearID":[1995.0,1996.0,1997.0,1998.0,1999.0,2000.0,2001.0,2002.0,2003.0,2004.0,2005.0,2006.0,2007.0,2008.0,2009.0,2010.0,2011.0,2012.0,2013.0,2014.0,2015.0,2016.0,2017.0,2018.0,2019.0,1995.0,1996.0,1997.0,1998.0,1999.0,2000.0,2001.0,2002.0,2003.0,2004.0,2005.0,2006.0,2007.0,2008.0,2009.0,2010.0,2011.0,2012.0,2013.0,2014.0,2015.0,2016.0,2017.0,2018.0,2019.0],
 "franchID":["LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","LAD","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY","NYY"],
 "W":[78.0,90.0,88.0,83.0,77.0,86.0,86.0,92.0,85.0,93.0,71.0,88.0,82.0,84.0,95.0,80.0,82.0,86.0,92.0,94.0,92.0,91.0,104.0,92.0,106.0,79.0,92.0,96.0,114.0,98.0,87.0,95.0,103.0,101.0,101.0,95.0,97.0,94.0,89.0,103.0,95.0,97.0,95.0,85.0,84.0,87.0,84.0,91.0,100.0,103.0],
 "HR":[140.0,150.0,174.0,159.0,187.0,211.0,206.0,155.0,124.0,203.0,149.0,153.0,129.0,137.0,145.0,120.0,117.0,116.0,138.0,134.0,187.0,189.0,221.0,235.0,279.0,122.0,162.0,161.0,207.0,193.0,205.0,203.0,223.0,230.0,242.0,229.0,210.0,201.0,180.0,244.0,201.0,222.0,245.0,144.0,147.0,212.0,183.0,241.0,267.0,306.0]
 },
 "mapping":{
-"x":"HR",
-"y":"W",
-"color":"franchID"
+"x":"yearID"
 },
 "data_meta":{
 "series_annotations":[{
@@ -3690,14 +3690,14 @@ a. Now calculate the batting average for players over their entire careers (all 
 }]
 },
 "ggtitle":{
-"text":"Home Runs vs Wins by Team (1995 and later)"
+"text":"Home Runs and Wins Over Time (1995 and later)"
 },
 "guides":{
 "x":{
-"title":"Home Runs (HR)"
+"title":"Year"
 },
 "y":{
-"title":"Wins (W)"
+"title":"Value"
 }
 },
 "kind":"plot",
@@ -3710,13 +3710,26 @@ a. Now calculate the batting average for players over their entire careers (all 
 "discrete":true
 }],
 "layers":[{
-"geom":"point",
+"geom":"line",
 "mapping":{
+"y":"HR",
+"color":"franchID"
 },
 "data_meta":{
 },
-"size":3.0,
-"alpha":0.8,
+"size":1.0,
+"data":{
+}
+},{
+"geom":"line",
+"mapping":{
+"y":"W",
+"color":"franchID"
+},
+"data_meta":{
+},
+"size":1.0,
+"linetype":"dashed",
 "data":{
 }
 }],
@@ -3777,7 +3790,7 @@ a. Now calculate the batting average for players over their entire careers (all 
 * Order the table by average salary in descending order.
 * Print the top 10 rows of this summary table.  </code></pre>
 <p><em>type your results and analysis here</em></p>
-<div id="c4f3904c" class="cell" data-execution_count="8">
+<div id="7146c901" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3796,7 +3809,7 @@ a. Now calculate the batting average for players over their entire careers (all 
 
 * The career_length should be calculated as the difference between the maximum and minimum yearID for each player. </code></pre>
 <p><em>type your results and analysis here</em></p>
-<div id="e776e2aa" class="cell" data-execution_count="9">
+<div id="6a82bbc3" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>

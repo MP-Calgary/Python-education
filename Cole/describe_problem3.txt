@@ -1,0 +1,56 @@
+I have the following python code, running in a quarto notebook.
+I have a SQLite database ahmansbaseballdb.sqlite, which contains statistics for baseball.
+What I am trying to do, is understand the impact of homeruns (Column HR) vs wins (column W) over the years of time (column yearID).
+Below generates a nice scatter graph, but I can't really see the impact of year on the data, rght now I see HR vs wins.
+what can I do to highlight the time factor more (column yearID)?
+---
+
+import pandas as pd 
+import numpy as np
+import sqlite3
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+
+# Include and execute your code here
+sqlite_file = 'lahmansbaseballdb.sqlite'
+# this file must be in the same location as your .qmd or .py file
+con = sqlite3.connect(sqlite_file)
+
+query = """
+SELECT ID,
+       yearID,
+       lgID,
+       teamID,
+       franchID,
+       W,
+       L,
+       HR
+  FROM teams 
+  WHERE yearID > 1990 AND (franchID = "LAD" OR franchID = "NYY");
+"""
+
+# Load the query result into a DataFrame
+df = pd.read_sql_query(query, con)
+
+# Filter data for years >= 1995
+df_filtered = df[df['yearID'] >= 1995]
+
+# Ensure numeric data and drop rows with missing values
+df_filtered['W'] = pd.to_numeric(df_filtered['W'], errors='coerce')
+df_filtered['HR'] = pd.to_numeric(df_filtered['HR'], errors='coerce')
+df_filtered = df_filtered.dropna(subset=['W', 'HR'])
+
+# Create the scatter plot
+p = (
+    ggplot(df_filtered, aes(x='HR', y='W', color='franchID')) +
+    geom_point(size=3, alpha=0.8) +
+    ggtitle("Home Runs vs Wins by Team (1995 and later)") +
+    xlab("Home Runs (HR)") +
+    ylab("Wins (W)") +
+    scale_x_continuous(format=".0f") +  # Ensures clean numeric format on x-axis
+    scale_color_discrete(name="Team")  # Adds a legend for team colors
+)
+
+# Render the plot
+p.show()
