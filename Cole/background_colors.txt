@@ -1,0 +1,22 @@
+Background colors for plot
+
+You can use any valid CSS color name 
+Lighter Blues:
+"aliceblue" (#F0F8FF) - Very pale blue, almost white
+"azure" (#F0FFFF) - Extremely light blue with a cool tone
+"lightcyan" (#E0FFFF) - Soft cyan-blue
+"powderblue" (#B0E0E6) - Muted light blue with a hint of gray
+"lightblue" (#ADD8E6) - Soft sky-like blue
+
+Medium Blues:
+"skyblue" (#87CEEB) - A pleasant sky-like blue
+"lightskyblue" (#87CEFA) - Slightly brighter than "skyblue"
+"deepskyblue" (#00BFFF) - Vivid sky blue
+"cadetblue" (#5F9EA0) - A mix of blue and green with gray tones
+"steelblue" (#4682B4) - A deeper blue with some grayish hues
+Deeper Blues:
+
+"dodgerblue" (#1E90FF) - Bright and vibrant blue
+"cornflowerblue" (#6495ED) - Medium-light blue with some purple tones
+"royalblue" (#4169E1) - A deep, rich blue
+"mediumblue" (#0000CD) - Darker, more saturated blue

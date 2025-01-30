@@ -360,12 +360,16 @@ p = (
     ) +
     theme_minimal() +
     theme(
-        panel_background=element_rect(fill='lightblue', color=None),  # Set background to light blue
+        panel_background=element_rect(fill='#E4EAF2', color=None),  # Set background to light blue
+        panel_grid_major=element_line(color="white", size=0.8),  # White major gridlines
+        panel_grid_minor=element_blank(),  # Remove minor gridlines
         legend_background=element_rect(fill='white', color=None),  # Set legend background to white
         legend_key=element_rect(fill=None, color=None),  # Fully remove background and border of the legend key
     ) +
     ggsize(900, 540)  # Set plot size
 )
+
+
 
 # Add the movie release years as vertical dashed lines with custom labels
 for i, (release_year, label) in enumerate(movie_release_dates):

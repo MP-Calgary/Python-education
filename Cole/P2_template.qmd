@@ -267,7 +267,64 @@ _type your results and analysis here_
 
 ```{python}
 # Include and execute your code here
+import pandas as pd 
+import numpy as np
+import sqlite3
+from lets_plot import *
 
+LetsPlot.setup_html(isolated_frame=True)
+
+sqlite_file = 'lahmansbaseballdb.sqlite'
+# this file must be in the same location as your .qmd or .py file
+con = sqlite3.connect(sqlite_file)
+
+# Define the query
+query = """
+SELECT 
+    F.POS AS position,
+    ROUND(SUM(S.salary) / COUNT(S.salary), 2) AS average_salary,
+    COUNT(DISTINCT S.playerID) AS total_players,
+    CASE 
+        WHEN MAX(S.salary) IS NULL THEN 'N/A'
+        ELSE MAX(S.salary)
+    END AS highest_salary,
+    CASE 
+        WHEN SUM(S.salary) / COUNT(S.salary) > 1000000 THEN 'High Salary'
+        WHEN SUM(S.salary) / COUNT(S.salary) BETWEEN 500000 AND 1000000 THEN 'Medium Salary'
+        ELSE 'Low Salary'
+    END AS salary_category
+FROM 
+    Salaries S
+JOIN 
+    Fielding F ON S.playerID = F.playerID AND S.YearID = F.YearID
+WHERE 
+    (S.playerID, S.YearID, S.salary) IN (
+        SELECT 
+            playerID, 
+            YearID, 
+            MAX(salary)
+        FROM 
+            Salaries
+        GROUP BY 
+            playerID, 
+            YearID
+    )
+GROUP BY 
+    F.POS
+ORDER BY 
+    average_salary DESC;
+
+"""
+
+# Execute the query and load the results into a DataFrame
+df = pd.read_sql_query(query, con)
+
+# Format the 'salary' column as currency with no decimal places
+df['average_salary'] = df['average_salary'].apply(lambda x: f"${x:,.0f}") 
+df['highest_salary'] = df['highest_salary'].apply(lambda x: f"${x:,.0f}") 
+
+# Display the DataFrame
+df
 
 ```
 
@@ -288,12 +345,45 @@ __Advanced Career Longevity and Performance (with Subqueries):__
 _type your results and analysis here_
 
 ```{python}
-# Include and execute your code here
+import pandas as pd 
+import numpy as np
+import sqlite3
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+
+sqlite_file = 'lahmansbaseballdb.sqlite'
+# this file must be in the same location as your .qmd or .py file
+con = sqlite3.connect(sqlite_file)
+
+# Define the query
+query = """
+SELECT 
+    playerID,
+    nameFirst,
+    nameLast,
+    debut_date,
+    finalgame_date,
+    ROUND(CAST((strftime('%J', finalgame_date) - strftime('%J', debut_date)) AS REAL) / 365.25, 2) AS career_length
+FROM people
+ORDER BY career_length DESC
+LIMIT 10;
+"""
+
+# Execute the query and load the results into a DataFrame
+df = pd.read_sql_query(query, con)
+
+# Display the DataFrame
+df
 
 
-# Close the connection
-con.close()
 ```
 
 ---
+
+```{python}
+
+con.close()
+```
+
 
